@@ -116,8 +116,11 @@ interface TosBoxProps {
 }
 const TosBox = ({ isSelected, setIsSelected, txt }: TosBoxProps) => {
   return (
-    <TosBoxWrap isSelected={isSelected}>
-      <div className="select_box" onClick={() => setIsSelected(!isSelected)} />
+    <TosBoxWrap
+      isSelected={isSelected}
+      onClick={() => setIsSelected(!isSelected)}
+    >
+      <div className="select_box" />
       {txt}
     </TosBoxWrap>
   );

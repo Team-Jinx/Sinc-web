@@ -48,7 +48,7 @@ const PFInfoBox = ({
 
 export default PFInfoBox;
 
-const Container = styled.article`
+const Container = styled.section`
   width: 320px;
   height: auto;
   display: flex;

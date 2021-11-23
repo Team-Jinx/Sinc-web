@@ -44,5 +44,6 @@ const Container = styled.div<ContainerProps>`
         `
       : css`
           border: 0.1rem solid var(--white);
+          color: var(--white);
         `}
 `;
