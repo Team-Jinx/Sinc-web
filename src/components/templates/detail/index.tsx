@@ -32,9 +32,14 @@ const Detail = ({ PFDetailData, FDInfoData }: DetailProps) => {
     <Container>
       <Header
         title="공연 상세"
-        leftIcon={<ArrowLeftIcon onClick={() => router.back()} />}
+        leftIcon={
+          <ArrowLeftIcon
+            style={{ marginBottom: "3px" }}
+            onClick={() => router.back()}
+          />
+        }
         rightIcon={
-          <ShareIcon style={{ marginRight: "20px", marginBottom: "10px" }} />
+          <ShareIcon style={{ marginRight: "20px", marginBottom: "13px" }} />
         }
       />
       <StyledPFInfoBox
