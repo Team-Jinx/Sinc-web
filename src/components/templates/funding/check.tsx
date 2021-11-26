@@ -1,7 +1,8 @@
 import { useRouter } from "next/router";
-import { Dispatch, SetStateAction, useState } from "react";
+import { CloseIcon } from "src/assets/icon/header";
 import { Header } from "src/components/molecules";
-import styled, { css } from "styled-components";
+import { PFDetailDataProps } from "src/interfaces/PFData";
+import styled from "styled-components";
 
 interface FDInfoDataProps {
   date: string;
@@ -11,40 +12,40 @@ interface FDInfoDataProps {
   additionSup: number;
   totalPrice: number;
 }
-interface PFInfoDataProps {
-  title: string;
-  artist: string;
-  startDate: string;
-  endDate: string;
-  location: string;
-  runtime: number;
-  ticketPrice: number;
-}
+
 interface CheckProps {
-  setPageNum: Dispatch<SetStateAction<number>>;
   FDInfoData: FDInfoDataProps;
-  PFInfoData: PFInfoDataProps;
+  PFDetailData: PFDetailDataProps;
   selectedDate: string;
   selectedTime: string;
 }
 const Check = ({
-  setPageNum,
   FDInfoData,
-  PFInfoData,
+  PFDetailData,
   selectedDate,
   selectedTime,
 }: CheckProps) => {
   const router = useRouter();
   return (
     <Container>
-      <Header title="후원 완료" onClick={() => router.push("/detail")} />
+      <Header
+        title="후원 완료"
+        rightIcon={
+          <CloseIcon
+            style={{ marginRight: "18px", marginBottom: "13px" }}
+            onClick={() => router.push(`/detail/${PFDetailData.id}`)}
+          />
+        }
+      />
       <PFInfoWrap>
-        <p className="artist_name">{PFInfoData.artist}</p>
-        <p className="pf_name">{PFInfoData.title}</p>
+        <p className="artist_name">
+          {PFDetailData.artist?.agency + PFDetailData.artist?.name}
+        </p>
+        <p className="pf_name">{PFDetailData.title}</p>
         <button
           className="detail_btn"
           type="button"
-          onClick={() => router.push(`/detail/${1}`)}
+          onClick={() => router.push(`/detail/${PFDetailData.id}`)}
         >
           공연 상세 보러가기
         </button>
@@ -63,7 +64,7 @@ const Check = ({
         </p>
         <p>
           {`(${"신한"})으로 결제가 완료되었습니다`}
-          {/* <p>영수증 출력</p> */}
+          <p>영수증 출력</p>
         </p>
       </FDInfoWrap>
       <SupInfoWrap>
@@ -72,11 +73,11 @@ const Check = ({
           <p>
             <b>공연이름</b>
           </p>
-          <p>{PFInfoData.title}</p>
+          <p>{PFDetailData.title}</p>
           <p>
             <b>아티스트 이름</b>
           </p>
-          <p>{PFInfoData.artist}</p>
+          <p>{PFDetailData.artist}</p>
           <p>
             <b>공연 날짜</b>
           </p>
@@ -87,17 +88,17 @@ const Check = ({
             <b>티켓 개수</b>
           </p>
           <p>
-            {FDInfoData.ticketNum}매 {PFInfoData.ticketPrice}원
+            {FDInfoData.ticketNum}매 {PFDetailData.price.toLocaleString()}원
           </p>
           <p>
             <b>추가후원</b>
           </p>
-          <p>{FDInfoData.additionSup}원</p>
+          <p>{FDInfoData.additionSup.toLocaleString()}원</p>
           <p>
             <b>최종 결제 금액</b>
           </p>
           <p>
-            <b>{FDInfoData.totalPrice}원</b>
+            <b>{FDInfoData.totalPrice.toLocaleString()}원</b>
           </p>
         </div>
       </SupInfoWrap>

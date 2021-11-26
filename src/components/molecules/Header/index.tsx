@@ -1,15 +1,17 @@
-import { ArrowLeftIcon } from "src/assets/icon/common";
+import { ReactNode } from "react";
 import styled from "styled-components";
 
 interface HeaderProps {
   title: string;
-  onClick: () => void;
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
 }
-const Header = ({ title, onClick }: HeaderProps) => {
+const Header = ({ title, leftIcon, rightIcon }: HeaderProps) => {
   return (
     <Container>
-      <ArrowLeftIcon className="arrow_left" onClick={onClick} />
-      <span style={{ marginBottom: "12px" }}>{title}</span>
+      {leftIcon || <div />}
+      <span style={{ marginBottom: "16px" }}>{title}</span>
+      {rightIcon}
     </Container>
   );
 };
@@ -23,18 +25,13 @@ const Container = styled.div`
   left: 0;
   width: 100%;
   height: 73px;
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 40px auto 40px;
   align-items: flex-end;
-  justify-content: center;
+  justify-items: center;
   background-color: var(--black);
   font-weight: 500;
   font-size: 15.36px;
   line-height: 130%;
   color: var(--white);
-
-  .arrow_left {
-    position: absolute;
-    left: 0;
-  }
 `;

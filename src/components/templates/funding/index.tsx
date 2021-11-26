@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { PFDetailDataProps } from "src/interfaces/PFData";
 import Check from "./check";
 import Main from "./main";
 import Tos from "./Tos";
@@ -11,21 +12,13 @@ interface FDInfoDataProps {
   additionSup: number;
   totalPrice: number;
 }
-interface PFInfoDataProps {
-  title: string;
-  artist: string;
-  startDate: string;
-  endDate: string;
-  location: string;
-  runtime: number;
-  ticketPrice: number;
-}
+
 interface FundingProps {
   FDInfoData: FDInfoDataProps;
-  PFInfoData: PFInfoDataProps;
+  PFDetailData: PFDetailDataProps;
   timeList?: string[];
 }
-const Funding = ({ FDInfoData, PFInfoData, timeList }: FundingProps) => {
+const Funding = ({ FDInfoData, PFDetailData, timeList }: FundingProps) => {
   const [pageNum, setPageNum] = useState(0);
   const [ticketNum, setTicketNum] = useState(0);
   const [selectDateTime, setSelectDateTime] = useState({
@@ -40,7 +33,7 @@ const Funding = ({ FDInfoData, PFInfoData, timeList }: FundingProps) => {
           setPageNum={setPageNum}
           ticketNum={ticketNum}
           setTicketNum={setTicketNum}
-          PFInfoData={PFInfoData}
+          PFDetailData={PFDetailData}
           FDInfoData={FDInfoData}
           selectDateTime={selectDateTime}
           setSelectDateTime={setSelectDateTime}
@@ -50,9 +43,8 @@ const Funding = ({ FDInfoData, PFInfoData, timeList }: FundingProps) => {
     case 2:
       return (
         <Check
-          setPageNum={setPageNum}
           FDInfoData={FDInfoData}
-          PFInfoData={PFInfoData}
+          PFDetailData={PFDetailData}
           selectedDate={selectDateTime.date}
           selectedTime={selectDateTime.time}
         />

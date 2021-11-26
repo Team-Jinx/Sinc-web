@@ -11,5 +11,5 @@ const Template: ComponentStory<typeof Banner> = (args) => <Banner {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  url: TodayArtist,
+  urls: [TodayArtist, TodayArtist, TodayArtist],
 };

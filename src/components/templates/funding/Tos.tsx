@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { Dispatch, SetStateAction, useState } from "react";
-import { Btn } from "src/components/atoms";
-import { Header } from "src/components/molecules";
+import { ArrowLeftIcon } from "src/assets/icon/header";
+import { BottomBtn, Header } from "src/components/molecules";
 import styled, { css } from "styled-components";
 
 interface TosProps {
@@ -16,7 +16,15 @@ const Tos = ({ setPageNum }: TosProps) => {
 
   return (
     <Container>
-      <Header title="펀딩하기" onClick={() => router.back()} />
+      <Header
+        title="펀딩하기"
+        leftIcon={
+          <ArrowLeftIcon
+            style={{ marginBottom: "4px" }}
+            onClick={() => router.back()}
+          />
+        }
+      />
       <DescWrap>
         <h1>정책 동의</h1>
         <p>
@@ -48,12 +56,11 @@ const Tos = ({ setPageNum }: TosProps) => {
         }
         txt="단순 변심에 의한 후원금 반환은 불가합니다"
       />
-      <Bottom
-        type="primary"
-        onClick={() => isSelected[1] && isSelected[2] && setPageNum(1)}
-      >
-        계속해서 펀딩하기
-      </Bottom>
+      <BottomBtn
+        txt="계속해서 펀딩하기"
+        isAtv={isSelected[1] && isSelected[2]}
+        handleClickBtn={() => isSelected[1] && isSelected[2] && setPageNum(1)}
+      />
     </Container>
   );
 };
@@ -94,19 +101,6 @@ const DescWrap = styled.section`
     color: var(--white);
     white-space: pre-line;
   }
-`;
-
-const Bottom = styled(Btn)`
-  position: fixed;
-  z-index: 11;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 56px;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 19px;
-  color: var(--gray_1000);
 `;
 
 interface TosBoxProps {

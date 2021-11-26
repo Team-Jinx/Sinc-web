@@ -10,6 +10,7 @@ interface PFInfoBoxProps {
   title: string;
   date: string;
   location?: string;
+  handleClick?: () => void;
 }
 const PFInfoBox = ({
   className,
@@ -20,9 +21,10 @@ const PFInfoBox = ({
   title,
   date,
   location,
+  handleClick,
 }: PFInfoBoxProps) => {
   return (
-    <Container className={className}>
+    <Container className={className} onClick={handleClick && handleClick}>
       {type === "list" && <p className="pf_number">{pfNum}</p>}
       <PosterImg alt="poster_img" src={url} type={type} />
       <InfoWrap type={type}>

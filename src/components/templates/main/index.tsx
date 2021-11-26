@@ -1,24 +1,33 @@
-import { useRouter } from "next/router";
 import { MainIcon } from "src/assets/icon/common";
 import { NotiIcon, SearchIcon } from "src/assets/icon/main";
-import { CategoryImg, TodayArtist } from "src/assets/img";
+import { Category } from "src/components/molecules";
 import { Banner, PFInfoList, PopList } from "src/components/organisms";
-import { PFInfoData } from "src/interfaces";
+import { PFInfoDataProps } from "src/interfaces/PFData";
+import { CategoryType } from "src/interfaces/types";
 import styled from "styled-components";
 
 interface MainProps {
-  PFInfoDataList: PFInfoData[];
+  isLoading: boolean;
+  BannerData: string[];
+  PFInfoDataList: PFInfoDataProps[];
   PopDataList: string[];
+  setCategory: (e: CategoryType) => void;
 }
-const Main = ({ PFInfoDataList, PopDataList }: MainProps) => {
+const Main = ({
+  isLoading,
+  BannerData,
+  PFInfoDataList,
+  PopDataList,
+  setCategory,
+}: MainProps) => {
   return (
     <Conatainer>
       <MainIcon className="main_icon" />
       <SearchIcon className="search_icon" />
       <NotiIcon className="noti_icon" />
-      <Banner url={TodayArtist} />
-      <Category src={CategoryImg} />
-      <PFInfoList data={PFInfoDataList} />
+      <Banner urls={BannerData} />
+      <Category setCategory={(e: CategoryType) => setCategory(e)} />
+      <PFInfoList isLoading={isLoading} data={PFInfoDataList} />
       <PopList data={PopDataList} />
     </Conatainer>
   );
@@ -54,8 +63,4 @@ const Conatainer = styled.div`
     top: 46px;
     right: 17px;
   }
-`;
-
-const Category = styled.img`
-  width: 100%;
 `;

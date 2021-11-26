@@ -8,15 +8,9 @@ import {
   PFInfoBox2,
   TabMenu,
 } from "src/components/molecules";
+import { PFDetailDataProps } from "src/interfaces/PFData";
 import styled from "styled-components";
-
-interface PFInfoDataProps {
-  url?: string;
-  univName: string;
-  title: string;
-  date: string;
-  location?: string;
-}
+import { ArrowLeftIcon, ShareIcon } from "src/assets/icon/header";
 
 interface FDInfoDataProps {
   soldTicket: number;
@@ -27,38 +21,34 @@ interface FDInfoDataProps {
   likeNum: number;
 }
 interface DetailProps {
-  PFInfoData: PFInfoDataProps;
+  PFDetailData: PFDetailDataProps;
   FDInfoData: FDInfoDataProps;
-  runtime: number;
-  ticketPrice: number;
-  startDate: string;
-  endDate: string;
-  startTime: string;
-  pfDesc?: string;
 }
-const Detail = ({
-  PFInfoData,
-  FDInfoData,
-  runtime,
-  ticketPrice,
-  startDate,
-  endDate,
-  startTime,
-  pfDesc,
-}: DetailProps) => {
+const Detail = ({ PFDetailData, FDInfoData }: DetailProps) => {
   const router = useRouter();
   const [menu, setMenu] = useState<"desc" | "noti">("desc");
 
   return (
     <Container>
-      <Header title="공연 상세" onClick={() => router.back()} />
+      <Header
+        title="공연 상세"
+        leftIcon={<ArrowLeftIcon onClick={() => router.back()} />}
+        rightIcon={
+          <ShareIcon style={{ marginRight: "20px", marginBottom: "10px" }} />
+        }
+      />
       <StyledPFInfoBox
         type="detail"
-        url={PFInfoData.url}
-        univName={PFInfoData.univName}
-        title={PFInfoData.title}
-        date={PFInfoData.date}
-        location={PFInfoData.location}
+        url={PFDetailData.posterUrl}
+        univName={PFDetailData.artist?.agency}
+        title={PFDetailData.title}
+        date={
+          "hihi"
+          // PFDetailData.reservationTimes.length === 1
+          //   ? `${PFDetailData.reservationTimes[0]}`
+          //   : `${PFDetailData.reservationTimes[0]} ~ ${PFDetailData.reservationTimes[1]}`
+        }
+        location={PFDetailData.place}
       />
       <FDWrap>
         <FDInfoBox
@@ -71,9 +61,9 @@ const Detail = ({
         />
       </FDWrap>
       <PFInfoBox2
-        location={PFInfoData.location}
-        runtime={runtime}
-        ticketPrice={ticketPrice}
+        location={PFDetailData.place}
+        runtime={PFDetailData.runningTime}
+        ticketPrice={PFDetailData.price}
       />
       <QnABtn type="empty" onClick={() => "question"}>
         문의하기
@@ -83,12 +73,13 @@ const Detail = ({
         <p className="pf_time_title">
           <b>공연시간</b>
         </p>
-        <p className="pf_time">
-          {startDate}~{endDate}
-          {"\n"} {startTime}
-        </p>
-        <img className="poster_img" alt="poster_img" src={PFInfoData.url} />
-        <p className="pf_desc">{pfDesc}</p>
+        <p className="pf_time">{PFDetailData.showTime}</p>
+        <img
+          className="poster_img"
+          alt="poster_img"
+          src={PFDetailData.posterUrl}
+        />
+        <p className="pf_desc">{PFDetailData.description}</p>
       </DescWrap>
       <Bottom type="primary" onClick={() => router.push("/funding")}>
         펀딩하기
@@ -151,7 +142,7 @@ const DescWrap = styled.section`
     margin-bottom: 32px;
   }
   .pf_desc {
-    line-height: 14px;
+    line-height: 20px;
   }
 `;
 

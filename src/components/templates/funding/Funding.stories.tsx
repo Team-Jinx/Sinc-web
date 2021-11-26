@@ -20,14 +20,14 @@ Default.args = {
     additionSup: 5000,
     totalPrice: 10000,
   },
-  PFInfoData: {
-    title: "공연 이름",
-    artist: "아티스트 이름",
-    ticketPrice: 5000,
-    startDate: "9월 19일(목)",
-    endDate: "9월 21일(토)",
-    location: "플랫폼 창동61 레드박스",
-    runtime: 120,
-  },
+  // PFInfoData: {
+  //   title: "공연 이름",
+  //   artist: "아티스트 이름",
+  //   ticketPrice: 5000,
+  //   startDate: "9월 19일(목)",
+  //   endDate: "9월 21일(토)",
+  //   location: "플랫폼 창동61 레드박스",
+  //   runtime: 120,
+  // },
   timeList: ["23:00", "21:00"],
 };

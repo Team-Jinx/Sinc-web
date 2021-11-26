@@ -19,7 +19,7 @@ const PFInfoBox2 = ({ location, runtime, ticketPrice }: PFInfoBox2Props) => {
       <p>
         <b>티켓 가격</b>
       </p>
-      <p>{ticketPrice}원</p>
+      <p>{ticketPrice.toLocaleString()}원</p>
     </Container>
   );
 };

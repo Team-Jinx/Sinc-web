@@ -7,6 +7,9 @@ module.exports = {
     "@storybook/addon-essentials",
     "storybook-addon-styled-component-theme/dist/preset",
   ],
+  // "core": {
+  //   "builder": "webpack5"
+  // },
   webpackFinal: async (config) => {
     config.module.rules.unshift({
       test: /\.svg$/,

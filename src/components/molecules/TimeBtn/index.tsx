@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
 import { Btn } from "src/components/atoms";
 import styled from "styled-components";
 
@@ -14,7 +13,7 @@ const TimeBtn = ({ data, value, setValue }: TimeBtnProps) => {
         <StyledBtn
           key={d}
           type={value === d ? "primary" : "empty"}
-          onClick={() => setValue(d)}
+          onClick={value === d ? () => setValue("") : () => setValue(d)}
         >
           {d}
         </StyledBtn>

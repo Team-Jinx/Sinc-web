@@ -1,7 +1,5 @@
 import { ArrowRight } from "src/assets/icon/common";
-import { PFInfoBox } from "src/components/molecules";
-import { PFInfoData } from "src/interfaces";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 interface PopListProps {
   data: string[];
