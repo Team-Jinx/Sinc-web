@@ -3,6 +3,7 @@ import { NotiIcon, SearchIcon } from "src/assets/icon/main";
 import { Category, TabBar } from "src/components/molecules";
 import { Banner, PFInfoList, PopList } from "src/components/organisms";
 import { PFInfoDataProps } from "src/interfaces/PFData";
+import { PopStoriesDataProps } from "src/interfaces/StoryData";
 import { CategoryType } from "src/interfaces/types";
 import styled from "styled-components";
 
@@ -10,7 +11,7 @@ interface MainProps {
   isLoading: boolean;
   BannerData: string[];
   PFInfoDataList: PFInfoDataProps[];
-  PopDataList: string[];
+  PopDataList: PopStoriesDataProps[];
   setCategory: (e: CategoryType) => void;
 }
 const Main = ({

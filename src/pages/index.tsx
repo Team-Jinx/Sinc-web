@@ -11,11 +11,7 @@ const Home = () => {
     category: "MUSIC",
   });
   const { data: PFInfoDataList } = useSWR(
-    getQueries.getAllPF(
-      pfDataQuery.category,
-      pfDataQuery.title,
-      pfDataQuery.place,
-    ),
+    getQueries.getPopPF(pfDataQuery.category),
     fetcher,
     {
       onSuccess: (data) => {
@@ -24,13 +20,14 @@ const Home = () => {
       },
     },
   );
+  const { data: PopStories } = useSWR(getQueries.getPopStories(10, 0), fetcher);
 
   return (
     <Main
       isLoading={!PFInfoDataList}
       BannerData={BannerData}
-      PFInfoDataList={PFInfoDataList?.findPerformances}
-      PopDataList={PopDataList}
+      PFInfoDataList={PFInfoDataList?.findPopularPerformances}
+      PopDataList={PopStories?.findPopularStories}
       setCategory={(e) =>
         setPfDataQuery({
           ...pfDataQuery,
@@ -68,10 +65,10 @@ const BannerData = [TodayArtist, TodayArtist, TodayArtist];
 //     date: "9월 19일(목) ~ 9월 20일(금) / 9월 21일(토)",
 //   },
 // ];
-const PopDataList = [
-  "https://news.seoul.go.kr/welfare/files/2021/03/605a97eaac0d83.01878886.png",
-  "https://news.seoul.go.kr/welfare/files/2021/03/605a97eaac0d83.01878886.png",
-  "https://news.seoul.go.kr/welfare/files/2021/03/605a97eaac0d83.01878886.png",
-  "https://news.seoul.go.kr/welfare/files/2021/03/605a97eaac0d83.01878886.png",
-  "https://news.seoul.go.kr/welfare/files/2021/03/605a97eaac0d83.01878886.png",
-];
+// const PopDataList = [
+//   "https://news.seoul.go.kr/welfare/files/2021/03/605a97eaac0d83.01878886.png",
+//   "https://news.seoul.go.kr/welfare/files/2021/03/605a97eaac0d83.01878886.png",
+//   "https://news.seoul.go.kr/welfare/files/2021/03/605a97eaac0d83.01878886.png",
+//   "https://news.seoul.go.kr/welfare/files/2021/03/605a97eaac0d83.01878886.png",
+//   "https://news.seoul.go.kr/welfare/files/2021/03/605a97eaac0d83.01878886.png",
+// ];

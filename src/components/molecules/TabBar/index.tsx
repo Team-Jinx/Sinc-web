@@ -18,10 +18,11 @@ const TabBar = () => {
         <Home className="home" />홈
       </StyledIcon>
       <StyledIcon
-        path={router.pathname}
+        path={router.pathname.includes("/video") ? "/video" : ""}
         style={{
-          color:
-            router.pathname === "/video" ? "var(--primary)" : "var(--white)",
+          color: router.pathname.includes("/video")
+            ? "var(--primary)"
+            : "var(--white)",
         }}
         onClick={() => router.push("/video")}
       >

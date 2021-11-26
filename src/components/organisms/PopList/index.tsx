@@ -1,10 +1,13 @@
+import { useRouter } from "next/router";
 import { ArrowRight } from "src/assets/icon/common";
+import { PopStoriesDataProps } from "src/interfaces/StoryData";
 import styled from "styled-components";
 
 interface PopListProps {
-  data: string[];
+  data: PopStoriesDataProps[];
 }
 const PopList = ({ data }: PopListProps) => {
+  const router = useRouter();
   return (
     <Container>
       <div className="list_header">
@@ -12,8 +15,14 @@ const PopList = ({ data }: PopListProps) => {
         <ArrowRight />
       </div>
       <ListWrap>
-        {data.map((d) => (
-          <img key={d} className="poster_img" alt="poster_img" src={d} />
+        {data?.map((d) => (
+          <img
+            key={d.id}
+            className="poster_img"
+            alt="poster_img"
+            src={d.backgroundUrl}
+            onClick={() => router.push(`/video/${d.id}`)}
+          />
         ))}
       </ListWrap>
     </Container>

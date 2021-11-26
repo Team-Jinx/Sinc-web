@@ -6,15 +6,17 @@ import { TabBar } from "src/components/molecules";
 import styled from "styled-components";
 
 interface VideoProps {
+  pfId: string;
   url: string;
   univName: string;
   title: string;
-  date: string;
+  date: number;
   desc?: string;
   posterUrl?: string;
   likeNum: string;
 }
 const Video = ({
+  pfId,
   url,
   univName,
   title,
@@ -32,11 +34,14 @@ const Video = ({
       </VideoWrap>
       <div className="tag">{univName}</div>
       <InfoWrap>
-        <p className="info_txt_1">{date}</p>
+        <p className="info_txt_1">{date}일전</p>
         <p className="info_txt_2">{title}</p>
         <p className="info_txt_3">{desc}</p>
       </InfoWrap>
-      <DetailBtn onClick={() => router.push("/detail")} url={posterUrl} />
+      <DetailBtn
+        onClick={() => router.push(`/detail/${pfId}`)}
+        url={posterUrl}
+      />
       <LikeWrap>
         <HandIcon />
         {likeNum}

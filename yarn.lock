@@ -6390,6 +6390,11 @@ fresh@0.5.2:
   resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.5.2.tgz#3d8cadd90d976569fa835ab1f8e4b23a105605a7"
   integrity sha1-PYyt2Q2XZWn6g1qx+OSyOhBWBac=
 
+friendly-numbers@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/friendly-numbers/-/friendly-numbers-1.0.1.tgz#5a35aac4cd65a59ee0808d96d5813c6fdc0e5808"
+  integrity sha512-rH/caoqc3Cp4AdLiPjDiXkOSuk6K12tuOgbvj9P8fN40egGAHVM9eFV+a0vzgBG8e4EAj9mxtCX2ZqlBJygMiQ==
+
 from2@^2.1.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/from2/-/from2-2.3.0.tgz#8bfb5502bde4a4d36cfdeea007fcca21d7e382af"
