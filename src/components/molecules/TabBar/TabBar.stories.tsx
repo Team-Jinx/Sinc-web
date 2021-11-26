@@ -6,6 +6,6 @@ export default {
   component: TabBar,
 } as ComponentMeta<typeof TabBar>;
 
-const Template: ComponentStory<typeof TabBar> = (args) => <TabBar />;
+const Template: ComponentStory<typeof TabBar> = () => <TabBar />;
 
 export const Default = Template.bind({});

@@ -1,8 +1,8 @@
 import type { NextPage } from "next";
-import { MypageImg } from "src/assets/img";
+import { Mypage } from "src/components/templates";
 
-const Video: NextPage = () => {
-  return <img alt="mypage" src={MypageImg} />;
+const MyPage: NextPage = () => {
+  return <Mypage />;
 };
 
-export default Video;
+export default MyPage;

@@ -1,8 +1,15 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
+import { ArrowLeftIcon } from "src/assets/icon/header";
 import { BtnMinusIcon, BtnPlusIcon } from "src/assets/icon/funding";
-import { Btn, Icon } from "src/components/atoms";
-import { Header, PFInfoBox2, TimeBtn } from "src/components/molecules";
-import styled, { css } from "styled-components";
+import { Icon } from "src/components/atoms";
+import {
+  BottomBtn,
+  Header,
+  PFInfoBox2,
+  TimeBtn,
+} from "src/components/molecules";
+import { PFDetailDataProps } from "src/interfaces/PFData";
+import styled from "styled-components";
 
 interface dateTimeProps {
   date: string;
@@ -16,20 +23,12 @@ interface FDInfoDataProps {
   additionSup: number;
   totalPrice: number;
 }
-interface PFInfoDataProps {
-  title: string;
-  artist: string;
-  startDate: string;
-  endDate: string;
-  location: string;
-  runtime: number;
-  ticketPrice: number;
-}
+
 interface MainProps {
   setPageNum: Dispatch<SetStateAction<number>>;
   ticketNum: number;
   setTicketNum: Dispatch<SetStateAction<number>>;
-  PFInfoData: PFInfoDataProps;
+  PFDetailData: PFDetailDataProps;
   FDInfoData: FDInfoDataProps;
   selectDateTime: dateTimeProps;
   setSelectDateTime: Dispatch<SetStateAction<dateTimeProps>>;
@@ -39,7 +38,7 @@ const Main = ({
   setPageNum,
   ticketNum,
   setTicketNum,
-  PFInfoData,
+  PFDetailData,
   FDInfoData,
   selectDateTime,
   setSelectDateTime,
@@ -50,18 +49,26 @@ const Main = ({
   };
   return (
     <Container>
-      <Header title="펀딩하기" onClick={() => setPageNum(0)} />
+      <Header
+        title="펀딩하기"
+        leftIcon={
+          <ArrowLeftIcon
+            style={{ marginBottom: "4px" }}
+            onClick={() => setPageNum(0)}
+          />
+        }
+      />
       <PFInfoWrap>
-        <p className="artist_name">{PFInfoData.artist}</p>
-        <p className="pf_name">{PFInfoData.title}</p>
+        <p className="artist_name">
+          {PFDetailData.artist?.agency + PFDetailData.artist?.name}
+        </p>
+        <p className="pf_name">{PFDetailData.title}</p>
       </PFInfoWrap>
       <PFDateWrap>
         <p>
           <b>공연 날짜</b>
         </p>
-        <p>
-          {PFInfoData.startDate} ~ {PFInfoData.endDate}
-        </p>
+        <p>{/* {PFDetailData.startDate} ~ {PFDetailData.endDate} */}</p>
       </PFDateWrap>
       <DateSelectWrap>
         <div className="date_selector_inner_wrap">
@@ -104,9 +111,9 @@ const Main = ({
         )}
       </DateSelectWrap>
       <PFInfoBox2
-        location={PFInfoData.location}
-        runtime={PFInfoData.runtime}
-        ticketPrice={PFInfoData.ticketPrice}
+        location={PFDetailData.place}
+        runtime={PFDetailData.runningTime}
+        ticketPrice={PFDetailData.price}
       />
       <TicketNumSelectWrap>
         <div className="btn_wrap">
@@ -132,21 +139,23 @@ const Main = ({
         <p>
           <b>티켓 가격</b>
         </p>
-        <p className="price_txt">{PFInfoData.ticketPrice}원</p>
+        <p className="price_txt">{PFDetailData.price.toLocaleString()}원</p>
         <p>
           <b>추가 후원 가격</b>
         </p>
-        <p className="price_txt">{FDInfoData.additionSup}원</p>
+        <p className="price_txt">{FDInfoData.additionSup.toLocaleString()}원</p>
         <p>
           <b>최종결제금액</b>
         </p>
         <p className="price_txt--big">
-          <b>{FDInfoData.totalPrice}원</b>
+          <b>{FDInfoData.totalPrice.toLocaleString()}원</b>
         </p>
       </PriceInfoWrap>
-      <Bottom type="primary" onClick={handleClickBottom}>
-        다음
-      </Bottom>
+      <BottomBtn
+        txt="다음"
+        isAtv={selectDateTime.date !== "" && selectDateTime.time !== ""}
+        handleClickBtn={handleClickBottom}
+      />
     </Container>
   );
 };
@@ -161,19 +170,6 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   background-color: var(--black);
-`;
-
-const Bottom = styled(Btn)`
-  position: fixed;
-  z-index: 11;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 56px;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 19px;
-  color: var(--gray_1000);
 `;
 
 const PFInfoWrap = styled.section`
@@ -250,6 +246,9 @@ const DateSelectWrap = styled.section`
         font-size: 14px;
         line-height: 150%;
         color: var(--gray_50);
+      }
+      ::-webkit-calendar-picker-indicator {
+        color: var(--white);
       }
     }
   }

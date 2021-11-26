@@ -1,25 +1,39 @@
+import { useRouter } from "next/router";
 import { PFInfoBox } from "src/components/molecules";
-import { PFInfoData } from "src/interfaces";
+import { PFInfoDataProps } from "src/interfaces/PFData";
 import styled from "styled-components";
 
 interface PFInfoListProps {
-  data: PFInfoData[];
+  isLoading: boolean;
+  data: PFInfoDataProps[];
 }
-const PFInfoList = ({ data }: PFInfoListProps) => {
+const PFInfoList = ({ isLoading, data }: PFInfoListProps) => {
+  const router = useRouter();
+
   return (
     <Container>
       <h1 className="pf_list_title">박수 많이 받은 공연</h1>
-      {data.map((d) => (
-        <StyledPFInfoBox
-          type="list"
-          key={d.pfNum}
-          url={d.url}
-          pfNum={d.pfNum}
-          univName={d.univName}
-          title={d.title}
-          date={d.date}
-        />
-      ))}
+      {!isLoading &&
+        data.map((d, idx) => (
+          <StyledPFInfoBox
+            handleClick={() => {
+              console.log("hi");
+              router.push(`/detail/${d.id}`);
+            }}
+            type="list"
+            key={d.id}
+            url={d.posterUrl}
+            pfNum={idx + 1}
+            univName={`${d.artist?.agency} ${d.artist?.name}`}
+            title={d.title}
+            date={
+              "hihi"
+              // d.reservationTimes?.length === 1
+              //   ? `${d.reservationTimes[0]}`
+              //   : `${d.reservationTimes[0]} ~ ${d.reservationTimes[1]}`
+            }
+          />
+        ))}
     </Container>
   );
 };
@@ -46,10 +60,7 @@ const Container = styled.section`
   }
 `;
 
-interface PFInfoBoxProps {
-  id?: string;
-}
-const StyledPFInfoBox = styled(PFInfoBox)<PFInfoBoxProps>`
+const StyledPFInfoBox = styled(PFInfoBox)`
   padding: 15px 0 18px 0;
   margin-bottom: 8px;
   box-sizing: border-box;

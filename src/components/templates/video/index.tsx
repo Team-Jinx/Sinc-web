@@ -62,13 +62,13 @@ const Container = styled.section<ContainerProps>`
     z-index: 2;
     top: 108px;
     left: 0px;
-    width: 206px;
-    height: 32px;
-    background: url("${({ tag }) => tag}");
+    width: 220px;
+    height: 52px;
+    padding-left: 20px;
+    background: url("${({ tag }) => tag}") center center / cover;
     font-weight: 600;
     font-size: 14px;
-    text-align: center;
-    line-height: 32px;
+    line-height: 42px;
     color: var(--white);
   }
 `;

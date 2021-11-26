@@ -25,10 +25,11 @@ const FDInfoBox = ({
     <Conatainer id={id} className={className}>
       <TxtWrap>
         <p className="white_txt">
-          <b>{soldTicket}장</b> 판매
+          <b>{soldTicket.toLocaleString()}장</b> 판매
         </p>
         <p>
-          남은 티켓 수 <b style={{ fontWeight: 600 }}>{leftTicket}장</b>
+          남은 티켓 수{" "}
+          <b style={{ fontWeight: 600 }}>{leftTicket.toLocaleString()}장</b>
         </p>
       </TxtWrap>
       <TxtWrap>
@@ -48,12 +49,12 @@ const FDInfoBox = ({
       <TxtWrap>
         <p className="white_txt">모인 금액</p>
         <p className="white_txt" style={{ fontSize: "16px" }}>
-          <b style={{ fontWeight: 600 }}>{totalPrice}</b> 원
+          <b style={{ fontWeight: 600 }}>{totalPrice.toLocaleString()}</b> 원
         </p>
       </TxtWrap>
       <TxtWrap>
         <HandIcon className="hand_icon" />
-        <p className="white_txt">{likeNum} 개</p>
+        <p className="white_txt">{likeNum.toLocaleString()} 개</p>
       </TxtWrap>
     </Conatainer>
   );
