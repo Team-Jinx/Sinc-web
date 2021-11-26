@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { MypageImg, TicketModalImg } from "src/assets/img";
+import { TabBar } from "src/components/molecules";
 import PFNotiModal from "src/components/organisms/PFNotiModal";
 import styled from "styled-components";
 
@@ -14,6 +15,7 @@ const Mypage = () => {
           pfTitle="제24회 정기공연 뮤지컬 <경성광인>"
           setIsOpen={setIsOpen}
         />
+        <TabBar />
       </Container>
       {isOpen && (
         <>
@@ -59,7 +61,7 @@ const TicketModal = styled.dialog<ContainerProps>`
   box-sizing: border-box;
   position: fixed;
   left: 50%;
-  top: 47px;
+  top: 80px;
   z-index: 10;
   transform: translateX(-50%);
   width: 320px;

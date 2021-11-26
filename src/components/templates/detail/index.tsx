@@ -40,7 +40,7 @@ const Detail = ({ PFDetailData, FDInfoData }: DetailProps) => {
       <StyledPFInfoBox
         type="detail"
         url={PFDetailData.posterUrl}
-        univName={PFDetailData.artist?.agency}
+        univName={PFDetailData.artist?.agency + PFDetailData.artist?.name}
         title={PFDetailData.title}
         date={
           "hihi"

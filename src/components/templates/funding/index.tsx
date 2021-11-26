@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { PFDetailDataProps } from "src/interfaces/PFData";
+import { PageTransition } from "src/libs";
 import Check from "./check";
 import Main from "./main";
 import Tos from "./Tos";
@@ -29,28 +30,36 @@ const Funding = ({ FDInfoData, PFDetailData, timeList }: FundingProps) => {
   switch (pageNum) {
     case 1:
       return (
-        <Main
-          setPageNum={setPageNum}
-          ticketNum={ticketNum}
-          setTicketNum={setTicketNum}
-          PFDetailData={PFDetailData}
-          FDInfoData={FDInfoData}
-          selectDateTime={selectDateTime}
-          setSelectDateTime={setSelectDateTime}
-          timeList={timeList}
-        />
+        <PageTransition pageNum={pageNum}>
+          <Main
+            setPageNum={setPageNum}
+            ticketNum={ticketNum}
+            setTicketNum={setTicketNum}
+            PFDetailData={PFDetailData}
+            FDInfoData={FDInfoData}
+            selectDateTime={selectDateTime}
+            setSelectDateTime={setSelectDateTime}
+            timeList={timeList}
+          />
+        </PageTransition>
       );
     case 2:
       return (
-        <Check
-          FDInfoData={FDInfoData}
-          PFDetailData={PFDetailData}
-          selectedDate={selectDateTime.date}
-          selectedTime={selectDateTime.time}
-        />
+        <PageTransition pageNum={pageNum}>
+          <Check
+            FDInfoData={FDInfoData}
+            PFDetailData={PFDetailData}
+            selectedDate={selectDateTime.date}
+            selectedTime={selectDateTime.time}
+          />
+        </PageTransition>
       );
     default:
-      return <Tos setPageNum={setPageNum} />;
+      return (
+        <PageTransition pageNum={pageNum}>
+          <Tos setPageNum={setPageNum} />
+        </PageTransition>
+      );
   }
 };
 

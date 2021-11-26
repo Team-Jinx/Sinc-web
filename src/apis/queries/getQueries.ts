@@ -1,8 +1,9 @@
 const getAllPF = (category: string, title?: string, place?: string) => {
   return `{
         findPerformances(category:"${category}" 
-                        ${title !== "" && `title:"${title}"`} 
-                        ${place !== "" && `place:"${place}"`} ) 
+        ${title !== undefined ? `,title:"${title}"` : ""} ${
+    place !== undefined ? `,place:"${place}` : ""
+  } ) 
         {
           id
           artist { 

@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { HandIcon, MainIcon } from "src/assets/icon/common";
 import { TagImg } from "src/assets/img/video";
 import { Icon } from "src/components/atoms";
+import { TabBar } from "src/components/molecules";
 import styled from "styled-components";
 
 interface VideoProps {
@@ -40,6 +41,7 @@ const Video = ({
         <HandIcon />
         {likeNum}
       </LikeWrap>
+      <TabBar />
     </Container>
   );
 };
@@ -82,9 +84,9 @@ const VideoWrap = styled.video`
 const InfoWrap = styled.div`
   position: absolute;
   z-index: 2;
-  bottom: 136px;
+  bottom: 146px;
   left: 20px;
-  width: 226px;
+  width: 236px;
   height: 66px;
   display: flex;
   flex-direction: column;
@@ -103,11 +105,19 @@ const InfoWrap = styled.div`
     font-size: 14px;
     line-height: 19px;
     color: var(--white);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+    overflow: hidden;
   }
   .info_txt_3 {
     font-size: 12px;
     line-height: 17px;
     color: var(--gray_200);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+    overflow: hidden;
   }
 `;
 
@@ -117,7 +127,7 @@ interface DetailBtnProps {
 const DetailBtn = styled(Icon)<DetailBtnProps>`
   position: absolute;
   z-index: 2;
-  bottom: 205px;
+  bottom: 215px;
   right: 20px;
   width: 43px;
   height: 43px;
@@ -129,7 +139,7 @@ const DetailBtn = styled(Icon)<DetailBtnProps>`
 const LikeWrap = styled(Icon)`
   position: absolute;
   z-index: 2;
-  bottom: 136px;
+  bottom: 146px;
   right: 22px;
   width: 36px;
   height: 53px;

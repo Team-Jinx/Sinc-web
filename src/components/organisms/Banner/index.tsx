@@ -91,19 +91,19 @@ const StyledImgBox = styled(ImgBox)<ImgBoxProps>`
   }
   .banner_txt_1 {
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-    width: 165px;
+    width: 175px;
     height: 40px;
     margin-top: 108px;
     padding-left: 18px;
     background-color: #141414;
-    font-size: 17px;
-    line-height: 32px;
+    font-size: 16px;
+    line-height: 30px;
     color: var(--white);
     background: url(${({ src }) => src}) center center / cover;
   }
 
   .banner_txt_2 {
-    margin-top: 148px;
+    margin-top: 124px;
     margin-bottom: 4px;
     padding-left: 20px;
     font-weight: 600;

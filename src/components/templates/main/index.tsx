@@ -1,6 +1,6 @@
 import { MainIcon } from "src/assets/icon/common";
 import { NotiIcon, SearchIcon } from "src/assets/icon/main";
-import { Category } from "src/components/molecules";
+import { Category, TabBar } from "src/components/molecules";
 import { Banner, PFInfoList, PopList } from "src/components/organisms";
 import { PFInfoDataProps } from "src/interfaces/PFData";
 import { CategoryType } from "src/interfaces/types";
@@ -29,6 +29,7 @@ const Main = ({
       <Category setCategory={(e: CategoryType) => setCategory(e)} />
       <PFInfoList isLoading={isLoading} data={PFInfoDataList} />
       <PopList data={PopDataList} />
+      <TabBar />
     </Conatainer>
   );
 };
