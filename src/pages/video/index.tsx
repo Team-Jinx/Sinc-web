@@ -17,7 +17,7 @@ const VideoPage = ({ StoryData }: VideoPageProps) => {
 
 export default VideoPage;
 
-VideoPage.getInitialProps = async (ctx: any) => {
+VideoPage.getInitialProps = async () => {
   const StoryData = await fetcher(getQueries.getRandomStory());
 
   return { StoryData: StoryData.findStoryByRandom };

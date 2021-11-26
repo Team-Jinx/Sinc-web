@@ -33,11 +33,11 @@ Default.args = {
   //     date: "9월 19일(목) ~ 9월 20일(금) / 9월 21일(토)",
   //   },
   // ],
-  PopDataList: [
-    "https://news.seoul.go.kr/welfare/files/2021/03/605a97eaac0d83.01878886.png",
-    "https://news.seoul.go.kr/welfare/files/2021/03/605a97eaac0d83.01878886.png",
-    "https://news.seoul.go.kr/welfare/files/2021/03/605a97eaac0d83.01878886.png",
-    "https://news.seoul.go.kr/welfare/files/2021/03/605a97eaac0d83.01878886.png",
-    "https://news.seoul.go.kr/welfare/files/2021/03/605a97eaac0d83.01878886.png",
-  ],
+  // PopDataList: [
+  //   "https://news.seoul.go.kr/welfare/files/2021/03/605a97eaac0d83.01878886.png",
+  //   "https://news.seoul.go.kr/welfare/files/2021/03/605a97eaac0d83.01878886.png",
+  //   "https://news.seoul.go.kr/welfare/files/2021/03/605a97eaac0d83.01878886.png",
+  //   "https://news.seoul.go.kr/welfare/files/2021/03/605a97eaac0d83.01878886.png",
+  //   "https://news.seoul.go.kr/welfare/files/2021/03/605a97eaac0d83.01878886.png",
+  // ],
 };
