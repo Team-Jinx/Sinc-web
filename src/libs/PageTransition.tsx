@@ -21,15 +21,16 @@ const getTransitionStyles = {
 
 interface PageTransitionProps {
   children: ReactNode;
+  pageNum?: number;
 }
-const PageTransition = ({ children }: PageTransitionProps) => {
+const PageTransition = ({ children, pageNum }: PageTransitionProps) => {
   const router = useRouter();
 
   return (
     <>
       <TransitionGroup style={{ position: "relative" }}>
         <Transition
-          key={router.pathname}
+          key={pageNum !== undefined ? pageNum : router.pathname}
           timeout={{
             enter: TIMEOUT,
             exit: TIMEOUT,

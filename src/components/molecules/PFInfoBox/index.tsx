@@ -31,18 +31,16 @@ const PFInfoBox = ({
         <p className="univ_name">{univName}</p>
         <p className="title">{title}</p>
         <p className="date">{date}</p>
-        {type === "detail" && (
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              position: "relative",
-              left: "-3px",
-            }}
-          >
-            <MapPinIcon /> <p className="location">{location}</p>
-          </div>
-        )}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            position: "relative",
+            left: "-3px",
+          }}
+        >
+          <MapPinIcon /> <p className="location">{location}</p>
+        </div>
       </InfoWrap>
     </Container>
   );

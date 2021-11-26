@@ -32,6 +32,7 @@ const PFInfoList = ({ isLoading, data }: PFInfoListProps) => {
               //   ? `${d.reservationTimes[0]}`
               //   : `${d.reservationTimes[0]} ~ ${d.reservationTimes[1]}`
             }
+            location={d.place}
           />
         ))}
     </Container>
