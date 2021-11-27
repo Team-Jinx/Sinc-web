@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { PFInfoBox } from "src/components/molecules";
 import { PFInfoDataProps } from "src/interfaces/PFData";
+import { ExtractPeriodAsStr } from "src/libs";
 import styled from "styled-components";
 
 interface PFInfoListProps {
@@ -26,12 +27,7 @@ const PFInfoList = ({ isLoading, data }: PFInfoListProps) => {
             pfNum={idx + 1}
             univName={`${d.artist?.agency} ${d.artist?.name}`}
             title={d.title}
-            date={
-              "hihi"
-              // d.reservationTimes?.length === 1
-              //   ? `${d.reservationTimes[0]}`
-              //   : `${d.reservationTimes[0]} ~ ${d.reservationTimes[1]}`
-            }
+            date={ExtractPeriodAsStr(d.reservationTimes)}
             location={d.place}
           />
         ))}

@@ -2,26 +2,20 @@ import { useRouter } from "next/router";
 import { CloseIcon } from "src/assets/icon/header";
 import { Header } from "src/components/molecules";
 import { PFDetailDataProps } from "src/interfaces/PFData";
+import { ConvertDateStr } from "src/libs";
 import styled from "styled-components";
 
-interface FDInfoDataProps {
-  date: string;
-  endDate: string;
-  state: string;
-  ticketNum: number;
-  additionSup: number;
-  totalPrice: number;
-}
-
 interface CheckProps {
-  FDInfoData: FDInfoDataProps;
   PFDetailData: PFDetailDataProps;
+  ticketNum: number;
+  additionalSup: number | undefined;
   selectedDate: string;
   selectedTime: string;
 }
 const Check = ({
-  FDInfoData,
   PFDetailData,
+  ticketNum,
+  additionalSup,
   selectedDate,
   selectedTime,
 }: CheckProps) => {
@@ -52,18 +46,19 @@ const Check = ({
       </PFInfoWrap>
       <FDInfoWrap>
         <p>
-          펀딩날짜 <span style={{ flex: 1 }} /> {FDInfoData.date}
+          펀딩날짜 <span style={{ flex: 1 }} /> {ConvertDateStr(new Date())}
         </p>
         <p>
           펀딩종료일
-          <span style={{ flex: 1 }} /> {FDInfoData.endDate}
+          <span style={{ flex: 1 }} />
+          {ConvertDateStr(new Date(PFDetailData.toEndAt))}
         </p>
         <p>
           펀딩상태
-          <span style={{ flex: 1 }} /> {FDInfoData.state}
+          <span style={{ flex: 1 }} /> {PFDetailData.fundingStatus}
         </p>
         <p>
-          {`(${"신한"})으로 결제가 완료되었습니다`}
+          {`(${"카드"})(으)로 결제가 완료되었습니다`}
           <p>영수증 출력</p>
         </p>
       </FDInfoWrap>
@@ -77,28 +72,34 @@ const Check = ({
           <p>
             <b>아티스트 이름</b>
           </p>
-          <p>{PFDetailData.artist}</p>
+          <p>{PFDetailData.artist?.agency + PFDetailData.artist?.name}</p>
           <p>
             <b>공연 날짜</b>
           </p>
-          <p>
-            {selectedDate} {selectedTime}
-          </p>
+          <p>{ConvertDateStr(new Date(selectedDate)) + selectedTime}</p>
           <p>
             <b>티켓 개수</b>
           </p>
           <p>
-            {FDInfoData.ticketNum}매 {PFDetailData.price.toLocaleString()}원
+            {ticketNum}매 {(ticketNum * PFDetailData.price).toLocaleString()}원
           </p>
           <p>
             <b>추가후원</b>
           </p>
-          <p>{FDInfoData.additionSup.toLocaleString()}원</p>
+          <p>{additionalSup ? additionalSup.toLocaleString() : 0}원</p>
           <p>
             <b>최종 결제 금액</b>
           </p>
           <p>
-            <b>{FDInfoData.totalPrice.toLocaleString()}원</b>
+            <b>
+              {additionalSup
+                ? (
+                    PFDetailData.price * ticketNum +
+                    additionalSup
+                  ).toLocaleString()
+                : (PFDetailData.price * ticketNum).toLocaleString()}
+              원
+            </b>
           </p>
         </div>
       </SupInfoWrap>

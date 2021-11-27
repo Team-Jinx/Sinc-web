@@ -1,16 +1,42 @@
 import type { NextPage } from "next";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
+import fetcher from "src/apis";
+import { postQueries } from "src/apis/queries";
 import { Funding } from "src/components/templates";
 import states from "src/modules";
 
 const FundingPage: NextPage = () => {
-  const PFDetailData = useRecoilValue(states.PFDetailDataState);
+  const [PFDetailData, setPFDetailData] = useRecoilState(
+    states.PFDetailDataState,
+  );
+
+  const handlePostUserBoughtPF = async (
+    amount: number,
+    additionalSup: number,
+    pfId: string,
+    rvtId: string,
+    ticketNum: number,
+  ) => {
+    const res = await fetcher(
+      postQueries.postUserBoughtPF(
+        amount,
+        additionalSup,
+        pfId,
+        rvtId,
+        ticketNum,
+      ),
+    );
+    setPFDetailData({
+      ...PFDetailData,
+      fundingStatus:
+        res.createUsersBoughtPerformances.performance.fundingStatus,
+    });
+  };
 
   return (
     <Funding
-      FDInfoData={FDInfoData}
       PFDetailData={PFDetailData}
-      timeList={["23:00", "21:00", "19:00"]}
+      handlePostUserBoughtPF={handlePostUserBoughtPF}
     />
   );
 };

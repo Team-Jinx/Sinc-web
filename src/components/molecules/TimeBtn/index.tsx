@@ -1,23 +1,43 @@
+import { useEffect } from "react";
 import { Btn } from "src/components/atoms";
 import styled from "styled-components";
 
 interface TimeBtnProps {
-  data: string[];
+  data: ({ id: string; time: string } | undefined)[];
   value: string;
-  setValue: (e: string) => void;
+  setValue: (e: { id: string; time: string }) => void;
 }
 const TimeBtn = ({ data, value, setValue }: TimeBtnProps) => {
+  useEffect(() => {
+    console.log(data);
+  }, []);
+
   return (
     <Container>
-      {data.map((d) => (
-        <StyledBtn
-          key={d}
-          type={value === d ? "primary" : "empty"}
-          onClick={value === d ? () => setValue("") : () => setValue(d)}
-        >
-          {d}
-        </StyledBtn>
-      ))}
+      {data?.map(
+        (d) =>
+          d !== undefined && (
+            <StyledBtn
+              key={d.id}
+              type={value === d.time ? "primary" : "empty"}
+              onClick={
+                value === d.time
+                  ? () =>
+                      setValue({
+                        id: "",
+                        time: "",
+                      })
+                  : () =>
+                      setValue({
+                        id: d.id,
+                        time: d.time,
+                      })
+              }
+            >
+              {d.time}
+            </StyledBtn>
+          ),
+      )}
     </Container>
   );
 };

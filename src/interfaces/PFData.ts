@@ -1,4 +1,4 @@
-import { CategoryType } from "./types";
+import { CategoryType, ReservationTimeType, StatusType } from "./types";
 
 export interface PfDataQueryProps {
   category: CategoryType;
@@ -15,7 +15,7 @@ export interface PFInfoDataProps {
   posterUrl?: string;
   place: string;
   title: string;
-  reservationTimes: string[];
+  reservationTimes: ReservationTimeType[];
 }
 
 export interface PFDetailDataProps {
@@ -25,12 +25,18 @@ export interface PFDetailDataProps {
     name: string;
   };
   artistId: string;
+  amount: number;
   posterUrl?: string;
   place: string;
   title: string;
-  reservationTimes: string[];
   showTime: string;
   runningTime: number;
   price: number;
   description?: string;
+  reservationTimes: ReservationTimeType[];
+  toEndAt: number;
+  fundingStatus: StatusType;
+  totalTicketCount: number;
+  ticketCount: number;
+  cheerCount: number;
 }

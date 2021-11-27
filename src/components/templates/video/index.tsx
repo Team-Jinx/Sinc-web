@@ -3,48 +3,48 @@ import { HandIcon, MainIcon } from "src/assets/icon/common";
 import { TagImg } from "src/assets/img/video";
 import { Icon } from "src/components/atoms";
 import { TabBar } from "src/components/molecules";
+import { StoryDataProps } from "src/interfaces/StoryData";
+import { CalDateInterval } from "src/libs";
+import { format } from "friendly-numbers";
 import styled from "styled-components";
 
 interface VideoProps {
-  pfId: string;
-  url: string;
-  univName: string;
-  title: string;
-  date: number;
-  desc?: string;
-  posterUrl?: string;
-  likeNum: string;
+  storyData: StoryDataProps;
+  handleClickLike: (
+    pfId: string,
+    storyId: string,
+    userId?: string,
+  ) => Promise<void>;
 }
-const Video = ({
-  pfId,
-  url,
-  univName,
-  title,
-  date,
-  desc,
-  posterUrl,
-  likeNum,
-}: VideoProps) => {
+const Video = ({ storyData, handleClickLike }: VideoProps) => {
   const router = useRouter();
+  const url =
+    "https://v16m.tiktokcdn.com/a9fab9833f838c38ef6bbbc0266fa0ad/619c3020/video/tos/alisg/tos-alisg-pve-0037/b0f2d2e0b5d342a8ad23d1dc86a43154/?a=1180&br=4178&bt=2089&cd=0%7C0%7C1&ch=0&cr=0&cs=0&cv=1&dr=3&ds=3&er=&ft=wZmOpFBrkag3-I&l=20211122180438010244075048207F2A6C&lr=tiktok&mime_type=video_mp4&net=0&pl=0&qs=0&rc=amV0bjQ6ZjVvODMzODgzNEApOzUzNmU1ODxnNzk8aWY3ZWcwc3FucjRfMmhgLS1kLy1zczBjLjEvYF4xYy5iXmEyLTE6Yw%3D%3D&vl=&vr=";
   return (
     <Container tag={TagImg}>
       <MainIcon className="main_icon" />
       <VideoWrap controls>
         <source src={url} type="video/mp4" />
       </VideoWrap>
-      <div className="tag">{univName}</div>
+      <div className="tag">
+        {storyData.performance.artist?.agency +
+          storyData.performance.artist?.name}
+      </div>
       <InfoWrap>
-        <p className="info_txt_1">{date}일전</p>
-        <p className="info_txt_2">{title}</p>
-        <p className="info_txt_3">{desc}</p>
+        <p className="info_txt_1">{CalDateInterval(storyData.createdAt)}일전</p>
+        <p className="info_txt_2">{storyData.performance.title}</p>
+        <p className="info_txt_3">{storyData.description}</p>
       </InfoWrap>
       <DetailBtn
-        onClick={() => router.push(`/detail/${pfId}`)}
-        url={posterUrl}
+        onClick={() => router.push(`/detail/${storyData.performanceId}`)}
+        url={storyData.performance.posterUrl}
       />
       <LikeWrap>
-        <HandIcon />
-        {likeNum}
+        <HandIcon
+          onClick={() => handleClickLike(storyData.performanceId, storyData.id)}
+          role="button"
+        />
+        {format(storyData.cheerCount)}
       </LikeWrap>
       <TabBar />
     </Container>

@@ -30,10 +30,7 @@ const DetailPage = ({ initPFDetailData }: DetailPageProps) => {
       {PFDetailData === undefined ? (
         <div>...loading</div>
       ) : (
-        <Detail
-          PFDetailData={PFDetailData.findPerformanceById}
-          FDInfoData={FDInfoData}
-        />
+        <Detail PFDetailData={PFDetailData.findPerformanceById} />
       )}
     </>
   );

@@ -5,24 +5,23 @@ import Check from "./check";
 import Main from "./main";
 import Tos from "./Tos";
 
-interface FDInfoDataProps {
-  date: string;
-  endDate: string;
-  state: string;
-  ticketNum: number;
-  additionSup: number;
-  totalPrice: number;
-}
-
 interface FundingProps {
-  FDInfoData: FDInfoDataProps;
   PFDetailData: PFDetailDataProps;
-  timeList?: string[];
+  handlePostUserBoughtPF: (
+    amount: number,
+    additionalSup: number,
+    pfId: string,
+    rvtId: string,
+    ticketNum: number,
+  ) => Promise<void>;
 }
-const Funding = ({ FDInfoData, PFDetailData, timeList }: FundingProps) => {
-  const [pageNum, setPageNum] = useState(0);
+const Funding = ({ PFDetailData, handlePostUserBoughtPF }: FundingProps) => {
+  const [pageNum, setPageNum] = useState(1);
+
   const [ticketNum, setTicketNum] = useState(0);
+  const [additionalSup, setAdditionalSup] = useState<number | undefined>();
   const [selectDateTime, setSelectDateTime] = useState({
+    id: "",
     date: "",
     time: "",
   });
@@ -35,11 +34,12 @@ const Funding = ({ FDInfoData, PFDetailData, timeList }: FundingProps) => {
             setPageNum={setPageNum}
             ticketNum={ticketNum}
             setTicketNum={setTicketNum}
+            additionalSup={additionalSup}
+            setAdditionalSup={setAdditionalSup}
             PFDetailData={PFDetailData}
-            FDInfoData={FDInfoData}
             selectDateTime={selectDateTime}
             setSelectDateTime={setSelectDateTime}
-            timeList={timeList}
+            handlePostUserBoughtPF={handlePostUserBoughtPF}
           />
         </PageTransition>
       );
@@ -47,8 +47,9 @@ const Funding = ({ FDInfoData, PFDetailData, timeList }: FundingProps) => {
       return (
         <PageTransition pageNum={pageNum}>
           <Check
-            FDInfoData={FDInfoData}
             PFDetailData={PFDetailData}
+            ticketNum={ticketNum}
+            additionalSup={additionalSup}
             selectedDate={selectDateTime.date}
             selectedTime={selectDateTime.time}
           />

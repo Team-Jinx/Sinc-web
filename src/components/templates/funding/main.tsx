@@ -10,42 +10,55 @@ import {
 } from "src/components/molecules";
 import { PFDetailDataProps } from "src/interfaces/PFData";
 import styled from "styled-components";
+import { ExtractPeriodAsNum, ExtractPeriodAsStr, ExtractTimes } from "src/libs";
 
 interface dateTimeProps {
+  id: string;
   date: string;
   time: string;
-}
-interface FDInfoDataProps {
-  date: string;
-  endDate: string;
-  state: string;
-  ticketNum: number;
-  additionSup: number;
-  totalPrice: number;
 }
 
 interface MainProps {
   setPageNum: Dispatch<SetStateAction<number>>;
   ticketNum: number;
   setTicketNum: Dispatch<SetStateAction<number>>;
+  additionalSup: number | undefined;
+  setAdditionalSup: Dispatch<SetStateAction<number | undefined>>;
   PFDetailData: PFDetailDataProps;
-  FDInfoData: FDInfoDataProps;
   selectDateTime: dateTimeProps;
   setSelectDateTime: Dispatch<SetStateAction<dateTimeProps>>;
-  timeList?: string[];
+  handlePostUserBoughtPF: (
+    amount: number,
+    additionalSup: number,
+    pfId: string,
+    rvtId: string,
+    ticketNum: number,
+  ) => Promise<void>;
 }
 const Main = ({
   setPageNum,
   ticketNum,
   setTicketNum,
+  additionalSup,
+  setAdditionalSup,
   PFDetailData,
-  FDInfoData,
   selectDateTime,
   setSelectDateTime,
-  timeList,
+  handlePostUserBoughtPF,
 }: MainProps) => {
-  const handleClickBottom = () => {
-    selectDateTime.date !== "" && selectDateTime.time !== "" && setPageNum(2);
+  const handleClickBottom = async () => {
+    if (selectDateTime.date !== "" && selectDateTime.time !== "") {
+      setPageNum(2);
+      handlePostUserBoughtPF(
+        additionalSup
+          ? ticketNum * PFDetailData.price + additionalSup
+          : ticketNum * PFDetailData.price,
+        additionalSup || 0,
+        PFDetailData.id,
+        selectDateTime.id,
+        ticketNum,
+      );
+    }
   };
   return (
     <Container>
@@ -68,7 +81,7 @@ const Main = ({
         <p>
           <b>공연 날짜</b>
         </p>
-        <p>{/* {PFDetailData.startDate} ~ {PFDetailData.endDate} */}</p>
+        <p>{ExtractPeriodAsStr(PFDetailData.reservationTimes)}</p>
       </PFDateWrap>
       <DateSelectWrap>
         <div className="date_selector_inner_wrap">
@@ -84,7 +97,8 @@ const Main = ({
                 date: e.target.value,
               })
             }
-            // min={} max={}
+            min={ExtractPeriodAsNum(PFDetailData.reservationTimes).minD}
+            max={ExtractPeriodAsNum(PFDetailData.reservationTimes).maxD}
           />
         </div>
         <div className="date_selector_inner_wrap">
@@ -99,12 +113,18 @@ const Main = ({
         </div>
         {selectDateTime.date !== "" && (
           <TimeBtn
-            data={timeList || []}
+            data={
+              ExtractTimes(
+                selectDateTime.date,
+                PFDetailData.reservationTimes,
+              ) || []
+            }
             value={selectDateTime.time}
             setValue={(e) =>
               setSelectDateTime({
                 ...selectDateTime,
-                time: e,
+                id: e.id,
+                time: e.time,
               })
             }
           />
@@ -133,6 +153,12 @@ const Main = ({
           className="addition_sup_input"
           placeholder="얼마나 후원할까요?"
           type="number"
+          value={additionalSup}
+          onChange={(e) =>
+            setAdditionalSup(
+              Number(e.target.value) === 0 ? undefined : Number(e.target.value),
+            )
+          }
         />
       </AdditionSupWrap>
       <PriceInfoWrap>
@@ -143,17 +169,31 @@ const Main = ({
         <p>
           <b>추가 후원 가격</b>
         </p>
-        <p className="price_txt">{FDInfoData.additionSup.toLocaleString()}원</p>
+        <p className="price_txt">
+          {additionalSup ? additionalSup.toLocaleString() : 0}원
+        </p>
         <p>
           <b>최종결제금액</b>
         </p>
         <p className="price_txt--big">
-          <b>{FDInfoData.totalPrice.toLocaleString()}원</b>
+          <b>
+            {additionalSup
+              ? (
+                  PFDetailData.price * ticketNum +
+                  additionalSup
+                ).toLocaleString()
+              : (PFDetailData.price * ticketNum).toLocaleString()}
+            원
+          </b>
         </p>
       </PriceInfoWrap>
       <BottomBtn
         txt="다음"
-        isAtv={selectDateTime.date !== "" && selectDateTime.time !== ""}
+        isAtv={
+          selectDateTime.date !== "" &&
+          selectDateTime.time !== "" &&
+          ticketNum !== 0
+        }
         handleClickBtn={handleClickBottom}
       />
     </Container>

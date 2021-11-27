@@ -1,47 +1,54 @@
 import { CategoryType } from "src/interfaces/types";
 
-const getAllPF = (category: CategoryType, title?: string, place?: string) => {
-  return `{
-        findPerformances(category:"${category}" 
-        ${title !== undefined ? `,title:"${title}"` : ""} ${
-    place !== undefined ? `,place:"${place}` : ""
-  } ) 
-        {
+const getAllPF = (category: CategoryType, title?: string, place?: string) => `{
+    findPerformances(category:"${category}" 
+    ${title !== undefined ? `,title:"${title}"` : ""} ${
+  place !== undefined ? `,place:"${place}` : ""
+} ) 
+    {
+      id
+      artist { 
+        agency
+        name				
+      }
+      artistId
+      place
+      posterUrl
+      title
+      reservationTimes {
           id
-          artist { 
-            agency
-            name				
-          }
-          artistId
-          place
-          posterUrl
-          title
-          reservationTimes {
-              toReserveAt
-          }
-        }
-    }`;
-};
+          toReserveAt
+      }
+    }
+}`;
 
-const getPF = (id: string) => {
-  return `{
-        findPerformanceById(id: "${id}" ) {
-            id
-            artist { 
-                agency
-                 name				
-            }
-            artistId
-            posterUrl
-            place
-            title
-            showTime
-            runningTime
-            price
-            description
+const getPF = (id: string) => `{
+    findPerformanceById(id: "${id}" ) {
+        id
+        artist { 
+            agency
+              name				
         }
-    }`;
-};
+        artistId
+        amount
+        posterUrl
+        place
+        title
+        showTime
+        runningTime
+        price
+        description
+        fundingStatus
+        reservationTimes {
+          id
+          toReserveAt
+        }
+        toEndAt
+        totalTicketCount
+        cheerCount
+        ticketCount
+    }
+}`;
 
 const getPopPF = (category: CategoryType) => `
   {

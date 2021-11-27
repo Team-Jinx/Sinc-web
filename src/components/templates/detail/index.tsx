@@ -11,20 +11,12 @@ import {
 import { PFDetailDataProps } from "src/interfaces/PFData";
 import styled from "styled-components";
 import { ArrowLeftIcon, ShareIcon } from "src/assets/icon/header";
+import { CalDateInterval, ExtractPeriodAsStr } from "src/libs";
 
-interface FDInfoDataProps {
-  soldTicket: number;
-  leftTicket: number;
-  percent: number;
-  leftPeriod: number;
-  totalPrice: number;
-  likeNum: number;
-}
 interface DetailProps {
   PFDetailData: PFDetailDataProps;
-  FDInfoData: FDInfoDataProps;
 }
-const Detail = ({ PFDetailData, FDInfoData }: DetailProps) => {
+const Detail = ({ PFDetailData }: DetailProps) => {
   const router = useRouter();
   const [menu, setMenu] = useState<"desc" | "noti">("desc");
 
@@ -35,7 +27,7 @@ const Detail = ({ PFDetailData, FDInfoData }: DetailProps) => {
         leftIcon={
           <ArrowLeftIcon
             style={{ marginBottom: "3px" }}
-            onClick={() => router.back()}
+            onClick={() => router.push("/")}
           />
         }
         rightIcon={
@@ -47,22 +39,25 @@ const Detail = ({ PFDetailData, FDInfoData }: DetailProps) => {
         url={PFDetailData.posterUrl}
         univName={PFDetailData.artist?.agency + PFDetailData.artist?.name}
         title={PFDetailData.title}
-        date={
-          "hihi"
-          // PFDetailData.reservationTimes.length === 1
-          //   ? `${PFDetailData.reservationTimes[0]}`
-          //   : `${PFDetailData.reservationTimes[0]} ~ ${PFDetailData.reservationTimes[1]}`
-        }
+        date={ExtractPeriodAsStr(PFDetailData.reservationTimes)}
         location={PFDetailData.place}
       />
       <FDWrap>
         <FDInfoBox
-          soldTicket={FDInfoData.soldTicket}
-          leftTicket={FDInfoData.leftTicket}
-          percent={FDInfoData.percent}
-          leftPeriod={FDInfoData.leftPeriod}
-          totalPrice={FDInfoData.totalPrice}
-          likeNum={FDInfoData.likeNum}
+          soldTicket={PFDetailData.ticketCount}
+          leftTicket={PFDetailData.totalTicketCount - PFDetailData.ticketCount}
+          percent={
+            (PFDetailData.ticketCount / PFDetailData.totalTicketCount) * 100
+          }
+          leftPeriod={
+            -CalDateInterval(
+              PFDetailData.reservationTimes[
+                PFDetailData.reservationTimes.length - 1
+              ].toReserveAt,
+            )
+          }
+          totalPrice={PFDetailData.amount}
+          likeNum={PFDetailData.cheerCount}
         />
       </FDWrap>
       <PFInfoBox2
