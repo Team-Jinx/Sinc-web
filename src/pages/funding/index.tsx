@@ -39,8 +39,8 @@ const FundingPage: NextPage = () => {
       orderId: PFDetailData.id + CreateUUID(),
       orderName: PFDetailData.title + " 후원",
       customerName: "user",
-      successUrl: "http://localhost:3000/funding/success",
-      failUrl: "http://localhost:3000/funding",
+      successUrl: `${DOMAIN}/funding/success`,
+      failUrl: `${DOMAIN}/funding`,
     });
     // api call
     const res = await fetcher(
