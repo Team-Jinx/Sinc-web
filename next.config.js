@@ -17,7 +17,8 @@ module.exports = {
 
     config.plugins.push(
       new webpack.DefinePlugin({
-        API_URL: JSON.stringify(process.env.API_URL)
+        API_URL: JSON.stringify(process.env.API_URL),
+        CLIENT_KEY: JSON.stringify(process.env.CLIENT_KEY)
       }),
       new webpack.EnvironmentPlugin(["NODE_ENV"]),
     );
@@ -26,6 +27,7 @@ module.exports = {
   },
 
   env: {
-    API_URL: process.env.API_URL
+    API_URL: process.env.API_URL,
+    CLIENT_KEY: process.env.CLIENT_KEY
   },
 };

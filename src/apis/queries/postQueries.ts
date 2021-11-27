@@ -19,10 +19,15 @@ const postUserBoughtPF = (
               ticketCount: ${ticketNum},
               userId: "ckwgx985s0000ukireeh9of4m"
             }
-        )
+        ) {
+          performance {
+            fundingStatus
+          }
+        }
     }
 `;
 
+// @ts-ignore
 const postCheerPF = (pfId: string, storyId: string, userId?: string) => `
   mutation{
     createUsersCheeredPerformances(

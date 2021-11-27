@@ -15,10 +15,16 @@ import { CalDateInterval, ExtractPeriodAsStr } from "src/libs";
 
 interface DetailProps {
   PFDetailData: PFDetailDataProps;
+  handleInitializeData: () => void;
 }
-const Detail = ({ PFDetailData }: DetailProps) => {
+const Detail = ({ PFDetailData, handleInitializeData }: DetailProps) => {
   const router = useRouter();
   const [menu, setMenu] = useState<"desc" | "noti">("desc");
+
+  const handleClickBottom = () => {
+    handleInitializeData();
+    router.push("/funding");
+  };
 
   return (
     <Container>
@@ -81,7 +87,7 @@ const Detail = ({ PFDetailData }: DetailProps) => {
         />
         <p className="pf_desc">{PFDetailData.description}</p>
       </DescWrap>
-      <Bottom type="primary" onClick={() => router.push("/funding")}>
+      <Bottom type="primary" onClick={handleClickBottom}>
         펀딩하기
       </Bottom>
     </Container>

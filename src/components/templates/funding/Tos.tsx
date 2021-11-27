@@ -21,7 +21,7 @@ const Tos = ({ setPageNum }: TosProps) => {
         leftIcon={
           <ArrowLeftIcon
             style={{ marginBottom: "4px" }}
-            onClick={() => router.back()}
+            onClick={() => router.push("/")}
           />
         }
       />

@@ -48,7 +48,6 @@ const Main = ({
 }: MainProps) => {
   const handleClickBottom = async () => {
     if (selectDateTime.date !== "" && selectDateTime.time !== "") {
-      setPageNum(2);
       handlePostUserBoughtPF(
         additionalSup
           ? ticketNum * PFDetailData.price + additionalSup
@@ -290,6 +289,9 @@ const DateSelectWrap = styled.section`
         line-height: 150%;
         color: var(--gray_50);
       }
+      &:focus {
+        outline: none;
+      }
       ::-webkit-calendar-picker-indicator {
         color: var(--white);
       }
@@ -363,6 +365,9 @@ const AdditionSupWrap = styled.section`
       line-height: 150%;
       color: var(--gray_100);
       opacity: 0.5;
+    }
+    &:focus {
+      outline: none;
     }
   }
 `;

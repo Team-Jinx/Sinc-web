@@ -4,7 +4,6 @@ import { ThemeProvider } from "styled-components";
 import { theme } from "src/styles/theme";
 import { GlobalStyle } from "src/styles/GlobalStyles";
 import { RecoilRoot } from "recoil";
-import { PageTransition } from "src/libs";
 
 function App({ Component, pageProps }: AppProps) {
   return (
