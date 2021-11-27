@@ -31,7 +31,7 @@ const Check = ({
         rightIcon={
           <CloseIcon
             style={{ marginRight: "18px", marginBottom: "13px" }}
-            onClick={() => router.push(`/detail/${PFDetailData.id}`)}
+            onClick={() => router.push("/")}
           />
         }
       />
@@ -59,7 +59,8 @@ const Check = ({
         </p>
         <p>
           펀딩상태
-          <span style={{ flex: 1 }} /> {PFDetailData.fundingStatus}
+          <span style={{ flex: 1 }} />
+          {PFDetailData.fundingStatus === "PROGRESS" ? "진행중" : "성공"}
         </p>
         <p>
           {`(${"카드"})(으)로 결제가 완료되었습니다`}

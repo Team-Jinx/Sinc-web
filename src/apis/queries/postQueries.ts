@@ -19,7 +19,11 @@ const postUserBoughtPF = (
               ticketCount: ${ticketNum},
               userId: "ckwgx985s0000ukireeh9of4m"
             }
-        )
+        ) {
+          performance {
+            fundingStatus
+          }
+        }
     }
 `;
 

@@ -19,7 +19,6 @@ const DetailPage = ({ initPFDetailData }: DetailPageProps) => {
     {
       fallbackData: initPFDetailData,
       onSuccess: (data) => {
-        // date 배열 -> 형변환
         setPFDetailData(data.findPerformanceById);
       },
     },
@@ -44,14 +43,4 @@ DetailPage.getInitialProps = async (ctx: any) => {
   const PFDetailData = await fetcher(getQueries.getPF(queryID));
 
   return { PFDetailData: PFDetailData.findPerformanceById };
-};
-
-// mock-data
-const FDInfoData = {
-  soldTicket: 50,
-  leftTicket: 50,
-  percent: 50,
-  leftPeriod: 50,
-  totalPrice: 5000,
-  likeNum: 5000,
 };
