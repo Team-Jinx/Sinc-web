@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { CloseIcon } from "src/assets/icon/header";
 import { Header } from "src/components/molecules";
 import { PFDetailDataProps } from "src/interfaces/PFData";
@@ -20,6 +21,9 @@ const Check = ({
   selectedTime,
 }: CheckProps) => {
   const router = useRouter();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <Container>
       <Header

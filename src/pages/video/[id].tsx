@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import fetcher from "src/apis";
 import { getQueries, postQueries } from "src/apis/queries";
-import { Video } from "src/components/templates";
+import { Loading, Video } from "src/components/templates";
 import useSWR from "swr";
 
 // interface SWRDataProps {
@@ -20,22 +20,29 @@ const VideoPage: NextPage = () => {
     storyId: string,
     userId?: string,
   ) => {
-    const res = await fetcher(postQueries.postCheerPF(pfId, storyId, userId));
-    const newCheerCount =
-      res.createUsersCheeredPerformances.perfomance.cheerCount;
-    mutate({
-      findStoryById: {
-        ...StoryData.findStoryById,
-        cheerCount: newCheerCount,
+    await fetcher(postQueries.postCheerPF(pfId, storyId, userId));
+    mutate(
+      {
+        findStoryById: {
+          ...StoryData.findStoryById,
+          cheerCount: StoryData.findStoryById.cheerCount + 1,
+        },
       },
-    });
+      false,
+    );
   };
 
   return (
-    <Video
-      storyData={StoryData.findStoryById}
-      handleClickLike={handleClickLike}
-    />
+    <>
+      {!StoryData ? (
+        <Loading />
+      ) : (
+        <Video
+          storyData={StoryData.findStoryById}
+          handleClickLike={handleClickLike}
+        />
+      )}
+    </>
   );
 };
 

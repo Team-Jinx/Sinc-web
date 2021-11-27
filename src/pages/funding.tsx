@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import { useState } from "react";
 import { useRecoilState } from "recoil";
 import fetcher from "src/apis";
 import { postQueries } from "src/apis/queries";
@@ -9,6 +10,7 @@ const FundingPage: NextPage = () => {
   const [PFDetailData, setPFDetailData] = useRecoilState(
     states.PFDetailDataState,
   );
+  const [isLoading, setIsLoaing] = useState(false);
 
   const handlePostUserBoughtPF = async (
     amount: number,
@@ -17,6 +19,7 @@ const FundingPage: NextPage = () => {
     rvtId: string,
     ticketNum: number,
   ) => {
+    setIsLoaing(true);
     const res = await fetcher(
       postQueries.postUserBoughtPF(
         amount,
@@ -31,10 +34,12 @@ const FundingPage: NextPage = () => {
       fundingStatus:
         res.createUsersBoughtPerformances.performance.fundingStatus,
     });
+    setIsLoaing(false);
   };
 
   return (
     <Funding
+      isLoading={isLoading}
       PFDetailData={PFDetailData}
       handlePostUserBoughtPF={handlePostUserBoughtPF}
     />
@@ -42,13 +47,3 @@ const FundingPage: NextPage = () => {
 };
 
 export default FundingPage;
-
-// mock-data
-const FDInfoData = {
-  date: "9월 12일(일)",
-  endDate: "9월 20일(월)",
-  state: "완료",
-  ticketNum: 50,
-  additionSup: 5000,
-  totalPrice: 10000,
-};

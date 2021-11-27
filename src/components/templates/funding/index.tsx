@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { PFDetailDataProps } from "src/interfaces/PFData";
-import { PageTransition } from "src/libs";
+import { Loading } from "..";
 import Check from "./check";
 import Main from "./main";
 import Tos from "./Tos";
 
 interface FundingProps {
   PFDetailData: PFDetailDataProps;
+  isLoading: boolean;
   handlePostUserBoughtPF: (
     amount: number,
     additionalSup: number,
@@ -15,8 +16,12 @@ interface FundingProps {
     ticketNum: number,
   ) => Promise<void>;
 }
-const Funding = ({ PFDetailData, handlePostUserBoughtPF }: FundingProps) => {
-  const [pageNum, setPageNum] = useState(1);
+const Funding = ({
+  PFDetailData,
+  isLoading,
+  handlePostUserBoughtPF,
+}: FundingProps) => {
+  const [pageNum, setPageNum] = useState(0);
 
   const [ticketNum, setTicketNum] = useState(0);
   const [additionalSup, setAdditionalSup] = useState<number | undefined>();
@@ -29,37 +34,41 @@ const Funding = ({ PFDetailData, handlePostUserBoughtPF }: FundingProps) => {
   switch (pageNum) {
     case 1:
       return (
-        <PageTransition pageNum={pageNum}>
-          <Main
-            setPageNum={setPageNum}
-            ticketNum={ticketNum}
-            setTicketNum={setTicketNum}
-            additionalSup={additionalSup}
-            setAdditionalSup={setAdditionalSup}
-            PFDetailData={PFDetailData}
-            selectDateTime={selectDateTime}
-            setSelectDateTime={setSelectDateTime}
-            handlePostUserBoughtPF={handlePostUserBoughtPF}
-          />
-        </PageTransition>
+        <>
+          {isLoading ? (
+            <Loading />
+          ) : (
+            <Main
+              setPageNum={setPageNum}
+              ticketNum={ticketNum}
+              setTicketNum={setTicketNum}
+              additionalSup={additionalSup}
+              setAdditionalSup={setAdditionalSup}
+              PFDetailData={PFDetailData}
+              selectDateTime={selectDateTime}
+              setSelectDateTime={setSelectDateTime}
+              handlePostUserBoughtPF={handlePostUserBoughtPF}
+            />
+          )}
+        </>
       );
     case 2:
       return (
-        <PageTransition pageNum={pageNum}>
-          <Check
-            PFDetailData={PFDetailData}
-            ticketNum={ticketNum}
-            additionalSup={additionalSup}
-            selectedDate={selectDateTime.date}
-            selectedTime={selectDateTime.time}
-          />
-        </PageTransition>
+        // <PageTransition pageNum={pageNum}>
+        <Check
+          PFDetailData={PFDetailData}
+          ticketNum={ticketNum}
+          additionalSup={additionalSup}
+          selectedDate={selectDateTime.date}
+          selectedTime={selectDateTime.time}
+        />
+        // </PageTransition>
       );
     default:
       return (
-        <PageTransition pageNum={pageNum}>
-          <Tos setPageNum={setPageNum} />
-        </PageTransition>
+        // <PageTransition pageNum={pageNum}>
+        <Tos setPageNum={setPageNum} />
+        // </PageTransition>
       );
   }
 };

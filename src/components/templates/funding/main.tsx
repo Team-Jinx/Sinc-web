@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import { ArrowLeftIcon } from "src/assets/icon/header";
 import { BtnMinusIcon, BtnPlusIcon } from "src/assets/icon/funding";
 import { Icon } from "src/components/atoms";
@@ -60,6 +60,9 @@ const Main = ({
       );
     }
   };
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <Container>
       <Header
