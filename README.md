@@ -19,7 +19,7 @@
 ### 📍 앱 구현
 - React-Native의 react-native-webview 라이브러리를 사용하여 웹 앱 형식으로 구현
 - 구름 IDE 안의 expo 라이브러리를 사용하여 앱 개발 확인 및 빌드
-- 👉 [코드 저장소 바로가기](https://goor.me/BfCoe)   
+- 👉 [코드 저장소 바로가기](https://goor.me/xjbrc)   
 
 <br/>
 
