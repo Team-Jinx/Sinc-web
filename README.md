@@ -1,6 +1,6 @@
-![badge](https://img.shields.io/badge/Part-Front--end-brightgreen) ![lang](https://img.shields.io/badge/Language-TypeScript-blue) ![react](https://img.shields.io/badge/Tech--stack-Next.js-orange) ![realease](https://img.shields.io/badge/release-v1.0.0-yellow)
-
 # 아티스트 공연 홍보/펀딩 서비스  **🔗 sinc** 
+![badge](https://img.shields.io/badge/Part-Front--end-brightgreen) ![lang](https://img.shields.io/badge/Language-TypeScript-blue) ![react](https://img.shields.io/badge/Tech--stack-Next.js-orange) ![realease](https://img.shields.io/badge/release-v1.0.0-yellow)
+<p align="center"><img src="./README_IMG.png" alt="배너" width="100%" /></p>
 
 ### 🖥 sinc의 뷰 소개
 
