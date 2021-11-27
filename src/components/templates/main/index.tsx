@@ -4,12 +4,12 @@ import { Category, TabBar } from "src/components/molecules";
 import { Banner, PFInfoList, PopList } from "src/components/organisms";
 import { PFInfoDataProps } from "src/interfaces/PFData";
 import { PopStoriesDataProps } from "src/interfaces/StoryData";
-import { CategoryType } from "src/interfaces/types";
+import { BannerDataType, CategoryType } from "src/interfaces/types";
 import styled from "styled-components";
 
 interface MainProps {
   isLoading: boolean;
-  BannerData: string[];
+  BannerData: BannerDataType[];
   PFInfoDataList: PFInfoDataProps[];
   PopDataList: PopStoriesDataProps[];
   setCategory: (e: CategoryType) => void;
@@ -26,7 +26,7 @@ const Main = ({
       <MainIcon className="main_icon" />
       <SearchIcon className="search_icon" />
       <NotiIcon className="noti_icon" />
-      <Banner urls={BannerData} />
+      <Banner data={BannerData} />
       <Category setCategory={(e: CategoryType) => setCategory(e)} />
       <PFInfoList isLoading={isLoading} data={PFInfoDataList} />
       <PopList data={PopDataList} />

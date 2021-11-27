@@ -6,3 +6,9 @@ export type ReservationTimeType = {
   id: string;
   toReserveAt: number;
 };
+
+export type BannerDataType = {
+  name: string;
+  agency: string;
+  url?: string;
+};
