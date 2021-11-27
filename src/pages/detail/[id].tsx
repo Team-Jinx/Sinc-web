@@ -12,6 +12,7 @@ interface DetailPageProps {
 }
 const DetailPage = ({ initPFDetailData }: DetailPageProps) => {
   const router = useRouter();
+
   const setPFDetailData = useSetRecoilState(states.PFDetailDataState);
   const { data: PFDetailData } = useSWR(
     getQueries.getPF(String(router.query.id)),
@@ -24,12 +25,31 @@ const DetailPage = ({ initPFDetailData }: DetailPageProps) => {
     },
   );
 
+  const setPageNum = useSetRecoilState(states.PageNumState);
+  const setTicketNum = useSetRecoilState(states.TicketNumState);
+  const setAdditionalSup = useSetRecoilState(states.AdditionalSupState);
+  const setSelectDateTime = useSetRecoilState(states.SelectDateTimeState);
+
+  const handleInitializeData = () => {
+    setPageNum(0);
+    setTicketNum(0);
+    setAdditionalSup(undefined);
+    setSelectDateTime({
+      id: "",
+      date: "",
+      time: "",
+    });
+  };
+
   return (
     <>
       {PFDetailData === undefined ? (
         <div>...loading</div>
       ) : (
-        <Detail PFDetailData={PFDetailData.findPerformanceById} />
+        <Detail
+          PFDetailData={PFDetailData.findPerformanceById}
+          handleInitializeData={handleInitializeData}
+        />
       )}
     </>
   );

@@ -48,7 +48,6 @@ const Main = ({
 }: MainProps) => {
   const handleClickBottom = async () => {
     if (selectDateTime.date !== "" && selectDateTime.time !== "") {
-      setPageNum(2);
       handlePostUserBoughtPF(
         additionalSup
           ? ticketNum * PFDetailData.price + additionalSup

@@ -1,13 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { SetterOrUpdater } from "recoil";
 import { PFDetailDataProps } from "src/interfaces/PFData";
 import { Loading } from "..";
-import Check from "./check";
 import Main from "./main";
 import Tos from "./Tos";
 
 interface FundingProps {
   PFDetailData: PFDetailDataProps;
   isLoading: boolean;
+  pageNum: number;
+  setPageNum: SetterOrUpdater<number>;
+  ticketNum: number;
+  setTicketNum: SetterOrUpdater<number>;
+  additionalSup: number | undefined;
+  setAdditionalSup: SetterOrUpdater<number | undefined>;
+  selectDateTime: {
+    id: string;
+    date: string;
+    time: string;
+  };
+  setSelectDateTime: SetterOrUpdater<{
+    id: string;
+    date: string;
+    time: string;
+  }>;
   handlePostUserBoughtPF: (
     amount: number,
     additionalSup: number,
@@ -19,19 +35,25 @@ interface FundingProps {
 const Funding = ({
   PFDetailData,
   isLoading,
+  pageNum,
+  setPageNum,
+  ticketNum,
+  setTicketNum,
+  additionalSup,
+  setAdditionalSup,
+  selectDateTime,
+  setSelectDateTime,
   handlePostUserBoughtPF,
 }: FundingProps) => {
-  const [pageNum, setPageNum] = useState(0);
+  const [page, setPage] = useState<undefined | number>();
 
-  const [ticketNum, setTicketNum] = useState(0);
-  const [additionalSup, setAdditionalSup] = useState<number | undefined>();
-  const [selectDateTime, setSelectDateTime] = useState({
-    id: "",
-    date: "",
-    time: "",
-  });
+  useEffect(() => {
+    setPage(pageNum);
+  }, [pageNum]);
 
-  switch (pageNum) {
+  switch (page) {
+    case undefined:
+      return <Loading />;
     case 1:
       return (
         <>
@@ -51,18 +73,6 @@ const Funding = ({
             />
           )}
         </>
-      );
-    case 2:
-      return (
-        // <PageTransition pageNum={pageNum}>
-        <Check
-          PFDetailData={PFDetailData}
-          ticketNum={ticketNum}
-          additionalSup={additionalSup}
-          selectedDate={selectDateTime.date}
-          selectedTime={selectDateTime.time}
-        />
-        // </PageTransition>
       );
     default:
       return (

@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Btn } from "src/components/atoms";
 import styled from "styled-components";
 
@@ -8,10 +7,6 @@ interface TimeBtnProps {
   setValue: (e: { id: string; time: string }) => void;
 }
 const TimeBtn = ({ data, value, setValue }: TimeBtnProps) => {
-  useEffect(() => {
-    console.log(data);
-  }, []);
-
   return (
     <Container>
       {data?.map(

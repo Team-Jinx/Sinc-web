@@ -5,3 +5,4 @@ export { default as ExtractTimes } from "./ExtractTimes";
 export { default as ExtractPeriodAsStr } from "./ExtractPeriodAsStr";
 export { default as ExtractPeriodAsNum } from "./ExtractPeriodAsNum";
 export { default as CalDay } from "./CalDay";
+export { default as CreateUUID } from "./CreateUUID";
