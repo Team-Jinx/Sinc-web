@@ -18,14 +18,18 @@ interface VideoProps {
 }
 const Video = ({ storyData, handleClickLike }: VideoProps) => {
   const router = useRouter();
-  const url =
-    "https://v16m.tiktokcdn.com/a9fab9833f838c38ef6bbbc0266fa0ad/619c3020/video/tos/alisg/tos-alisg-pve-0037/b0f2d2e0b5d342a8ad23d1dc86a43154/?a=1180&br=4178&bt=2089&cd=0%7C0%7C1&ch=0&cr=0&cs=0&cv=1&dr=3&ds=3&er=&ft=wZmOpFBrkag3-I&l=20211122180438010244075048207F2A6C&lr=tiktok&mime_type=video_mp4&net=0&pl=0&qs=0&rc=amV0bjQ6ZjVvODMzODgzNEApOzUzNmU1ODxnNzk8aWY3ZWcwc3FucjRfMmhgLS1kLy1zczBjLjEvYF4xYy5iXmEyLTE6Yw%3D%3D&vl=&vr=";
+  const url = "http://techslides.com/demos/sample-videos/small.mp4";
   return (
     <Container tag={TagImg}>
       <MainIcon className="main_icon" />
-      <VideoWrap controls>
-        <source src={url} type="video/mp4" />
-      </VideoWrap>
+      <VideoWrap
+        src={url}
+        controls
+        autoPlay
+        loop
+        playsInline
+        controlsList="nodownload"
+      />
       <div className="tag">
         {storyData.performance.artist?.agency +
           storyData.performance.artist?.name}
@@ -84,6 +88,7 @@ const VideoWrap = styled.video`
   width: 100%;
   height: 100vh;
   padding-bottom: 54px;
+  object-fit: cover;
 `;
 
 const InfoWrap = styled.div`
