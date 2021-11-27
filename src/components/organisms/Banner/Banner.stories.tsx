@@ -1,5 +1,4 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { TodayArtist } from "src/assets/img";
 import Banner from ".";
 
 export default {
@@ -11,5 +10,5 @@ const Template: ComponentStory<typeof Banner> = (args) => <Banner {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  urls: [TodayArtist, TodayArtist, TodayArtist],
+  // urls: [TodayArtist, TodayArtist, TodayArtist],
 };
