@@ -19,5 +19,6 @@ export const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
     font-family: 'Pretendard', 'sans-serif';
+    -webkit-text-size-adjust:none;
   }
 `;
