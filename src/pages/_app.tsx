@@ -24,9 +24,9 @@ function App({ Component, pageProps }: AppProps) {
               zIndex: -1,
             }}
           />
-          <PageTransition>
-            <Component {...pageProps} />
-          </PageTransition>
+          {/* <PageTransition> */}
+          <Component {...pageProps} />
+          {/* </PageTransition> */}
         </ThemeProvider>
       </RecoilRoot>
     </>

@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import fetcher from "src/apis";
 import { getQueries } from "src/apis/queries";
 import { StoryDataProps } from "src/interfaces/StoryData";
+import { Loading } from "src/components/templates";
 
 interface VideoPageProps {
   StoryData: StoryDataProps;
@@ -12,7 +13,7 @@ const VideoPage = ({ StoryData }: VideoPageProps) => {
   useEffect(() => {
     StoryData && router.push(`/video/${StoryData.id}`);
   }, [StoryData]);
-  return <></>;
+  return <Loading />;
 };
 
 export default VideoPage;
