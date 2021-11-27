@@ -27,6 +27,7 @@ const postUserBoughtPF = (
     }
 `;
 
+// @ts-ignore
 const postCheerPF = (pfId: string, storyId: string, userId?: string) => `
   mutation{
     createUsersCheeredPerformances(
