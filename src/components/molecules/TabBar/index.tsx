@@ -75,6 +75,7 @@ const StyledIcon = styled(Icon)<IconProps>`
   line-height: 12px;
   color: var(--white);
 
+  transition: 0.3s;
   .home {
     ${({ path }) =>
       path === "/" &&

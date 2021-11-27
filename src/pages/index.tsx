@@ -4,6 +4,7 @@ import { getQueries } from "src/apis/queries";
 import { TodayArtist, TodayArtist2, TodayArtist3 } from "src/assets/img";
 import { Main } from "src/components/templates";
 import { PfDataQueryProps } from "src/interfaces/PFData";
+import { BannerDataType } from "src/interfaces/types";
 import useSWR from "swr";
 
 const Home = () => {
@@ -41,19 +42,19 @@ const Home = () => {
 export default Home;
 
 // mock data
-const BannerData = [
+const BannerData: BannerDataType[] = [
   {
-    url: TodayArtist,
+    url: TodayArtist.src,
     name: "징스 Jinx",
     agency: "호원대학교 실용음악학부",
   },
   {
-    url: TodayArtist2,
+    url: TodayArtist2.src,
     name: "후킹 hooking",
     agency: "중앙대학교 댄스동아리",
   },
   {
-    url: TodayArtist3,
+    url: TodayArtist3.src,
     name: "넥스트 NEXT",
     agency: "서울 대학 연합 동아리",
   },
