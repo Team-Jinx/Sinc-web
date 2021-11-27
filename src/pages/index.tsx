@@ -1,7 +1,7 @@
 import { useState } from "react";
 import fetcher from "src/apis";
 import { getQueries } from "src/apis/queries";
-import { TodayArtist } from "src/assets/img";
+import { TodayArtist, TodayArtist2, TodayArtist3 } from "src/assets/img";
 import { Main } from "src/components/templates";
 import { PfDataQueryProps } from "src/interfaces/PFData";
 import useSWR from "swr";
@@ -41,34 +41,20 @@ const Home = () => {
 export default Home;
 
 // mock data
-const BannerData = [TodayArtist, TodayArtist, TodayArtist];
-// const PFInfoDataList = [
-//   {
-//     pfNum: 1,
-//     univName: "어디대학교 무슨팀이름",
-//     title: "서울예대 공연학부 정기공연 <한여름 밤의 꿈>",
-//     url: "https://news.seoul.go.kr/welfare/files/2021/03/605a97eaac0d83.01878886.png",
-//     date: "9월 19일(목) ~ 9월 20일(금) / 9월 21일(토)",
-//   },
-//   {
-//     pfNum: 2,
-//     univName: "어디대학교 무슨팀이름",
-//     title: "서울예대 공연학부 정기공연 <한여름 밤의 꿈>",
-//     url: "https://news.seoul.go.kr/welfare/files/2021/03/605a97eaac0d83.01878886.png",
-//     date: "9월 19일(목) ~ 9월 20일(금) / 9월 21일(토)",
-//   },
-//   {
-//     pfNum: 3,
-//     univName: "어디대학교 무슨팀이름",
-//     title: "서울예대 공연학부 정기공연 <한여름 밤의 꿈>",
-//     url: "https://news.seoul.go.kr/welfare/files/2021/03/605a97eaac0d83.01878886.png",
-//     date: "9월 19일(목) ~ 9월 20일(금) / 9월 21일(토)",
-//   },
-// ];
-// const PopDataList = [
-//   "https://news.seoul.go.kr/welfare/files/2021/03/605a97eaac0d83.01878886.png",
-//   "https://news.seoul.go.kr/welfare/files/2021/03/605a97eaac0d83.01878886.png",
-//   "https://news.seoul.go.kr/welfare/files/2021/03/605a97eaac0d83.01878886.png",
-//   "https://news.seoul.go.kr/welfare/files/2021/03/605a97eaac0d83.01878886.png",
-//   "https://news.seoul.go.kr/welfare/files/2021/03/605a97eaac0d83.01878886.png",
-// ];
+const BannerData = [
+  {
+    url: TodayArtist,
+    name: "징스 Jinx",
+    agency: "호원대학교 실용음악학부",
+  },
+  {
+    url: TodayArtist2,
+    name: "후킹 hooking",
+    agency: "중앙대학교 댄스동아리",
+  },
+  {
+    url: TodayArtist3,
+    name: "넥스트 NEXT",
+    agency: "서울 대학 연합 동아리",
+  },
+];

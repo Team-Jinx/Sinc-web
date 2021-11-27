@@ -6,11 +6,12 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { TagImg } from "src/assets/img/video";
+import { BannerDataType } from "src/interfaces/types";
 
 interface BannerProps {
-  urls: string[];
+  data: BannerDataType[];
 }
-const Banner = ({ urls }: BannerProps) => {
+const Banner = ({ data }: BannerProps) => {
   return (
     <Container role="banner">
       <Swiper
@@ -27,15 +28,15 @@ const Banner = ({ urls }: BannerProps) => {
         }}
         autoplay={{ delay: 3000 }}
       >
-        {urls.map((url) => {
+        {data.map((d) => {
           return (
-            <SwiperSlide key={url}>
-              <StyledImgBox url={url} src={TagImg}>
+            <SwiperSlide key={d.url}>
+              <StyledImgBox url={d.url} src={TagImg}>
                 <div className="banner_txt_1">
                   오늘의 <b>아티스트</b>
                 </div>
-                <p className="banner_txt_2">어쩌고 대학교 어쩌고 동아리</p>
-                <p className="banner_txt_3">여기에는 소속이 들어가지롱</p>
+                <p className="banner_txt_2">{d.name}</p>
+                <p className="banner_txt_3">{d.agency}</p>
               </StyledImgBox>
             </SwiperSlide>
           );
@@ -91,10 +92,10 @@ const StyledImgBox = styled(ImgBox)<ImgBoxProps>`
   }
   .banner_txt_1 {
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-    width: 175px;
-    height: 40px;
+    width: 185px;
+    height: 43px;
     margin-top: 108px;
-    padding-left: 18px;
+    padding-left: 23px;
     background-color: #141414;
     font-size: 16px;
     line-height: 30px;
