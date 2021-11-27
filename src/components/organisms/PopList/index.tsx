@@ -41,7 +41,8 @@ const Container = styled.section`
     all: unset;
   }
   .list_header {
-    width: 320px;
+    width: 100%;
+    padding: 0 20px;
     height: 24px;
     margin-bottom: 16px;
     display: flex;

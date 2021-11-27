@@ -132,7 +132,7 @@ const Main = ({
           />
         )}
       </DateSelectWrap>
-      <PFInfoBox2
+      <StyledPFInfoBox2
         location={PFDetailData.place}
         runtime={PFDetailData.runningTime}
         ticketPrice={PFDetailData.price}
@@ -206,8 +206,7 @@ export default Main;
 
 const Container = styled.div`
   width: 100%;
-  padding-top: 73px;
-  padding-bottom: 106px;
+  padding: 73px 20px 106px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -215,8 +214,10 @@ const Container = styled.div`
 `;
 
 const PFInfoWrap = styled.section`
+  position: absolute;
+  z-index: 2;
   width: 100%;
-  padding: 18px 0 10px 0;
+  padding: 10px 0 12px 0;
   margin-bottom: 26px;
   display: flex;
   flex-direction: column;
@@ -229,7 +230,7 @@ const PFInfoWrap = styled.section`
 
   .artist_name {
     height: 21px;
-    margin-bottom: 3px;
+    margin-bottom: 5px;
     font-size: 14px;
     line-height: 150%;
     color: var(--white);
@@ -243,7 +244,9 @@ const PFInfoWrap = styled.section`
 `;
 
 const PFDateWrap = styled.div`
-  width: 320px;
+  width: 100%;
+  padding: 0 4px;
+  margin-top: 92px;
   margin-bottom: 16px;
   display: grid;
   grid-template-columns: 59px auto;
@@ -259,7 +262,7 @@ const PFDateWrap = styled.div`
 `;
 
 const DateSelectWrap = styled.section`
-  width: 320px;
+  width: 100%;
   padding: 15px 20px 18px 20px;
   background: #1f1f1f;
   border-radius: 4px;
@@ -275,7 +278,7 @@ const DateSelectWrap = styled.section`
       line-height: 150%;
     }
     .date_selector {
-      width: 133px;
+      width: 140px;
       height: 28px;
       padding-left: 5px;
       background: #141414;
@@ -285,7 +288,7 @@ const DateSelectWrap = styled.section`
       line-height: 150%;
       color: var(--white);
       &::placeholder {
-        font-size: 14px;
+        font-size: 13px;
         line-height: 150%;
         color: var(--gray_50);
       }
@@ -299,8 +302,12 @@ const DateSelectWrap = styled.section`
   }
 `;
 
+const StyledPFInfoBox2 = styled(PFInfoBox2)`
+  padding: 24px 4px;
+`;
+
 const TicketNumSelectWrap = styled.div`
-  width: 320px;
+  width: 100%;
   height: 60px;
   margin-bottom: 24px;
   background: #1f1f1f;
@@ -323,6 +330,7 @@ const TicketNumSelectWrap = styled.div`
 `;
 
 const AdditionSupWrap = styled.section`
+  width: 100%;
   margin-bottom: 48px;
   display: flex;
   flex-direction: column;
@@ -331,7 +339,7 @@ const AdditionSupWrap = styled.section`
     all: unset;
   }
   .addition_sup_title {
-    width: 320px;
+    width: 100%;
     height: 21px;
     margin-bottom: 3px;
     font-size: 14px;
@@ -340,7 +348,7 @@ const AdditionSupWrap = styled.section`
     color: var(--white);
   }
   .addition_sup_desc {
-    width: 320px;
+    width: 100%;
     height: 21px;
     margin-bottom: 16px;
     font-size: 12px;
@@ -349,7 +357,7 @@ const AdditionSupWrap = styled.section`
     opacity: 0.68;
   }
   .addition_sup_input {
-    width: 320px;
+    width: 100%;
     height: 40px;
     padding: 0 12px;
     border: 1px solid var(--gray_100);
@@ -373,7 +381,7 @@ const AdditionSupWrap = styled.section`
 `;
 
 const PriceInfoWrap = styled.section`
-  width: 320px;
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 21px 21px 56px;

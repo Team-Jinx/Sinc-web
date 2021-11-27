@@ -125,13 +125,13 @@ const DescWrap = styled.section`
   padding: 24px 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   font-size: 14px;
   line-height: 150%;
   color: var(--white);
   p {
     all: unset;
-    width: 320px;
+    padding: 0 20px;
     white-space: pre-line;
   }
   .pf_time_title {
@@ -153,8 +153,9 @@ const DescWrap = styled.section`
 `;
 
 const QnABtn = styled(Btn)`
-  width: 320px;
+  width: 380px;
   height: 40px;
+  margin: 0 20px;
   margin-bottom: 24px;
   border: 1px solid var(--white);
   border-radius: 4px;

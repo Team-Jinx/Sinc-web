@@ -46,9 +46,11 @@ const Container = styled.section`
   justify-content: flex-start;
   h1 {
     all: unset;
+    box-sizing: border-box;
   }
   .pf_list_title {
-    width: 320px;
+    width: 100%;
+    padding: 0 20px;
     margin-bottom: 9px;
     font-weight: 600;
     font-size: 16px;
@@ -58,7 +60,7 @@ const Container = styled.section`
 `;
 
 const StyledPFInfoBox = styled(PFInfoBox)`
-  padding: 15px 0 18px 0;
+  padding: 15px 20px 18px 20px;
   margin-bottom: 8px;
   box-sizing: border-box;
 `;

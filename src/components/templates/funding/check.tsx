@@ -134,7 +134,7 @@ const Container = styled.div`
 
 const PFInfoWrap = styled.section`
   width: 100%;
-  padding: 18px 0 26px 0;
+  padding: 18px 20px 26px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -142,7 +142,7 @@ const PFInfoWrap = styled.section`
   p {
     all: unset;
     box-sizing: border-box;
-    width: 320px;
+    width: 100%;
   }
 
   .artist_name {
@@ -178,7 +178,8 @@ const PFInfoWrap = styled.section`
 `;
 
 const FDInfoWrap = styled.section`
-  width: 320px;
+  width: 100%;
+  padding: 0 20px;
   margin-top: 43px;
   margin-bottom: 27px;
   display: flex;
@@ -201,15 +202,14 @@ const FDInfoWrap = styled.section`
 
 const SupInfoWrap = styled.section`
   width: 100%;
-  padding-top: 20px;
-  padding-bottom: 60px;
+  padding: 20px 20px 60px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: var(--gray_900);
 
   .sup_info_title {
-    width: 320px;
+    width: 100%;
     padding-bottom: 19px;
     border-bottom: 1px solid var(--gray_300);
     font-weight: 600;
@@ -220,10 +220,10 @@ const SupInfoWrap = styled.section`
   }
 
   .sup_info_desc {
-    width: 320px;
+    width: 100%;
     padding: 0 20px;
     display: grid;
-    grid-template-columns: 87px auto;
+    grid-template-columns: 97px auto;
     column-gap: 26.5px;
     row-gap: 16px;
     p {

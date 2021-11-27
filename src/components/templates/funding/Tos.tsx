@@ -70,6 +70,7 @@ export default Tos;
 const Container = styled.div`
   width: 100%;
   height: 100vh;
+  padding: 0 20px;
   padding-top: 73px;
   padding-bottom: 56px;
   display: flex;
@@ -79,7 +80,7 @@ const Container = styled.div`
 `;
 
 const DescWrap = styled.section`
-  width: 320px;
+  width: 100%;
   margin-top: 26px;
   margin-bottom: 32px;
   display: flex;
@@ -126,7 +127,7 @@ interface TosBoxWrapProps {
 const TosBoxWrap = styled.section<TosBoxWrapProps>`
   display: flex;
   flex-direction: row;
-  width: 320px;
+  width: 100%;
   padding: 23px 14px;
   background-color: #2b2b2b;
   font-size: 13px;

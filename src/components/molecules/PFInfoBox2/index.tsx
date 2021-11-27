@@ -1,13 +1,19 @@
 import styled from "styled-components";
 
 interface PFInfoBox2Props {
+  className?: string;
   location?: string;
   runtime: number;
   ticketPrice: number;
 }
-const PFInfoBox2 = ({ location, runtime, ticketPrice }: PFInfoBox2Props) => {
+const PFInfoBox2 = ({
+  className,
+  location,
+  runtime,
+  ticketPrice,
+}: PFInfoBox2Props) => {
   return (
-    <Container>
+    <Container className={className}>
       <p>
         <b>공연장</b>
       </p>
@@ -27,10 +33,10 @@ const PFInfoBox2 = ({ location, runtime, ticketPrice }: PFInfoBox2Props) => {
 export default PFInfoBox2;
 
 const Container = styled.section`
-  width: 320px;
-  padding: 24px 0;
+  width: 100%;
+  padding: 24px 20px;
   display: grid;
-  grid-template-columns: 56px auto;
+  grid-template-columns: 66px auto;
   grid-template-rows: 1fr 1fr 1fr;
   column-gap: 45px;
   row-gap: 16px;

@@ -49,7 +49,8 @@ const PFInfoBox = ({
 export default PFInfoBox;
 
 const Container = styled.section`
-  width: 320px;
+  width: 100%;
+  padding: 0 20px;
   height: auto;
   display: flex;
   flex-direction: row;
@@ -57,6 +58,7 @@ const Container = styled.section`
   justify-content: space-between;
   p {
     all: unset;
+    box-sizing: border-box;
   }
   .pf_number {
     width: 7px;
@@ -77,13 +79,13 @@ const PosterImg = styled.img<PosterImgProps>`
   ${({ type }) =>
     type === "list"
       ? css`
-          width: 8.8rem;
-          height: 12.2rem;
+          width: 88px;
+          height: 122px
           margin-right: 16px;
         `
       : css`
-          width: 8.9rem;
-          height: 12.6rem;
+          width: 99px;
+          height: 136px;
           margin-right: 24px;
         `}
 `;

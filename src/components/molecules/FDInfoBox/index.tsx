@@ -63,7 +63,8 @@ const FDInfoBox = ({
 export default FDInfoBox;
 
 const Conatainer = styled.div`
-  width: 320px;
+  width: 100%;
+  padding: 0 20px;
   display: flex;
   flex-direction: column;
 `;
