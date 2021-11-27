@@ -1,6 +1,27 @@
 # 아티스트 공연 홍보/펀딩 서비스  **🔗 sinc** 
-![badge](https://img.shields.io/badge/Part-Front--end-brightgreen) ![lang](https://img.shields.io/badge/Language-TypeScript-blue) ![react](https://img.shields.io/badge/Tech--stack-Next.js-orange) ![realease](https://img.shields.io/badge/release-v1.0.0-yellow)
+![badge](https://img.shields.io/badge/Part-Front--end-brightgreen) ![lang](https://img.shields.io/badge/Language-TypeScript-blue) ![next.js](https://img.shields.io/badge/Tech--stack-Next.js-orange) ![react-native](https://img.shields.io/badge/Tech--stack-ReactNative-skyblue) ![realease](https://img.shields.io/badge/release-v1.0.0-yellow)
 <p align="center"><img src="./README_IMG.png" alt="배너" width="100%" /></p>
+
+<br />
+
+#### 📱 왜 하이브리드 앱인가?
+- 앱을 다시 빌드하고 심사를 받아 업데이트 하는 과정이 줄어듦
+- 유저도 업데이트 된 앱을 다시 다운받지 않아도 되기에 간편함
+- 플랫폼과 상관 없이 웹 개발 기술을 가지고 앱을 개발할 수 있음
+- 브라우저 API와 네이티브 API 모두 사용 가능함
+- 한 번의 개발을 통해 여러 플랫폼에 대응 가능함
+- 일반적으로  네이티브 앱 보다 빠른 기간 내에 개발 가능
+
+#### 따라서 짧은 시간동안 진행되는 해커톤에서는 "하이브리드 앱"으로 개발하는 것이 적합하다고 결정!
+
+<br />
+
+### 📍 앱 구현
+- React-Native의 react-native-webview 라이브러리를 사용하여 웹 앱 형식으로 구현
+- 구름 IDE 안의 expo 라이브러리를 사용하여 앱 개발 확인 및 빌드
+- 👉 [코드 저장소 바로가기](https://goor.me/BfCoe)   
+
+<br/>
 
 ### 🖥 sinc의 뷰 소개
 
