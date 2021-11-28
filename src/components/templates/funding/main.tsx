@@ -249,8 +249,8 @@ const PFDateWrap = styled.div`
   margin-top: 92px;
   margin-bottom: 16px;
   display: grid;
-  grid-template-columns: 59px auto;
-  column-gap: 52px;
+  grid-template-columns: 66px auto;
+  column-gap: 45px;
   align-items: center;
 
   p {

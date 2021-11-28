@@ -35,7 +35,7 @@ const FDInfoBox = ({
       <TxtWrap>
         <p className="white_txt">
           <span style={{ fontSize: "18px", color: "var(--primary)" }}>
-            {percent}%
+            {percent.toFixed(2)}%
           </span>{" "}
           달성
         </p>
@@ -97,7 +97,7 @@ interface BarProps {
 }
 const Bar = styled.div<BarProps>`
   height: 8px;
-  width: 320px;
+  width: 100%;
   background: var(--gray_600);
   border-radius: 2px;
   margin-bottom: 11px;
