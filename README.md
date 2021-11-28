@@ -30,26 +30,38 @@
 - 카카오 api를 통한 사용자 로그인 화면(추후 구현 예정)
 
 ### 메인 화면
+<img src="./README/KakaoTalk_20211128_152442877.jpg" alt="main" width="200px"/>
 현재 인기있는 아티스트들과 공연, 숏폼 영상에 대한 정보를 한 눈에 볼 수 있는 화면
 - swiper 라이브러리를 사용하여 상단 배너 구현
 - 하단 네비게이션을 통해 페이지 라우팅
 
 ### 숏폼 영상 화면
+<img src="./README/KakaoTalk_20211128_151652014_06.jpg" alt="main" width="200px"/>
 숏폼 영상을 시청할 수 있는 화면
 공감 버튼을 통해 아티스트/공연을 응원하거나, 공연 상세 페이지 버튼을 통해 공연에 대한 상세정보 얻기 가능하다.
 - video tag를 이용한 숏폼 영상 제공
 
 ### 공연 상세정보 화면
+<img src="./README/KakaoTalk_20211128_151652014_05.jpg" alt="main" width="200px"/>
 공연의 상세 정보를 확인할 수 있는 화면
 하단 버튼을 통해 펀딩 화면으로 넘어갈 수 있다.
 - 메인화면에서 사용한 컴포넌트 재사용
 
 ### 펀딩 화면
+<div style={{display:"flex"}}>
+<img src="./README/KakaoTalk_20211128_151652014_04.jpg" alt="main" width="200px" />
+<img src="./README/KakaoTalk_20211128_151652014_03.jpg" alt="main" width="200px"/>
+<img src="./README/KakaoTalk_20211128_151652014_02.jpg" alt="main" width="200px"/>
+</div>
 공연을 후원하고, 예매할 수 있는 화면
 - 커스텀 함수들을 통한 날짜, 시간 데이터 처리
 - 토스 페이먼츠 api을 이용해 결제(추후 구현 예정)
 
 ### 마이페이지 화면(추후 구현 예정)
+<div style={{display:"flex"}}>
+<img src="./README/KakaoTalk_20211128_151652014_01.jpg" alt="main" width="200px"/>
+<img src="./README/KakaoTalk_20211128_151652014.jpg" alt="main" width="200px"/>
+</div>
 개인정보를 확인할 수 있는 화면
 개인정보, 응원 내역, 펀딩 내역 등의 정보를 확인할 수 있다.
 예매한 공연의 시간이 1시간 이내로 예정되어 있을 경우, 하단 모달을 통해 유저에게 알림을 전달하고, 티켓을 확인할 수 있다.
