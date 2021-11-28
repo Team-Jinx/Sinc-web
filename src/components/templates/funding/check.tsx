@@ -45,7 +45,7 @@ const Check = ({
           type="button"
           onClick={() => router.push(`/detail/${PFDetailData.id}`)}
         >
-          공연 상세 보러가기
+          공연 상세
         </button>
       </PFInfoWrap>
       <FDInfoWrap>
@@ -63,7 +63,7 @@ const Check = ({
           {PFDetailData.fundingStatus === "PROGRESS" ? "진행중" : "성공"}
         </p>
         <p>
-          {`( ${"카드"} )로 결제가 완료되었습니다`}
+          {`${"카드"}로 결제가 완료되었습니다`}
           <span style={{ flex: 1 }} />
           <p
             style={{
@@ -137,7 +137,7 @@ const PFInfoWrap = styled.section`
   padding: 18px 20px 26px 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   background-color: var(--gray_900);
   p {
     all: unset;
@@ -154,6 +154,7 @@ const PFInfoWrap = styled.section`
     opacity: 0.5;
   }
   .pf_name {
+    width: 300px;
     font-weight: 600;
     font-size: 18px;
     line-height: 22px;
@@ -165,8 +166,7 @@ const PFInfoWrap = styled.section`
     position: absolute;
     right: 12px;
     margin-top: 10px;
-    width: 113px;
-    height: 37px;
+    padding: 10px 8px;
     background: var(--gray_1000);
     border-radius: 7px;
     font-weight: 600;
@@ -223,7 +223,7 @@ const SupInfoWrap = styled.section`
     width: 100%;
     padding: 0 20px;
     display: grid;
-    grid-template-columns: 97px auto;
+    grid-template-columns: 105px auto;
     column-gap: 26.5px;
     row-gap: 16px;
     p {

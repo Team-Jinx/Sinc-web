@@ -11,8 +11,8 @@ const Mypage = () => {
       <Container>
         <img alt="mypage" className="mypage" src={MypageImg} />
         <PFNotiModal
-          pfDate="9월 19일(목) 오후 6시"
-          pfTitle="제24회 정기공연 뮤지컬 <경성광인>"
+          pfDate="12월 12일(일) 오후 10시"
+          pfTitle="싱어송라이터 전공 정기공연 <울림>"
           setIsOpen={setIsOpen}
         />
         <TabBar />
