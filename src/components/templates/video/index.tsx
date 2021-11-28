@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { HandIcon, MainIcon } from "src/assets/icon/common";
+import { HandAtvIcon, HandIcon, MainIcon } from "src/assets/icon/common";
 import { TagImg } from "src/assets/img/video";
 import { Icon } from "src/components/atoms";
 import { TabBar } from "src/components/molecules";
@@ -7,16 +7,25 @@ import { StoryDataProps } from "src/interfaces/StoryData";
 import { CalDateInterval } from "src/libs";
 import { format } from "friendly-numbers";
 import styled from "styled-components";
+import { SetterOrUpdater } from "recoil";
 
 interface VideoProps {
   storyData: StoryDataProps;
   handleClickLike: (
+    isClicked: boolean,
     pfId: string,
     storyId: string,
     userId?: string,
   ) => Promise<void>;
+  isClicked: boolean;
+  setIsClicked: SetterOrUpdater<boolean>;
 }
-const Video = ({ storyData, handleClickLike }: VideoProps) => {
+const Video = ({
+  storyData,
+  isClicked,
+  setIsClicked,
+  handleClickLike,
+}: VideoProps) => {
   const router = useRouter();
 
   return (
@@ -45,10 +54,23 @@ const Video = ({ storyData, handleClickLike }: VideoProps) => {
         url={storyData.performance.posterUrl}
       />
       <LikeWrap>
-        <HandIcon
-          onClick={() => handleClickLike(storyData.performanceId, storyData.id)}
-          role="button"
-        />
+        {isClicked ? (
+          <HandAtvIcon
+            onClick={() => {
+              handleClickLike(isClicked, storyData.performanceId, storyData.id);
+              setIsClicked(false);
+            }}
+            role="button"
+          />
+        ) : (
+          <HandIcon
+            onClick={() => {
+              handleClickLike(isClicked, storyData.performanceId, storyData.id);
+              setIsClicked(true);
+            }}
+            role="button"
+          />
+        )}
         {format(storyData.cheerCount)}
       </LikeWrap>
       <TabBar />

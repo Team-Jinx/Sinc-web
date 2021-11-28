@@ -1,8 +1,10 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
+import { useRecoilState } from "recoil";
 import fetcher from "src/apis";
 import { getQueries, postQueries } from "src/apis/queries";
 import { Loading, Video } from "src/components/templates";
+import states from "src/modules";
 import useSWR from "swr";
 
 // interface SWRDataProps {
@@ -10,12 +12,17 @@ import useSWR from "swr";
 // }
 const VideoPage: NextPage = () => {
   const router = useRouter();
+  const [isClicked, setIsClicked] = useRecoilState(
+    states.IsClickedCheerBtnState,
+  );
+
   const { data: StoryData, mutate } = useSWR(
     getQueries.getStory(String(router.query.id)),
     fetcher,
   );
 
   const handleClickLike = async (
+    isClicked: boolean,
     pfId: string,
     storyId: string,
     userId?: string,
@@ -25,7 +32,9 @@ const VideoPage: NextPage = () => {
       {
         findStoryById: {
           ...StoryData.findStoryById,
-          cheerCount: StoryData.findStoryById.cheerCount + 1,
+          cheerCount: isClicked
+            ? StoryData.findStoryById.cheerCount - 1
+            : StoryData.findStoryById.cheerCount + 1,
         },
       },
       false,
@@ -39,6 +48,8 @@ const VideoPage: NextPage = () => {
       ) : (
         <Video
           storyData={StoryData.findStoryById}
+          isClicked={isClicked}
+          setIsClicked={setIsClicked}
           handleClickLike={handleClickLike}
         />
       )}

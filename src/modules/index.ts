@@ -63,12 +63,19 @@ const SelectDateTimeState = atom<{
   effects_UNSTABLE: [persistAtom],
 });
 
+const IsClickedCheerBtnState = atom<boolean>({
+  key: "IsClickedCheerBtnState",
+  default: false,
+  effects_UNSTABLE: [persistAtom],
+});
+
 const states = {
   PFDetailDataState,
   PageNumState,
   TicketNumState,
   AdditionalSupState,
   SelectDateTimeState,
+  IsClickedCheerBtnState,
 };
 
 export default states;
