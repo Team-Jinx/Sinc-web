@@ -4,9 +4,9 @@ import { useRecoilState } from "recoil";
 import fetcher from "src/apis";
 import { postQueries } from "src/apis/queries";
 import { Funding } from "src/components/templates";
-import { CreateUUID } from "src/libs";
+// import { CreateUUID } from "src/libs";
 import states from "src/modules";
-import { loadTossPayments } from "@tosspayments/sdk";
+// import { loadTossPayments } from "@tosspayments/sdk";
 import router from "next/router";
 
 const FundingPage: NextPage = () => {
