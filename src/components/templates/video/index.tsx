@@ -18,13 +18,13 @@ interface VideoProps {
 }
 const Video = ({ storyData, handleClickLike }: VideoProps) => {
   const router = useRouter();
-  const url =
-    "https://v58.tiktokcdn.com/video/tos/alisg/tos-alisg-pve-0037/51f31459109e408296c7b4d6767887d1/?VExpiration=1638065615&VSignature=OO8Kyj3PlCnRyEjupgVpoA&a=1180&br=2216&bt=1108&cd=0%7C0%7C0&ch=0&cr=0&cs=0&dr=3&ds=3&er=&ft=wZmOpFBrkag3-I&l=202111272013240102452431370E3B1E27&lr=tiktok&mime_type=video_mp4&net=0&pl=0&qs=0&rc=amt0bDU6Zjl0OTMzODgzNEApZjdnNTw8Zjs3NzY8NDNlZ2cwZy1scjRvLzBgLS1kLy1zc2IxM2NfYTBhMy40NF41LzY6Yw%3D%3D&vl=&vr=";
+
   return (
     <Container tag={TagImg}>
       <MainIcon className="main_icon" />
       <VideoWrap
-        src={url}
+        src={storyData.backgroundUrl}
+        preload="metadata"
         controls
         autoPlay
         loop

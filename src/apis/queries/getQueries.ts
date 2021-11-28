@@ -80,6 +80,7 @@ const getPopStories = (limit: number, offset: number) => `
 const getStory = (id: string) => `
   {
     findStoryById(id:"${id}"){
+      backgroundUrl
       cheerCount
       createdAt
       description
@@ -89,6 +90,7 @@ const getStory = (id: string) => `
         title
         posterUrl
         artist {
+          id
           agency
           name
         }
@@ -100,19 +102,7 @@ const getStory = (id: string) => `
 const getRandomStory = () => `
   {
     findStoryByRandom{
-      cheerCount
-      createdAt
-      description
       id
-      performanceId
-      performance{
-        title
-        posterUrl
-        artist {
-          agency
-          name
-        }
-      }
     }
   }
 `;

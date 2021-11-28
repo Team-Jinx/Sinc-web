@@ -128,6 +128,7 @@ const InfoWrap = styled.div<InfoWrapProps>`
 
   .date {
     height: 20px;
+    margin-bottom: 3px;
     line-height: 140%;
     font-weight: 300;
     font-size: ${({ type }) => (type === "list" ? " 1.4rem" : "1.3rem")};

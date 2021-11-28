@@ -16,10 +16,10 @@ const PopList = ({ data }: PopListProps) => {
       </div>
       <ListWrap>
         {data?.map((d) => (
-          <img
+          <video
             key={d.id}
             className="poster_img"
-            alt="poster_img"
+            preload="metadata"
             src={d.backgroundUrl}
             onClick={() => router.push(`/video/${d.id}`)}
           />

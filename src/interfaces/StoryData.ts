@@ -1,4 +1,5 @@
 export interface StoryDataProps {
+  backgroundUrl: string;
   cheerCount: number;
   createdAt: number;
   description?: string;
