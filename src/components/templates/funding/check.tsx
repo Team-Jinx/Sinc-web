@@ -228,7 +228,7 @@ const SupInfoWrap = styled.section`
     row-gap: 16px;
     p {
       all: unset;
-      height: 21px;
+      /* height: 21px; */
       font-size: 14px;
       line-height: 17px;
       color: var(--white);
