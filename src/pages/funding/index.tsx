@@ -4,10 +4,10 @@ import { useRecoilState } from "recoil";
 import fetcher from "src/apis";
 import { postQueries } from "src/apis/queries";
 import { Funding } from "src/components/templates";
-// import { CreateUUID } from "src/libs";
+import { CreateUUID } from "src/libs";
 import states from "src/modules";
-// import { loadTossPayments } from "@tosspayments/sdk";
-import router from "next/router";
+import { loadTossPayments } from "@tosspayments/sdk";
+// import router from "next/router";
 
 const FundingPage: NextPage = () => {
   const [pageNum, setPageNum] = useRecoilState(states.PageNumState);
@@ -32,17 +32,17 @@ const FundingPage: NextPage = () => {
   ) => {
     setIsLoaing(true);
     // 토스 페이먼츠 카드 결제
-    // const tossPayments = await loadTossPayments(CLIENT_KEY);
-    // tossPayments.requestPayment("카드", {
-    //   amount: additionalSup
-    //     ? ticketNum * PFDetailData.price + additionalSup
-    //     : ticketNum * PFDetailData.price,
-    //   orderId: PFDetailData.id + CreateUUID(),
-    //   orderName: PFDetailData.title + " 후원",
-    //   customerName: "user",
-    //   successUrl: `${DOMAIN}/funding/success`,
-    //   failUrl: `${DOMAIN}/funding`,
-    // });
+    const tossPayments = await loadTossPayments(CLIENT_KEY);
+    tossPayments.requestPayment("카드", {
+      amount: additionalSup
+        ? ticketNum * PFDetailData.price + additionalSup
+        : ticketNum * PFDetailData.price,
+      orderId: PFDetailData.id + CreateUUID(),
+      orderName: PFDetailData.title + " 후원",
+      customerName: "user",
+      successUrl: `${DOMAIN}/funding/success`,
+      failUrl: `${DOMAIN}/funding`,
+    });
     // api call
     const res = await fetcher(
       postQueries.postUserBoughtPF(
@@ -59,7 +59,7 @@ const FundingPage: NextPage = () => {
         res.createUsersBoughtPerformances.performance.fundingStatus,
     });
     setIsLoaing(false);
-    router.push("/funding/success");
+    // router.push("/funding/success");
   };
 
   return (
