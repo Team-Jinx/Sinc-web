@@ -61,6 +61,7 @@ const Container = styled.section`
 
 const StyledPFInfoBox = styled(PFInfoBox)`
   padding: 15px 20px 18px 20px;
+  margin-right: 17px;
   margin-bottom: 8px;
   box-sizing: border-box;
 `;

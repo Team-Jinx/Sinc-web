@@ -55,7 +55,7 @@ const Container = styled.section`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   p {
     all: unset;
     box-sizing: border-box;
@@ -79,13 +79,11 @@ const PosterImg = styled.img<PosterImgProps>`
   ${({ type }) =>
     type === "list"
       ? css`
-          width: 88px;
-          height: 122px
+          width: 98px;
           margin-right: 16px;
         `
       : css`
-          width: 99px;
-          height: 136px;
+          width: 109px;
           margin-right: 24px;
         `}
 `;
@@ -114,21 +112,21 @@ const InfoWrap = styled.div<InfoWrapProps>`
     ${({ type }) =>
       type === "list"
         ? css`
-            margin-bottom: 2.4rem;
-            font-size: 1.6rem;
-            line-height: 1.9rem;
+            margin-bottom: 24px;
+            font-size: 16px;
+            line-height: 19px;
           `
         : css`
-            margin-bottom: 1.9rem;
-            font-size: 1.7rem;
-            line-height: 2.2rem;
+            margin-bottom: 19px;
+            font-size: 17px;
+            line-height: 22px;
           `};
     color: var(--white);
   }
 
   .date {
     height: 20px;
-    margin-bottom: 3px;
+    margin-bottom: 5px;
     line-height: 140%;
     font-weight: 300;
     font-size: ${({ type }) => (type === "list" ? " 1.4rem" : "1.3rem")};

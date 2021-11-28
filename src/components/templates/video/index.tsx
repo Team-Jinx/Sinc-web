@@ -23,7 +23,7 @@ const Video = ({ storyData, handleClickLike }: VideoProps) => {
     <Container tag={TagImg}>
       <MainIcon className="main_icon" />
       <VideoWrap
-        src={storyData.backgroundUrl}
+        src={storyData.backgroundUrl + "#t=0.5"}
         preload="metadata"
         controls
         autoPlay
