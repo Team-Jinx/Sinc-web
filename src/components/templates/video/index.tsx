@@ -1,16 +1,13 @@
-import { useRouter } from "next/router";
-import { HandAtvIcon, HandIcon, MainIcon } from "src/assets/icon/common";
-import { TagImg } from "src/assets/img/video";
-import { Icon } from "src/components/atoms";
 import { TabBar } from "src/components/molecules";
 import { StoryDataProps } from "src/interfaces/StoryData";
-import { CalDateInterval } from "src/libs";
-import { format } from "friendly-numbers";
-import styled from "styled-components";
 import { SetterOrUpdater } from "recoil";
+import { BottomSheet, VideoBox } from "src/components/organisms";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import { useEffect, useState } from "react";
 
 interface VideoProps {
-  storyData: StoryDataProps;
+  storyData: StoryDataProps[];
   handleClickLike: (
     isClicked: boolean,
     pfId: string,
@@ -26,160 +23,49 @@ const Video = ({
   setIsClicked,
   handleClickLike,
 }: VideoProps) => {
-  const router = useRouter();
+  const [isOpen, setIsOpen] = useState(false);
+  const [slideNum, setSlideNum] = useState(0);
+
+  useEffect(() => {
+    console.log(slideNum);
+  }, [slideNum]);
 
   return (
-    <Container tag={TagImg}>
-      <MainIcon className="main_icon" />
-      <VideoWrap
-        src={storyData.backgroundUrl + "#t=0.5"}
-        preload="metadata"
-        controls
-        autoPlay
-        loop
-        playsInline
-        controlsList="nodownload"
-      />
-      <div className="tag">
-        {storyData.performance.artist?.agency +
-          storyData.performance.artist?.name}
-      </div>
-      <InfoWrap>
-        <p className="info_txt_1">{CalDateInterval(storyData.createdAt)}일전</p>
-        <p className="info_txt_2">{storyData.performance.title}</p>
-        <p className="info_txt_3">{storyData.description}</p>
-      </InfoWrap>
-      <DetailBtn
-        onClick={() => router.push(`/detail/${storyData.performanceId}`)}
-        url={storyData.performance.posterUrl}
-      />
-      <LikeWrap>
-        {isClicked ? (
-          <HandAtvIcon
-            onClick={() => {
-              handleClickLike(isClicked, storyData.performanceId, storyData.id);
-              setIsClicked(false);
-            }}
-            role="button"
-          />
-        ) : (
-          <HandIcon
-            onClick={() => {
-              handleClickLike(isClicked, storyData.performanceId, storyData.id);
-              setIsClicked(true);
-            }}
-            role="button"
-          />
-        )}
-        {format(storyData.cheerCount)}
-      </LikeWrap>
+    <>
+      <Swiper
+        className="video_swiper"
+        // direction="vertical"
+        initialSlide={0}
+        slidesPerView={1}
+        style={{
+          width: "100%",
+          height: "100%",
+        }}
+        onSlideChange={({ activeIndex }) => setSlideNum(activeIndex)}
+      >
+        {storyData.map((sd, idx) => {
+          return (
+            <SwiperSlide key={sd.id}>
+              <VideoBox
+                setIsOpen={setIsOpen}
+                storyData={sd}
+                isClicked={isClicked}
+                setIsClicked={setIsClicked}
+                handleClickLike={handleClickLike}
+                isPlay={idx === slideNum}
+              />
+              <BottomSheet
+                PFDetailData={sd.performance}
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+              />
+            </SwiperSlide>
+          );
+        })}
+      </Swiper>
       <TabBar />
-    </Container>
+    </>
   );
 };
 
 export default Video;
-
-interface ContainerProps {
-  tag: string;
-}
-const Container = styled.section<ContainerProps>`
-  .main_icon {
-    position: absolute;
-    z-index: 2;
-    top: 42px;
-    left: 18px;
-  }
-
-  .tag {
-    position: absolute;
-    z-index: 2;
-    top: 108px;
-    left: 0px;
-    width: 220px;
-    height: 52px;
-    padding-left: 20px;
-    background: url("${({ tag }) => tag}") center center / cover;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 32px;
-    color: var(--white);
-  }
-`;
-
-const VideoWrap = styled.video`
-  width: 100%;
-  height: 100vh;
-  padding-bottom: 54px;
-  object-fit: cover;
-`;
-
-const InfoWrap = styled.div`
-  position: absolute;
-  z-index: 2;
-  bottom: 146px;
-  left: 20px;
-  width: 236px;
-  height: 66px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  p {
-    all: unset;
-  }
-  .info_txt_1 {
-    font-size: 10px;
-    line-height: 14px;
-    color: var(--gray_200);
-  }
-  .info_txt_2 {
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 19px;
-    color: var(--white);
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    word-wrap: normal;
-    overflow: hidden;
-  }
-  .info_txt_3 {
-    font-size: 12px;
-    line-height: 17px;
-    color: var(--gray_200);
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    word-wrap: normal;
-    overflow: hidden;
-  }
-`;
-
-interface DetailBtnProps {
-  url?: string;
-}
-const DetailBtn = styled(Icon)<DetailBtnProps>`
-  position: absolute;
-  z-index: 2;
-  bottom: 215px;
-  right: 20px;
-  width: 43px;
-  height: 43px;
-  border: 1px solid var(--white);
-  border-radius: 10px;
-  background: url("${({ url }) => url}") center center / cover;
-`;
-
-const LikeWrap = styled(Icon)`
-  position: absolute;
-  z-index: 2;
-  bottom: 146px;
-  right: 22px;
-  width: 36px;
-  height: 53px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 12px;
-  line-height: 14px;
-  color: var(--white);
-`;

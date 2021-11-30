@@ -1,3 +1,5 @@
+import { PFDetailDataProps } from "./PFData";
+
 export interface StoryDataProps {
   backgroundUrl: string;
   cheerCount: number;
@@ -5,14 +7,7 @@ export interface StoryDataProps {
   description?: string;
   id: string;
   performanceId: string;
-  performance: {
-    title: string;
-    posterUrl?: string;
-    artist: {
-      agency: string;
-      name: string;
-    };
-  };
+  performance: PFDetailDataProps;
 }
 
 export interface PopStoriesDataProps {
