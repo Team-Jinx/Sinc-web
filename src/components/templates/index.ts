@@ -5,3 +5,4 @@ export { default as Funding } from "./funding";
 export { default as Detail } from "./detail";
 export { default as Mypage } from "./mypage";
 export { default as Loading } from "./loading";
+export { default as Login } from "./login";

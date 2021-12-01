@@ -13,6 +13,7 @@ function App({ Component, pageProps }: AppProps) {
           name="viewport"
           content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, "
         />
+        <script defer src="https://developers.kakao.com/sdk/js/kakao.js" />
       </Head>
       <RecoilRoot>
         <ThemeProvider theme={theme}>
