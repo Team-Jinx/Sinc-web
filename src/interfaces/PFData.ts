@@ -1,3 +1,4 @@
+import { ArtistDataProps } from "./ArtistData";
 import { CategoryType, ReservationTimeType, StatusType } from "./types";
 
 export interface PfDataQueryProps {
@@ -20,10 +21,7 @@ export interface PFInfoDataProps {
 
 export interface PFDetailDataProps {
   id: string;
-  artist: {
-    agency: string;
-    name: string;
-  };
+  artist: ArtistDataProps;
   artistId: string;
   amount: number;
   posterUrl?: string;
@@ -39,4 +37,16 @@ export interface PFDetailDataProps {
   totalTicketCount: number;
   ticketCount: number;
   cheerCount: number;
+  notifications: NotiDataProps[];
+}
+
+export interface NotiDataProps {
+  id: string;
+  message: string;
+  performanceId: string;
+  story: {
+    backgroundUrl: string;
+  };
+  storyId: string;
+  type: string;
 }

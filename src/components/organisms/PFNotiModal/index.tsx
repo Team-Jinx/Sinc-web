@@ -68,7 +68,7 @@ const Container = styled.section`
     all: unset;
     width: 100%;
     position: relative;
-    top: -7px;
+    top: -4px;
     display: flex;
     flex-direction: row;
     align-items: center;

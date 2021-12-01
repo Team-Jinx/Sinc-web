@@ -12,7 +12,7 @@ const PopList = ({ data }: PopListProps) => {
     <Container>
       <div className="list_header">
         <h1 className="pf_list_title">인기 있는 소식</h1>
-        <ArrowRight />
+        <ArrowRight onClick={() => router.push("/popular")} />
       </div>
       <ListWrap>
         {data?.map((d) => (

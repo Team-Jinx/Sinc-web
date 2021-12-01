@@ -29,7 +29,7 @@ const Container = styled.div`
   grid-template-columns: 40px auto 40px;
   align-items: flex-end;
   justify-items: center;
-  background-color: var(--black);
+  background-color: var(--gray_1000);
   font-weight: 500;
   font-size: 15.36px;
   line-height: 130%;

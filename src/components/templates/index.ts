@@ -6,3 +6,5 @@ export { default as Detail } from "./detail";
 export { default as Mypage } from "./mypage";
 export { default as Loading } from "./loading";
 export { default as Login } from "./login";
+export { default as Popular } from "./popular";
+export { default as Artist } from "./artist";

@@ -22,7 +22,7 @@ function App({ Component, pageProps }: AppProps) {
             style={{
               width: "100vw",
               height: "100vh",
-              backgroundColor: "var(--black)",
+              backgroundColor: "var(--gray_1000)",
               position: "absolute",
               zIndex: -1,
             }}

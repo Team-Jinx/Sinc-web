@@ -75,7 +75,7 @@ const Main = ({
       />
       <PFInfoWrap>
         <p className="artist_name">
-          {PFDetailData.artist?.agency + PFDetailData.artist?.name}
+          {PFDetailData.artist.agency + PFDetailData.artist.name}
         </p>
         <p className="pf_name">{PFDetailData.title}</p>
       </PFInfoWrap>
@@ -210,7 +210,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: var(--black);
+  background-color: var(--gray_1000);
 `;
 
 const PFInfoWrap = styled.section`
