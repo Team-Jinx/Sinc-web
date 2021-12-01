@@ -7,6 +7,7 @@ import { format } from "friendly-numbers";
 import styled from "styled-components";
 import { SetterOrUpdater } from "recoil";
 import { Dispatch, SetStateAction, useEffect, useRef } from "react";
+import { useRouter } from "next/router";
 
 interface VideoBoxProps {
   storyData: StoryDataProps;
@@ -30,6 +31,7 @@ const VideoBox = ({
   isPlay,
 }: VideoBoxProps) => {
   const video = useRef<HTMLVideoElement>(null);
+  const router = useRouter();
   useEffect(() => {
     setTimeout(() => {
       isPlay ? video.current?.play() : video.current?.pause();
@@ -42,8 +44,6 @@ const VideoBox = ({
       <VideoWrap
         src={storyData.backgroundUrl + "#t=0.5"}
         preload="metadata"
-        // controls={isPlay}
-        // autoPlay={isPlay}
         loop
         playsInline
         controlsList="nodownload"
@@ -59,7 +59,7 @@ const VideoBox = ({
         <p className="info_txt_3">{storyData.description}</p>
       </InfoWrap>
       <DetailBtn
-        onClick={() => setIsOpen(true)}
+        onClick={() => router.push(`/detail/${storyData.performanceId}`)}
         url={storyData.performance.posterUrl}
       />
       <LikeWrap>

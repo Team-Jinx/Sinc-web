@@ -7,6 +7,12 @@ export interface StoryDataProps {
   description?: string;
   id: string;
   performanceId: string;
+  // performance: {
+  //   artist: {
+  //     name: string;
+  //     agency: string;
+  //   };
+  // };
   performance: PFDetailDataProps;
 }
 

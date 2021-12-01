@@ -1,4 +1,4 @@
-import { CategoryType } from "src/interfaces/types";
+import { CategoryType, DirectionType } from "src/interfaces/types";
 
 const getAllPF = (category: CategoryType, title?: string, place?: string) => `{
     findPerformances(category:"${category}" 
@@ -27,7 +27,9 @@ const getPF = (id: string) => `{
         id
         artist { 
             agency
-              name				
+            name
+            id
+            profileUrl				
         }
         artistId
         amount
@@ -47,6 +49,16 @@ const getPF = (id: string) => `{
         totalTicketCount
         cheerCount
         ticketCount
+        notifications {
+          id
+          message
+          performanceId
+          story {
+            backgroundUrl
+          }
+          storyId
+          type
+        }
     }
 }`;
 
@@ -99,10 +111,34 @@ const getStory = (id: string) => `
   }
 `;
 
-const getRandomStory = () => `
+const getRandomStory = (
+  field?: string,
+  direction?: string,
+  cursor?: string,
+) => `
   {
-    findStoryByRandom{
-      id
+    findStoriesByRandom(
+      take: 5,
+      ${field !== undefined ? `field:"${field}",` : ""}
+      ${direction !== undefined ? `direction:${direction},` : ""}
+      ${cursor !== undefined ? `cursor:"${cursor}",` : ""}
+    ){
+      field
+      direction
+      data {
+        id
+        backgroundUrl
+        cheerCount
+        description
+        createdAt
+        performanceId
+        performance {
+          artist {
+            name
+            agency
+          }
+        }
+     }
     }
   }
 `;

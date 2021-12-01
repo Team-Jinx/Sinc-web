@@ -1,25 +1,77 @@
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import fetcher from "src/apis";
 import { getQueries, postQueries } from "src/apis/queries";
 import { Loading, Video } from "src/components/templates";
 import { StoryDataProps } from "src/interfaces/StoryData";
+import { DirectionType } from "src/interfaces/types";
 import states from "src/modules";
-import useSWR from "swr";
+import useSWRInfinite from "swr/infinite";
 
 interface VideoPageProps {
-  StoryData: StoryDataProps[];
+  InitStoryDataList: StoryDataProps[];
 }
-const VideoPage = ({ StoryData }: VideoPageProps) => {
+const VideoPage = ({ InitStoryDataList }: VideoPageProps) => {
   const router = useRouter();
   const [isClicked, setIsClicked] = useRecoilState(
     states.IsClickedCheerBtnState,
   );
 
-  // const { data: StoryData, mutate } = useSWR(
-  //   getQueries.getStory(String(router.query.id)),
-  //   fetcher,
-  // );
+  // const [pageIndex, setPageIndex] = useState(0);
+  const [query, setQuery] = useState<{
+    field?: string;
+    direction?: string;
+    cursor?: string;
+  }>({});
+  const [direction, setDirection] = useState("");
+  const [field, setField] = useState("");
+
+  const getKey = (pageIndex: number, previousPageData: any) => {
+    if (previousPageData && !previousPageData.length) return null;
+    return getQueries.getRandomStory(
+      query.field,
+      query.direction,
+      query.cursor,
+    );
+  };
+
+  const [storyDataList, setStoryDataList] = useState<StoryDataProps[]>([]);
+
+  const {
+    data,
+    mutate,
+    size: pageIndex,
+    setSize: setPageIndex,
+  } = useSWRInfinite(getKey, fetcher, {
+    initialSize: 1,
+    onSuccess: (data) => {
+      console.log(data);
+
+      setField(data[0].findStoriesByRandom.field);
+      setDirection(data[0].findStoriesByRandom.direction);
+      data.map((d) => {
+        setStoryDataList(storyDataList.concat(d.findStoriesByRandom.data));
+      });
+    },
+    // revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+  });
+
+  useEffect(() => {
+    console.log(storyDataList);
+  }, [storyDataList]);
+
+  const handleGetStory = async (storyId: string) => {
+    console.log("handle");
+    setQuery({
+      field: field,
+      direction: direction,
+      cursor: storyId,
+    });
+    setPageIndex(pageIndex + 1);
+  };
 
   const handleClickLike = async (
     isClicked: boolean,
@@ -43,12 +95,15 @@ const VideoPage = ({ StoryData }: VideoPageProps) => {
 
   return (
     <>
-      {!StoryData ? (
+      {!storyDataList ? (
         <Loading />
       ) : (
         <Video
-          // storyData={StoryData.findStoryById}
-          storyData={mockData}
+          // index={pageIndex}
+          // setIndex={setPageIndex}
+          storyData={storyDataList}
+          handleGetStory={handleGetStory}
+          // storyData={mockData}
           isClicked={isClicked}
           setIsClicked={setIsClicked}
           handleClickLike={handleClickLike}
@@ -60,11 +115,11 @@ const VideoPage = ({ StoryData }: VideoPageProps) => {
 
 export default VideoPage;
 
-VideoPage.getInitialProps = async () => {
-  const StoryData = await fetcher(getQueries.getRandomStory());
+// VideoPage.getInitialProps = async () => {
+//   const StoryData = await fetcher(getQueries.getRandomStory(5));
 
-  return { StoryData: StoryData.findStoryByRandom };
-};
+//   return { InitStoryDataList: StoryData.findStoriesByRandom };
+// };
 
 // mock-data
 const mockData = [
