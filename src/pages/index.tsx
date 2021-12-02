@@ -1,3 +1,4 @@
+import { AppContext } from "next/app";
 import { useState } from "react";
 import fetcher from "src/apis";
 import { getQueries } from "src/apis/queries";
@@ -6,6 +7,8 @@ import { Main } from "src/components/templates";
 import { PfDataQueryProps } from "src/interfaces/PFData";
 import { BannerDataType } from "src/interfaces/types";
 import useSWR from "swr";
+import cookies from "next-cookies";
+import { NextPageContext } from "next";
 
 const Home = () => {
   const [pfDataQuery, setPfDataQuery] = useState<PfDataQueryProps>({
@@ -40,6 +43,29 @@ const Home = () => {
 };
 
 export default Home;
+
+Home.getInitialProps = async (ctx: NextPageContext) => {
+  // 토큰
+  const allCookies = cookies(ctx);
+  const userToken = allCookies["access-token"];
+
+  // 로그인 되어있을 경우
+  if (userToken !== undefined) {
+    try {
+      const res = await fetcher(getQueries.getUserData());
+    } catch {
+      // 1일 마다 refresh token 발급
+      await fetcher(getQueries.getRefreshToken());
+    }
+  }
+  // 로그인 안 된 경우
+  // 로그인 페이지로 이동
+  else {
+    ctx.res?.writeHead(307, { Location: "/login" });
+    ctx.res?.end();
+  }
+  return {};
+};
 
 // mock data
 const BannerData: BannerDataType[] = [

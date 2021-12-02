@@ -1,6 +1,7 @@
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
 import { PFDetailDataProps } from "src/interfaces/PFData";
+import { UserDataProps } from "src/interfaces/UserData";
 
 const { persistAtom } = recoilPersist();
 
@@ -69,6 +70,16 @@ const IsClickedCheerBtnState = atom<boolean>({
   effects_UNSTABLE: [persistAtom],
 });
 
+const UserDataState = atom<UserDataProps>({
+  key: "UserDataState",
+  default: {
+    id: "",
+    nickname: "",
+    role: "",
+  },
+  effects_UNSTABLE: [persistAtom],
+});
+
 const states = {
   PFDetailDataState,
   PageNumState,
@@ -76,6 +87,7 @@ const states = {
   AdditionalSupState,
   SelectDateTimeState,
   IsClickedCheerBtnState,
+  UserDataState,
 };
 
 export default states;

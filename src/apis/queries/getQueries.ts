@@ -143,6 +143,42 @@ const getRandomStory = (
   }
 `;
 
+const getAccessToken = () => `
+  mutation{
+    loginByKakao {
+      accessToken
+    }
+  }
+`;
+
+const getRefreshToken = () => `
+  mutation{
+    loginByJwt {
+      accessToken
+    }
+  }
+`;
+
+const getUserData = () => `
+  {
+    checkJwt {
+      id
+      nickname
+      role
+      profileUrl
+    }
+  }
+`;
+
+const getUserDetailData = (userId: string) => `
+{
+  findUserById(id:"${userId}"){
+    isPushNotification
+    profileUrl
+  }
+}
+`;
+
 const getQueries = {
   getAllPF,
   getPF,
@@ -150,6 +186,10 @@ const getQueries = {
   getPopStories,
   getStory,
   getRandomStory,
+  getAccessToken,
+  getRefreshToken,
+  getUserData,
+  getUserDetailData,
 };
 
 export default getQueries;

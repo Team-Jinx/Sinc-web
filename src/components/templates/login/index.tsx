@@ -5,7 +5,7 @@ const Login = () => {
   return (
     <Container>
       <img alt="logo" className="logo" src={LogoImg} />
-      <a href={KAKAO_AUTH_URL}>
+      <a className="kakao_login_btn" href={KAKAO_AUTH_URL}>
         <KakaoBtn src={KakaoImg} />
       </a>
     </Container>
@@ -31,16 +31,14 @@ const Container = styled.div`
   .kakao_login_btn {
     position: fixed;
     bottom: 122px;
+    width: 100%;
+    padding: 0 20px;
   }
 `;
 
 interface KakaoBtnProps {
   src: string;
 }
-const KakaoBtn = styled.div<KakaoBtnProps>`
-  position: fixed;
-  bottom: 122px;
-  width: 320px;
-  height: 58px;
-  background: url(${({ src }) => src}) center center / cover;
+const KakaoBtn = styled.img<KakaoBtnProps>`
+  width: 100%;
 `;
