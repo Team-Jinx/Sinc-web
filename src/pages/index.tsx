@@ -1,6 +1,5 @@
-import { AppContext } from "next/app";
 import { useState } from "react";
-import fetcher from "src/apis";
+import fetcher, { getRefreshToken, setGraphQLClient } from "src/apis";
 import { getQueries } from "src/apis/queries";
 import { TodayArtist, TodayArtist2, TodayArtist3 } from "src/assets/img";
 import { Main } from "src/components/templates";
@@ -9,22 +8,24 @@ import { BannerDataType } from "src/interfaces/types";
 import useSWR from "swr";
 import cookies from "next-cookies";
 import { NextPageContext } from "next";
+import { useRecoilValue } from "recoil";
+import states from "src/modules";
 
 const Home = () => {
   const [pfDataQuery, setPfDataQuery] = useState<PfDataQueryProps>({
     category: "MUSIC",
   });
-  const { data: PFInfoDataList } = useSWR(
-    getQueries.getPopPF(pfDataQuery.category),
-    fetcher,
-    {
-      onSuccess: (data) => {
-        // date -> string으로 형 변환
-        console.log(data);
-      },
+  const userData = useRecoilValue(states.UserDataState);
+  const { data: PFInfoDataList } = useSWR(getQueries.getPopPF(), fetcher, {
+    onSuccess: (data) => {
+      // date -> string으로 형 변환
+      console.log(data);
     },
+  });
+  const { data: PopStories } = useSWR(
+    getQueries.getPopStories(10, 0, userData.id),
+    fetcher,
   );
-  const { data: PopStories } = useSWR(getQueries.getPopStories(10, 0), fetcher);
 
   return (
     <Main
@@ -52,10 +53,11 @@ Home.getInitialProps = async (ctx: NextPageContext) => {
   // 로그인 되어있을 경우
   if (userToken !== undefined) {
     try {
+      await setGraphQLClient(userToken);
       const res = await fetcher(getQueries.getUserData());
-    } catch {
+    } catch (e) {
       // 1일 마다 refresh token 발급
-      await fetcher(getQueries.getRefreshToken());
+      await getRefreshToken(userToken);
     }
   }
   // 로그인 안 된 경우

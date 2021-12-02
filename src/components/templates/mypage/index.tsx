@@ -5,21 +5,19 @@ import { TicketModal } from "src/components/organisms";
 import PFNotiModal from "src/components/organisms/PFNotiModal";
 import styled from "styled-components";
 
-const Mypage = () => {
+interface MyPageProps {
+  nickname: string;
+  profileImg?: string;
+}
+const Mypage = ({ nickname, profileImg }: MyPageProps) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
       <Container>
         <Header title="마이페이지" />
         <ProfileWrap tag={MypageTag}>
-          <img
-            alt="profile_img"
-            className="profile_img"
-            src={
-              "https://sinc-storage.s3.ap-northeast-2.amazonaws.com/night_of.png"
-            }
-          />
-          <p className="tag">{"연극조아"} 님</p>
+          <img alt="profile_img" className="profile_img" src={profileImg} />
+          <p className="tag">{nickname} 님</p>
         </ProfileWrap>
         <MenuWrap>
           <Menu>

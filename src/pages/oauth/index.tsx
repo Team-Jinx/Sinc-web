@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { useRecoilState } from "recoil";
-import fetcher, { loginByKakao, setGraphQLClient } from "src/apis";
+import { useSetRecoilState } from "recoil";
+import fetcher, { getAccessToken, setGraphQLClient } from "src/apis";
 import { getQueries } from "src/apis/queries";
 import { Loading } from "src/components/templates";
 import states from "src/modules";
@@ -11,18 +11,20 @@ interface OAuthProps {
 }
 const OAuth = ({ kakaoCode }: OAuthProps) => {
   const router = useRouter();
-  const [userData, setUserData] = useRecoilState(states.UserDataState);
+  const setUserData = useSetRecoilState(states.UserDataState);
 
   useEffect(() => {
     const handleLogin = async () => {
       try {
-        const res = await loginByKakao(kakaoCode);
-        await setGraphQLClient(res.accessToken);
+        // 로그인 성공
+        const res = await getAccessToken(kakaoCode);
+        await setGraphQLClient(res);
         const { checkJwt } = await fetcher(getQueries.getUserData());
         setUserData(checkJwt);
 
         router.replace("/");
       } catch (e) {
+        // 로그인 실패
         router.replace("/login");
       }
     };
@@ -37,7 +39,5 @@ export default OAuth;
 
 OAuth.getInitialProps = async (ctx: any) => {
   const kakaoCode = ctx.query.code;
-  // ctx.res.setHeader("access-token", res.accessToken);
-
   return { kakaoCode };
 };

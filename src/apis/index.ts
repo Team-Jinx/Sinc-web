@@ -1,4 +1,4 @@
-import { request, GraphQLClient } from "graphql-request";
+import { GraphQLClient } from "graphql-request";
 import cookie from "react-cookies";
 import { getQueries } from "./queries";
 
@@ -9,7 +9,7 @@ const graphQLClient = new GraphQLClient(API_URL, {
 });
 
 // access token 발급
-export const loginByKakao = async (code: string) => {
+export const getAccessToken = async (code: string) => {
   const graphQLLogin = new GraphQLClient(API_URL, {
     headers: {
       Authorization: code,
@@ -17,15 +17,12 @@ export const loginByKakao = async (code: string) => {
   });
 
   const res = await graphQLLogin.request(getQueries.getAccessToken());
-  return res.loginByKakao;
+  return res.loginByKakao.accessToken;
 };
 
-export const getRefreshToken = async () => {
+export const getRefreshToken = async (token: string) => {
   const res = await graphQLClient.request(getQueries.getRefreshToken());
-  graphQLClient.setHeader(
-    "Authorization",
-    "Bearer " + res.loginByJwt.accessToken,
-  );
+  await setGraphQLClient(res.loginByJwt.accessToken);
 };
 
 export const setGraphQLClient = async (accessToken: string) => {
