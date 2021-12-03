@@ -11,7 +11,12 @@ const PFDetailDataState = atom<PFDetailDataProps>({
     id: "",
     artist: {
       agency: "",
+      id: "",
       name: "",
+      profileUrl: "",
+      _count: {
+        performances: 0,
+      },
     },
     artistId: "",
     posterUrl: "",
@@ -34,7 +39,7 @@ const PFDetailDataState = atom<PFDetailDataProps>({
 
 const PageNumState = atom<number>({
   key: "PageNumState",
-  default: 0,
+  default: 1,
   effects_UNSTABLE: [persistAtom],
 });
 
@@ -64,12 +69,6 @@ const SelectDateTimeState = atom<{
   effects_UNSTABLE: [persistAtom],
 });
 
-const IsClickedCheerBtnState = atom<boolean>({
-  key: "IsClickedCheerBtnState",
-  default: false,
-  effects_UNSTABLE: [persistAtom],
-});
-
 const UserDataState = atom<UserDataProps>({
   key: "UserDataState",
   default: {
@@ -86,7 +85,6 @@ const states = {
   TicketNumState,
   AdditionalSupState,
   SelectDateTimeState,
-  IsClickedCheerBtnState,
   UserDataState,
 };
 

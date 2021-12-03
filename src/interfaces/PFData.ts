@@ -13,6 +13,7 @@ export interface PFInfoDataProps {
     agency: string;
     name: string;
   };
+  createdAt: number;
   posterUrl?: string;
   place: string;
   title: string;
@@ -37,16 +38,17 @@ export interface PFDetailDataProps {
   totalTicketCount: number;
   ticketCount: number;
   cheerCount: number;
-  notifications: NotiDataProps[];
 }
 
-export interface NotiDataProps {
-  id: string;
-  message: string;
-  performanceId: string;
-  story: {
-    backgroundUrl: string;
-  };
-  storyId: string;
-  type: string;
+export interface PostFDDataProps {
+  amount: number;
+  bank?: string;
+  donation: number;
+  paymentKey?: string;
+  pfId: string;
+  receiptUrl?: string;
+  orderId?: string;
+  reservationTimeId: string;
+  ticketCount: number;
+  userId: string;
 }

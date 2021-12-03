@@ -1,30 +1,36 @@
-const postUserBoughtPF = (
-  amount: number,
-  additionalSup: number,
-  pfId: string,
-  rvtId: string,
-  ticketNum: number,
-) => `
-    mutation {
-      createUsersBoughtPerformances(
-          usersBoughtPerformancesData: {
-              amount: ${amount},
-              bank: "",
-              donation: ${additionalSup},
-              orderId: "",
-              paymentKey: "",
-              performanceId: "${pfId}",
-              receiptUrl: "",
-              reservationTimeId: "${rvtId}",
-              ticketCount: ${ticketNum},
-              userId: "ckwgx985s0000ukireeh9of4m"
-            }
-        ) {
-          performance {
-            fundingStatus
-          }
-        }
+import { PostFDDataProps } from "src/interfaces/PFData";
+
+const postUserBoughtPF = ({
+  amount,
+  bank,
+  donation,
+  paymentKey,
+  pfId,
+  receiptUrl,
+  orderId,
+  reservationTimeId,
+  ticketCount,
+  userId,
+}: PostFDDataProps) => `
+  mutation {
+    createUsersBoughtPerformances(
+      usersBoughtPerformancesData: {
+        amount: ${amount},
+        bank: "${bank}",
+        donation: ${donation},
+        paymentKey:"${paymentKey}",
+        performanceId:"${pfId}",
+        orderId:"${orderId}",
+        receiptUrl:"${receiptUrl}",
+        reservationTimeId:"${reservationTimeId}",
+        ticketCount: ${ticketCount},
+        userId: "${userId}",
+      }
+    ) {
+      id
+      status
     }
+  }
 `;
 
 // @ts-ignore

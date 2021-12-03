@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import { useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import fetcher from "src/apis";
 import { postQueries } from "src/apis/queries";
 import { Funding } from "src/components/templates";
@@ -21,6 +21,8 @@ const FundingPage: NextPage = () => {
   const [selectDateTime, setSelectDateTime] = useRecoilState(
     states.SelectDateTimeState,
   );
+  const userData = useRecoilValue(states.UserDataState);
+
   const [isLoading, setIsLoaing] = useState(false);
 
   const handlePostUserBoughtPF = async (
@@ -39,24 +41,24 @@ const FundingPage: NextPage = () => {
         : ticketNum * PFDetailData.price,
       orderId: PFDetailData.id + CreateUUID(),
       orderName: PFDetailData.title + " 후원",
-      customerName: "user",
+      customerName: userData.nickname,
       successUrl: `${DOMAIN}/funding/success`,
       failUrl: `${DOMAIN}/funding`,
     });
     // api call
     const res = await fetcher(
-      postQueries.postUserBoughtPF(
+      postQueries.postUserBoughtPF({
         amount,
-        additionalSup,
+        donation: additionalSup,
         pfId,
-        rvtId,
-        ticketNum,
-      ),
+        reservationTimeId: rvtId,
+        ticketCount: ticketNum,
+        userId: userData.id,
+      }),
     );
     setPFDetailData({
       ...PFDetailData,
-      fundingStatus:
-        res.createUsersBoughtPerformances.performance.fundingStatus,
+      fundingStatus: res.createUsersBoughtPerformances.status,
     });
     setIsLoaing(false);
     // router.push("/funding/success");
