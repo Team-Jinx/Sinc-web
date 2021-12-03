@@ -12,7 +12,11 @@ const DancePFPage = () => {
     if (previousPageData && !previousPageData.findPerformances.length) {
       return null;
     }
-    return getQueries.getAllPF("DANCING", 15, pageIndex * 15);
+    return getQueries.getAllPF({
+      category: "DANCING",
+      limit: 15,
+      offset: pageIndex * 15,
+    });
   };
   const {
     data,

@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { MainIcon } from "src/assets/icon/common";
 import { NotiIcon, SearchIcon } from "src/assets/icon/main";
 import { Category, TabBar } from "src/components/molecules";
@@ -21,10 +22,14 @@ const Main = ({
   PopDataList,
   setCategory,
 }: MainProps) => {
+  const router = useRouter();
   return (
     <Conatainer>
       <MainIcon className="main_icon" />
-      <SearchIcon className="search_icon" />
+      <SearchIcon
+        className="search_icon"
+        onClick={() => router.push("/search")}
+      />
       <NotiIcon className="noti_icon" />
       <Banner data={BannerData} />
       <Category setCategory={(e: CategoryType) => setCategory(e)} />

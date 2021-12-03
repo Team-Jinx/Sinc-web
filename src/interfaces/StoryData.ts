@@ -23,9 +23,10 @@ export interface GetNoticeProps {
   artistId?: string;
   performanceId?: string;
   type?: string;
-  userId: string;
-  limit: number;
-  offset: number;
+  userId?: string;
+  limit?: number;
+  offset?: number;
+  keyword?: string;
 }
 
 export interface NoticeDataProps {

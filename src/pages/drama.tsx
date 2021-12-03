@@ -12,7 +12,7 @@ const DramaPFPage = () => {
     if (previousPageData && !previousPageData.findPerformances.length) {
       return null;
     }
-    return getQueries.getAllPF("ACTING", 15, pageIndex * 15);
+    return getQueries.("ACTING", 15, pageIndex * 15);
   };
   const {
     data,

@@ -9,3 +9,4 @@ export { default as Login } from "./login";
 export { default as Artist } from "./artist";
 export { default as PFInfoListView } from "./PFInfoListView";
 export { default as StoryListView } from "./StoryListView";
+export { default as Search } from "./search";
