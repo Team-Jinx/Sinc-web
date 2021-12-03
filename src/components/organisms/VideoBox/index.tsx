@@ -1,4 +1,9 @@
-import { HandAtvIcon, HandIcon, MainIcon } from "src/assets/icon/common";
+import {
+  FilterIcon,
+  HandAtvIcon,
+  HandIcon,
+  MainIcon,
+} from "src/assets/icon/common";
 import { Icon, Tag } from "src/components/atoms";
 import { StoryDataProps } from "src/interfaces/StoryData";
 import { CalDateInterval } from "src/libs";
@@ -17,6 +22,7 @@ interface VideoBoxProps {
     userId?: string,
   ) => Promise<void>;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
+  setIsCategoryModelOpen: Dispatch<SetStateAction<boolean>>;
   isPlay: boolean;
   type?: "story" | "notice";
   title?: string;
@@ -25,6 +31,7 @@ interface VideoBoxProps {
 const VideoBox = ({
   storyData,
   handleClickLike,
+  setIsCategoryModelOpen,
   setIsOpen,
   isPlay,
   type = "story",
@@ -36,12 +43,23 @@ const VideoBox = ({
   useEffect(() => {
     setTimeout(() => {
       isPlay ? video.current?.play() : video.current?.pause();
-    }, 100);
+    }, 200);
   }, [isPlay, video]);
 
   return (
     <Container onClick={() => setIsOpen(true)} type={type}>
-      {type === "story" && <MainIcon className="main_icon" />}
+      {type === "story" && (
+        <>
+          <MainIcon className="main_icon" />
+          <FilterIcon
+            className="filter_icon"
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsCategoryModelOpen(true);
+            }}
+          />
+        </>
+      )}
       {type === "notice" && (
         <Header>
           <ArrowLeftIcon onClick={() => router.back()} />
@@ -131,6 +149,13 @@ const Container = styled.section<ContainerProps>`
     z-index: 2;
     top: 42px;
     left: 18px;
+  }
+
+  .filter_icon {
+    position: absolute;
+    z-index: 4;
+    top: 36px;
+    right: 11px;
   }
 `;
 

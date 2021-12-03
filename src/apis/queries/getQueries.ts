@@ -187,6 +187,7 @@ const getRandomStory = (
   field?: string,
   direction?: string,
   cursor?: string,
+  category?: CategoryType,
 ) => `
   {
     findStoriesByRandom(
@@ -195,6 +196,7 @@ const getRandomStory = (
       ${field !== undefined ? `field:"${field}",` : ""}
       ${direction !== undefined ? `direction:${direction},` : ""}
       ${cursor !== undefined ? `cursor:"${cursor}",` : ""}
+      ${category !== undefined ? `category:${category},` : ""}
     ){
       field
       direction

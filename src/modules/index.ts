@@ -1,6 +1,7 @@
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
 import { PFDetailDataProps } from "src/interfaces/PFData";
+import { CategoryType } from "src/interfaces/types";
 import { UserDataProps } from "src/interfaces/UserData";
 
 const { persistAtom } = recoilPersist();
@@ -85,6 +86,12 @@ const NoticeIdxState = atom<number>({
   effects_UNSTABLE: [persistAtom],
 });
 
+const StoryCategoryState = atom<CategoryType | undefined>({
+  key: "StoryCategoryType",
+  default: undefined,
+  effects_UNSTABLE: [persistAtom],
+});
+
 const states = {
   PFDetailDataState,
   PageNumState,
@@ -93,6 +100,7 @@ const states = {
   SelectDateTimeState,
   UserDataState,
   NoticeIdxState,
+  StoryCategoryState,
 };
 
 export default states;

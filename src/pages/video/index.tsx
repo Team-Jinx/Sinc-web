@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import fetcher from "src/apis";
 import { getQueries, postQueries } from "src/apis/queries";
 import deleteQueries from "src/apis/queries/deleteQueries";
 import { Loading, Video } from "src/components/templates";
 import { StoryDataProps } from "src/interfaces/StoryData";
+import { CategoryType } from "src/interfaces/types";
 import states from "src/modules";
 import useSWRInfinite from "swr/infinite";
 
@@ -22,6 +23,7 @@ const VideoPage = () => {
   }>({});
   const [direction, setDirection] = useState("");
   const [field, setField] = useState("");
+  const [category, setCategory] = useRecoilState(states.StoryCategoryState);
 
   const getKey = (pageIndex: number, previousPageData: any) => {
     console.log(pageIndex);
@@ -31,6 +33,7 @@ const VideoPage = () => {
       query.field,
       query.direction,
       query.cursor,
+      category,
     );
   };
 
@@ -50,15 +53,12 @@ const VideoPage = () => {
           setStoryDataList(storyDataList.concat(d.findStoriesByRandom.data));
         });
       },
+      persistSize: false,
       // revalidateIfStale: false,
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
     },
   );
-
-  useEffect(() => {
-    console.log(storyDataList);
-  }, [storyDataList]);
 
   const handleGetStory = async (storyId: string) => {
     console.log("handle");
@@ -69,6 +69,16 @@ const VideoPage = () => {
     });
     setPageIndex(pageIndex + 1);
   };
+
+  const handleChangeCategory = (category: CategoryType | undefined) => {
+    setStoryDataList([]);
+    setCategory(category);
+    // window.location.reload();
+  };
+
+  useEffect(() => {
+    console.log(storyDataList);
+  }, [storyDataList]);
 
   const handleClickLike = async (
     isClicked: boolean,
@@ -115,6 +125,8 @@ const VideoPage = () => {
         <Loading />
       ) : (
         <Video
+          category={category}
+          handleChangeCategory={handleChangeCategory}
           storyData={storyDataList}
           handleGetStory={handleGetStory}
           handleClickLike={handleClickLike}
