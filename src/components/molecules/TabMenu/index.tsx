@@ -29,6 +29,7 @@ const Container = styled.menu`
   justify-content: space-around;
   border-bottom: 1px solid var(--gray_600);
   margin: 0;
+  margin-bottom: 6.8px;
   padding: 0;
 `;
 

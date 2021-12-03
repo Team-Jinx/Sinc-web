@@ -1,11 +1,10 @@
 import { CategoryType, DirectionType } from "src/interfaces/types";
 
 const getAllPF = (category: CategoryType, title?: string, place?: string) => `{
-    findPerformances(category:"${category}" 
-    ${title !== undefined ? `,title:"${title}"` : ""} ${
-  place !== undefined ? `,place:"${place}` : ""
-} ) 
-    {
+  findPerformances(
+    ${title !== undefined ? `,title:"${title}",` : ""} 
+    ${place !== undefined ? `,place:"${place}` : ""}
+  ) {
       id
       artist { 
         agency
@@ -29,7 +28,10 @@ const getPF = (id: string) => `{
             agency
             name
             id
-            profileUrl				
+            profileUrl
+            _count {
+              performances
+            }			
         }
         artistId
         amount
@@ -49,16 +51,6 @@ const getPF = (id: string) => `{
         totalTicketCount
         cheerCount
         ticketCount
-        notifications {
-          id
-          message
-          performanceId
-          story {
-            backgroundUrl
-          }
-          storyId
-          type
-        }
     }
 }`;
 
@@ -183,6 +175,35 @@ const getRandomStory = (
   }
 `;
 
+const getNotice = ({
+  artistId,
+  performanceId,
+  type,
+  userId,
+  limit,
+  offset,
+}: GetNoticeProps) => `
+  {
+    findStories(
+      ${artistId ? `artistId:"${artistId}",` : ""}
+      ${performanceId ? `performanceId:"${performanceId}",` : ""}
+      ${type ? `type:${type},` : ""}
+      userId:"${userId}",
+      take:${limit},
+      skip:${offset},
+    ) {
+      id
+      imageUrl
+      videoUrl
+      type
+      notifications {
+        id
+        storyId
+      }
+    }
+  }
+`;
+
 const getAccessToken = () => `
   mutation{
     loginByKakao {
@@ -245,6 +266,7 @@ const getQueries = {
   getRefreshToken,
   getUserData,
   getUserDetailData,
+  getNotice,
   getUserCheeredPF,
 };
 

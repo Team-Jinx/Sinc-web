@@ -12,12 +12,22 @@ import styled from "styled-components";
 import { ArrowLeftIcon, ShareIcon } from "src/assets/icon/header";
 import { CalDateInterval, ExtractPeriodAsStr } from "src/libs";
 import { DetailTab } from "src/components/organisms";
+import { NoticeDataProps } from "src/interfaces/StoryData";
 
 interface DetailProps {
   PFDetailData: PFDetailDataProps;
   handleInitializeData: () => void;
+  NotiDatas: NoticeDataProps[];
+  pageIndex: number;
+  setPageIndex: (size: number) => Promise<(any[] | undefined)[] | undefined>;
 }
-const Detail = ({ PFDetailData, handleInitializeData }: DetailProps) => {
+const Detail = ({
+  PFDetailData,
+  handleInitializeData,
+  NotiDatas,
+  pageIndex,
+  setPageIndex,
+}: DetailProps) => {
   const router = useRouter();
 
   const handleClickBottom = () => {
@@ -75,7 +85,9 @@ const Detail = ({ PFDetailData, handleInitializeData }: DetailProps) => {
         showTime={PFDetailData.showTime}
         posterUrl={PFDetailData.posterUrl}
         description={PFDetailData.description}
-        NotiDatas={PFDetailData.notifications}
+        NotiDatas={NotiDatas}
+        pageIndex={pageIndex}
+        setPageIndex={setPageIndex}
       />
       <Bottom type="primary" onClick={handleClickBottom}>
         펀딩하기

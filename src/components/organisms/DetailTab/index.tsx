@@ -1,20 +1,24 @@
 import { useState } from "react";
 import { TabMenu } from "src/components/molecules";
 import NotiList from "src/components/molecules/NotiList";
-import { NotiDataProps } from "src/interfaces/PFData";
+import { NoticeDataProps } from "src/interfaces/StoryData";
 import styled from "styled-components";
 
 interface DetailTabProps {
   showTime: string;
   posterUrl?: string;
   description?: string;
-  NotiDatas: NotiDataProps[];
+  NotiDatas: NoticeDataProps[];
+  pageIndex: number;
+  setPageIndex: (size: number) => Promise<(any[] | undefined)[] | undefined>;
 }
 const DetailTab = ({
   showTime,
   posterUrl,
   description,
   NotiDatas,
+  pageIndex,
+  setPageIndex,
 }: DetailTabProps) => {
   const [menu, setMenu] = useState<"desc" | "noti">("desc");
 
@@ -31,7 +35,11 @@ const DetailTab = ({
           <p className="pf_desc">{description}</p>
         </DescWrap>
       ) : (
-        <NotiList NotiDatas={NotiDatas} />
+        <NotiList
+          NotiDatas={NotiDatas}
+          pageIndex={pageIndex}
+          setPageIndex={setPageIndex}
+        />
       )}
     </Container>
   );
