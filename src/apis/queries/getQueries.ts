@@ -1,3 +1,4 @@
+import { GetNoticeProps } from "src/interfaces/StoryData";
 import { CategoryType, DirectionType } from "src/interfaces/types";
 
 const getAllPF = (category: CategoryType, title?: string, place?: string) => `{
@@ -268,6 +269,28 @@ const getUserDetailData = (userId: string) => `
 }
 `;
 
+const getUserBoughtPF = (userId: string, limit: number, offset: number) => `
+  {
+    findUsersBoughtPerformances(
+      userId:"${userId}",
+      take: ${limit},
+      skip: ${offset},
+    ){
+      performance {
+        id
+        createdAt
+        posterUrl
+        place
+        title
+        reservationTimes {
+          id
+          toReserveAt
+        }
+      }
+    }
+  }
+`;
+
 const getUserCheeredPF = (userId: string, limit: number, offset: number) => `
 {
   findUsersCheeredPerformances(
@@ -296,6 +319,8 @@ const getQueries = {
   getUserDetailData,
   getArtist,
   getNotice,
+  getArtistPF,
+  getUserBoughtPF,
   getUserCheeredPF,
 };
 

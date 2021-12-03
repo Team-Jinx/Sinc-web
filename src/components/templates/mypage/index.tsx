@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { ArrowRight, MypageTag } from "src/assets/icon/common";
 import { Header, TabBar } from "src/components/molecules";
@@ -11,6 +12,7 @@ interface MyPageProps {
 }
 const Mypage = ({ nickname, profileImg }: MyPageProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
   return (
     <>
       <Container>
@@ -23,10 +25,10 @@ const Mypage = ({ nickname, profileImg }: MyPageProps) => {
           <Menu>
             개인정보 <ArrowRight />
           </Menu>
-          <Menu>
+          <Menu onClick={() => router.push("/mypage/cheered")}>
             응원 내역 <ArrowRight />
           </Menu>
-          <Menu>
+          <Menu onClick={() => router.push("/mypage/funding")}>
             펀딩 내역 <ArrowRight />
           </Menu>
           <Menu>
