@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { Dispatch, SetStateAction } from "react";
 import {
   Filter1Img,
   Filter2Img,
@@ -11,20 +11,19 @@ import {
   FilterBlack4Img,
   FilterBlack5Img,
 } from "src/assets/img";
+import { CategoryType } from "src/interfaces/types";
 import styled, { css, keyframes } from "styled-components";
 
 interface CategoryBottomSheetProps {
-  category: "MUSIC" | "DANCING" | "ACTING" | "OTHER" | null;
-  setCategory: Dispatch<
-    SetStateAction<"MUSIC" | "DANCING" | "ACTING" | "OTHER" | null>
-  >;
+  category: CategoryType | undefined;
+  handleChangeCategory: (category: CategoryType | undefined) => void;
   isCategoryModelOpen: boolean;
   setIsCategoryModelOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 const CategoryBottomSheet = ({
   category,
-  setCategory,
+  handleChangeCategory,
   isCategoryModelOpen,
   setIsCategoryModelOpen,
 }: CategoryBottomSheetProps) => {
@@ -36,31 +35,31 @@ const CategoryBottomSheet = ({
       <Container isOpen={isCategoryModelOpen}>
         <Line />
         <CategoryButton
-          onClick={() => setCategory(null)}
-          src={category === null ? Filter1Img.src : FilterBlack1Img.src}
+          onClick={() => handleChangeCategory(undefined)}
+          src={category === undefined ? Filter1Img.src : FilterBlack1Img.src}
         >
           <p>전체</p>
         </CategoryButton>
         <CategoryButton
-          onClick={() => setCategory("MUSIC")}
+          onClick={() => handleChangeCategory("MUSIC")}
           src={category === "MUSIC" ? Filter2Img.src : FilterBlack2Img.src}
         >
           <p>음악</p>
         </CategoryButton>
         <CategoryButton
-          onClick={() => setCategory("DANCING")}
+          onClick={() => handleChangeCategory("DANCING")}
           src={category === "DANCING" ? Filter3Img.src : FilterBlack3Img.src}
         >
           <p>츰</p>
         </CategoryButton>
         <CategoryButton
-          onClick={() => setCategory("ACTING")}
+          onClick={() => handleChangeCategory("ACTING")}
           src={category === "ACTING" ? Filter4Img.src : FilterBlack4Img.src}
         >
           <p>극</p>
         </CategoryButton>
         <CategoryButton
-          onClick={() => setCategory("OTHER")}
+          onClick={() => handleChangeCategory("OTHER")}
           src={category === "OTHER" ? Filter5Img.src : FilterBlack5Img.src}
         >
           <p>그 외</p>

@@ -43,7 +43,7 @@ const VideoBox = ({
   useEffect(() => {
     setTimeout(() => {
       isPlay ? video.current?.play() : video.current?.pause();
-    }, 100);
+    }, 200);
   }, [isPlay, video]);
 
   return (

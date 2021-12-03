@@ -34,7 +34,7 @@ export const setGraphQLClient = async (accessToken: string) => {
   cookie.save("access-token", accessToken, {
     path: "/",
     expires,
-    httpOnly: process.env.NODE_ENV === "production", // dev/prod 에 따라 false / true 로 받게 했다.
+    httpOnly: false, // dev/prod 에 따라 false / true 로 받게 했다.
   });
 };
 

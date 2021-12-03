@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 import fetcher from "src/apis";
 import { getQueries, postQueries } from "src/apis/queries";
 import deleteQueries from "src/apis/queries/deleteQueries";
 import { Loading, Video } from "src/components/templates";
 import { StoryDataProps } from "src/interfaces/StoryData";
+import { CategoryType } from "src/interfaces/types";
 import states from "src/modules";
 import useSWRInfinite from "swr/infinite";
 
@@ -22,9 +23,7 @@ const VideoPage = () => {
   }>({});
   const [direction, setDirection] = useState("");
   const [field, setField] = useState("");
-  const [category, setCategory] = useState<
-    "MUSIC" | "DANCING" | "ACTING" | "OTHER" | null
-  >(null);
+  const [category, setCategory] = useRecoilState(states.StoryCategoryState);
 
   const getKey = (pageIndex: number, previousPageData: any) => {
     console.log(pageIndex);
@@ -34,6 +33,7 @@ const VideoPage = () => {
       query.field,
       query.direction,
       query.cursor,
+      category,
     );
   };
 
@@ -59,10 +59,6 @@ const VideoPage = () => {
     },
   );
 
-  useEffect(() => {
-    console.log(storyDataList);
-  }, [storyDataList]);
-
   const handleGetStory = async (storyId: string) => {
     console.log("handle");
     setQuery({
@@ -71,6 +67,11 @@ const VideoPage = () => {
       cursor: storyId,
     });
     setPageIndex(pageIndex + 1);
+  };
+
+  const handleChangeCategory = (category: CategoryType | undefined) => {
+    setCategory(category);
+    window.location.reload();
   };
 
   const handleClickLike = async (
@@ -119,7 +120,7 @@ const VideoPage = () => {
       ) : (
         <Video
           category={category}
-          setCategory={setCategory}
+          handleChangeCategory={handleChangeCategory}
           storyData={storyDataList}
           handleGetStory={handleGetStory}
           handleClickLike={handleClickLike}

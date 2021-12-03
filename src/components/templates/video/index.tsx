@@ -7,14 +7,13 @@ import {
 } from "src/components/organisms";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
+import { CategoryType } from "src/interfaces/types";
 
 interface VideoProps {
   storyData: StoryDataProps[];
-  category: "MUSIC" | "DANCING" | "ACTING" | "OTHER" | null;
-  setCategory: Dispatch<
-    SetStateAction<"MUSIC" | "DANCING" | "ACTING" | "OTHER" | null>
-  >;
+  category: CategoryType | undefined;
+  handleChangeCategory: (category: CategoryType | undefined) => void;
   handleGetStory: (storyId: string, isPrev?: boolean) => Promise<void>;
   handleClickLike: (
     isClicked: boolean,
@@ -29,7 +28,7 @@ interface VideoProps {
 const Video = ({
   storyData,
   category,
-  setCategory,
+  handleChangeCategory,
   handleGetStory,
   handleClickLike,
   type = "story",
@@ -87,7 +86,7 @@ const Video = ({
         })}
         <CategoryBottomSheet
           category={category}
-          setCategory={setCategory}
+          handleChangeCategory={handleChangeCategory}
           isCategoryModelOpen={isCategoryModelOpen}
           setIsCategoryModelOpen={setIsCategoryModelOpen}
         />

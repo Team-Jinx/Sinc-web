@@ -22,8 +22,7 @@ const OAuth = () => {
           await setGraphQLClient(res);
           const { checkJwt } = await fetcher(getQueries.getUserData());
           setUserData(checkJwt);
-
-          router.replace("/");
+          router.push("/");
         } catch (e) {
           // 로그인 실패
           router.replace("/login");
