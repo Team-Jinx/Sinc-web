@@ -1,7 +1,7 @@
 import { TabBar } from "src/components/molecules";
 import { StoryDataProps } from "src/interfaces/StoryData";
 import { BottomSheet, VideoBox } from "src/components/organisms";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide } from "swiper/react/swiper-react.js";
 import "swiper/css";
 import { useState } from "react";
 
