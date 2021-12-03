@@ -1,17 +1,27 @@
 import { GetNoticeProps } from "src/interfaces/StoryData";
 import { CategoryType } from "src/interfaces/types";
 
-const getAllPF = (
-  category: CategoryType,
-  limit: number,
-  offset: number,
-  title?: string,
-  place?: string,
-) => `{
+interface getAllPFProps {
+  limit?: number;
+  offset?: number;
+  category?: CategoryType;
+  keyword?: string;
+  title?: string;
+  place?: string;
+}
+const getAllPF = ({
+  limit,
+  offset,
+  category,
+  keyword,
+  title,
+  place,
+}: getAllPFProps) => `{
   findPerformances(
-    category: "${category}",
-    take: ${limit},
-    skip: ${offset},
+    ${category !== undefined ? `category: "${category}",` : ""}
+    ${keyword !== undefined ? `keyword: "${keyword}",` : ""}
+    ${limit !== undefined ? `take: ${limit},` : ""}
+    ${offset !== undefined ? `skip: ${offset},` : ""}
     ${title !== undefined ? `,title:"${title}",` : ""} 
     ${place !== undefined ? `,place:"${place}` : ""}
   ) {
@@ -132,9 +142,16 @@ const getPopStories = (limit: number, offset: number, userId: string) => `
   }
 `;
 
-const getStory = (id: string, userId: string) => `
+interface getStoryProps {
+  id?: string;
+  userId?: string;
+}
+const getStory = ({ id, userId }: getStoryProps) => `
   {
-    findStoryById(id:"${id}", userId:"${userId}"){
+    findStoryById(
+      ${id !== undefined ? `id:"${id}",` : ""} 
+      ${userId !== undefined ? `userId:"${userId}",` : ""}
+    ){
       videoUrl
       cheerCount
       createdAt
@@ -220,15 +237,17 @@ const getNotice = ({
   userId,
   limit,
   offset,
+  keyword,
 }: GetNoticeProps) => `
   {
     findStories( 
-      ${artistId ? `artistId:"${artistId}",` : ""}
-      ${performanceId ? `performanceId:"${performanceId}",` : ""}
-      ${type ? `type:${type},` : ""}
-      userId:"${userId}",
-      take:${limit},
-      skip:${offset},
+      ${artistId !== undefined ? `artistId:"${artistId}",` : ""}
+      ${performanceId !== undefined ? `performanceId:"${performanceId}",` : ""}
+      ${type !== undefined ? `type:${type},` : ""}
+      ${userId !== undefined ? `userId:"${userId}",` : ""}
+      ${limit !== undefined ? `take:${limit},` : ""}
+      ${offset !== undefined ? `skip:${offset},` : ""}
+      ${keyword !== undefined ? `keyword:"${keyword}",` : ""}
     ) {
       id
       imageUrl

@@ -1,9 +1,7 @@
 import styled from "styled-components";
 import { NoticeDataProps } from "src/interfaces/StoryData";
-import { useRouter } from "next/router";
-import { forwardRef, RefObject, useEffect, useState } from "react";
-import { useSetRecoilState } from "recoil";
-import states from "src/modules";
+import { useEffect, useState } from "react";
+import { Item } from "src/components/atoms";
 
 interface NotiListProps {
   NotiDatas: NoticeDataProps[];
@@ -70,64 +68,4 @@ const Container = styled.section`
   column-gap: 1px;
   row-gap: 1px;
   background-color: var(--gray_1000);
-`;
-
-interface ItemProps {
-  isVideo: boolean;
-  url: string;
-  isAd: boolean;
-  id: number;
-}
-const Item = forwardRef(
-  (
-    { isVideo, url, isAd, id }: ItemProps,
-    ref?:
-      | ((instance: HTMLDivElement | null) => void)
-      | RefObject<HTMLDivElement>
-      | null
-      | undefined,
-  ) => {
-    const router = useRouter();
-    const setNotiInx = useSetRecoilState(states.NoticeIdxState);
-    return (
-      <ItemWrap
-        onClick={() => {
-          setNotiInx(id);
-          router.push(`/video/notice`);
-        }}
-        ref={ref}
-      >
-        {isAd && <span className="noti_tag">공지</span>}
-        {isVideo ? (
-          <video className="item" src={url} />
-        ) : (
-          <img alt="item" className="item" src={url} />
-        )}
-      </ItemWrap>
-    );
-  },
-);
-
-const ItemWrap = styled.div`
-  width: 100%;
-  height: 180px;
-
-  .noti_tag {
-    position: absolute;
-    z-index: 2;
-    transform: translate(7px, 7px);
-    background: var(--gray_800);
-    border-radius: 4px;
-    padding: 1px 7px;
-    font-weight: 600;
-    font-size: 12px;
-    line-height: 150%;
-    color: var(--white);
-  }
-
-  .item {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
 `;

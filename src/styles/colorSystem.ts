@@ -5,6 +5,7 @@ const ColorSystem = css`
     --white: #ffffff;
     --gray_1000: #141414;
     --gray_900: #222222;
+    --gray_850: #2b2b2b;
     --gray_800: #3b3b3b;
     --gray_700: #515151;
     --gray_600: #626262;

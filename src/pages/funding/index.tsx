@@ -43,7 +43,7 @@ const FundingPage: NextPage = () => {
       orderName: PFDetailData.title + " 후원",
       customerName: userData.nickname,
       successUrl: `${DOMAIN}/funding/success`,
-      failUrl: `${DOMAIN}/funding`,
+      failUrl: `${DOMAIN}/funding/success`,
     });
     // api call
     const res = await fetcher(

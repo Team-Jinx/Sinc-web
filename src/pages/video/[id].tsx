@@ -16,7 +16,7 @@ const VideoPage: NextPage = () => {
 
   const userData = useRecoilValue(states.UserDataState);
   const { data: StoryData, mutate } = useSWR(
-    getQueries.getStory(String(router.query.id), userData.id),
+    getQueries.getStory({ id: String(router.query.id), userId: userData.id }),
     fetcher,
   );
 
