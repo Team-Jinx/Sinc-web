@@ -54,10 +54,10 @@ Home.getInitialProps = async (ctx: NextPageContext) => {
   if (userToken !== undefined) {
     try {
       await setGraphQLClient(userToken);
-      const res = await fetcher(getQueries.getUserData());
+      await fetcher(getQueries.getUserData());
     } catch (e) {
       // 1일 마다 refresh token 발급
-      await getRefreshToken(userToken);
+      await getRefreshToken();
     }
   }
   // 로그인 안 된 경우

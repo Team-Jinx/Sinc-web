@@ -16,7 +16,6 @@ const DancePFPage = () => {
   };
   const {
     data,
-    mutate,
     size: pageIndex,
     setSize: setPageIndex,
   } = useSWRInfinite(getKey, fetcher, {

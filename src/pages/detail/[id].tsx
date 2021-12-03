@@ -2,9 +2,9 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import fetcher from "src/apis";
-import { getQueries, postQueries } from "src/apis/queries";
+import { getQueries } from "src/apis/queries";
 import { Detail } from "src/components/templates";
-import { PFDetailDataProps, PostFDDataProps } from "src/interfaces/PFData";
+import { PFDetailDataProps } from "src/interfaces/PFData";
 import { NoticeDataProps } from "src/interfaces/StoryData";
 import states from "src/modules";
 import useSWR from "swr";
@@ -43,22 +43,21 @@ const DetailPage = ({ initPFDetailData }: DetailPageProps) => {
       offset: pageIndex * 15,
     });
   };
-  const {
-    data,
-    mutate,
-    size: pageIndex,
-    setSize: setPageIndex,
-  } = useSWRInfinite(getKey, fetcher, {
-    onSuccess: (data) => {
-      data.map((d) => {
-        setNotiList(notiList.concat(d.findStories));
-      });
+  const { size: pageIndex, setSize: setPageIndex } = useSWRInfinite(
+    getKey,
+    fetcher,
+    {
+      onSuccess: (data) => {
+        data.map((d) => {
+          setNotiList(notiList.concat(d.findStories));
+        });
+      },
+      errorRetryCount: 3,
+      revalidateAll: true,
+      // persistSize: true,
+      // revalidateOnFocus: false,
     },
-    errorRetryCount: 3,
-    revalidateAll: true,
-    // persistSize: true,
-    // revalidateOnFocus: false,
-  });
+  );
 
   // 유저가 선택한 데이터
   const setPageNum = useSetRecoilState(states.PageNumState);

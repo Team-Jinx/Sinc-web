@@ -20,7 +20,7 @@ export const getAccessToken = async (code: string) => {
   return res.loginByKakao.accessToken;
 };
 
-export const getRefreshToken = async (token: string) => {
+export const getRefreshToken = async () => {
   const res = await graphQLClient.request(getQueries.getRefreshToken());
   await setGraphQLClient(res.loginByJwt.accessToken);
 };

@@ -24,7 +24,6 @@ const MYFundingPage = () => {
   };
   const {
     data,
-    mutate,
     size: pageIndex,
     setSize: setPageIndex,
   } = useSWRInfinite(getKey, fetcher, {
@@ -32,7 +31,7 @@ const MYFundingPage = () => {
       data.map((d) => {
         setPFList(
           PFList.concat(
-            d.findUsersBoughtPerformances.map((fbp) => fbp.performance),
+            d.findUsersBoughtPerformances.map((fbp: any) => fbp.performance),
           ),
         );
       });

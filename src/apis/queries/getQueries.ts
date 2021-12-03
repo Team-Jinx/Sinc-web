@@ -1,5 +1,5 @@
 import { GetNoticeProps } from "src/interfaces/StoryData";
-import { CategoryType, DirectionType } from "src/interfaces/types";
+import { CategoryType } from "src/interfaces/types";
 
 const getAllPF = (
   category: CategoryType,

@@ -24,25 +24,25 @@ const NoticePage = () => {
 
   const [storyDataList, setStoryDataList] = useState<StoryDataProps[]>([]);
 
-  const {
-    data,
-    mutate,
-    size: pageIndex,
-    setSize: setPageIndex,
-  } = useSWRInfinite(getKey, fetcher, {
-    initialSize: 1,
-    onSuccess: (data) => {
-      console.log(data);
-      data.map((d) => {
-        setStoryDataList(storyDataList.concat(d.findStories));
-      });
+  const { size: pageIndex, setSize: setPageIndex } = useSWRInfinite(
+    getKey,
+    fetcher,
+    {
+      initialSize: 1,
+      onSuccess: (data) => {
+        console.log(data);
+        data.map((d) => {
+          setStoryDataList(storyDataList.concat(d.findStories));
+        });
+      },
+      // revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
     },
-    // revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-  });
+  );
 
   const handleGetStory = async (storyId: string) => {
+    console.log(storyId);
     setPageIndex(pageIndex + 1);
   };
 
@@ -53,7 +53,7 @@ const NoticePage = () => {
     cheerId?: string,
   ) => {
     if (isClicked) {
-      const res = await fetcher(deleteQueries.deleteCheerPF(cheerId || ""));
+      await fetcher(deleteQueries.deleteCheerPF(cheerId || ""));
       setStoryDataList(
         storyDataList.map((d) => {
           if (d.id == storyId)

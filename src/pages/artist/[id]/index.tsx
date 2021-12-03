@@ -32,22 +32,21 @@ const ArtistPage = ({ artistId }: ArtistPageProps) => {
       offset: pageIndex * 15,
     });
   };
-  const {
-    data,
-    mutate,
-    size: pageIndex,
-    setSize: setPageIndex,
-  } = useSWRInfinite(getKey, fetcher, {
-    onSuccess: (data) => {
-      data.map((d) => {
-        setNotiList(notiList.concat(d.findStories));
-      });
+  const { size: pageIndex, setSize: setPageIndex } = useSWRInfinite(
+    getKey,
+    fetcher,
+    {
+      onSuccess: (data) => {
+        data.map((d) => {
+          setNotiList(notiList.concat(d.findStories));
+        });
+      },
+      errorRetryCount: 3,
+      revalidateAll: true,
+      // persistSize: true,
+      // revalidateOnFocus: false,
     },
-    errorRetryCount: 3,
-    revalidateAll: true,
-    // persistSize: true,
-    // revalidateOnFocus: false,
-  });
+  );
 
   return (
     <>
@@ -70,14 +69,4 @@ export default ArtistPage;
 ArtistPage.getInitialProps = async (ctx: NextPageContext) => {
   const artistId = ctx.query.id;
   return { artistId };
-};
-
-// mock data
-const mock_art = {
-  agency: "서울예술대 실용음악과",
-  id: "hihi",
-  name: "동아리명",
-  profileUrl:
-    "https://sinc-storage.s3.ap-northeast-2.amazonaws.com/Rectangle+1095.svg",
-  performances: [],
 };

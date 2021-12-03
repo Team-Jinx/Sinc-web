@@ -1,20 +1,16 @@
 import { NextPageContext } from "next";
 import router from "next/router";
 import { useState } from "react";
-import { useRecoilValue } from "recoil";
 import fetcher from "src/apis";
 import { getQueries } from "src/apis/queries";
 import { Loading, PFInfoListView } from "src/components/templates";
 import { PFInfoDataProps } from "src/interfaces/PFData";
-import states from "src/modules";
 import useSWRInfinite from "swr/infinite";
 
 interface ArtistPageProps {
   artistId: string;
 }
 const ArtistPage = ({ artistId }: ArtistPageProps) => {
-  const userData = useRecoilValue(states.UserDataState);
-
   // 업로드 영상 데이터
   const [PFList, setPFList] = useState<PFInfoDataProps[]>([]);
   const getKey = (pageIndex: number, previousPageData: any) => {
@@ -25,7 +21,6 @@ const ArtistPage = ({ artistId }: ArtistPageProps) => {
   };
   const {
     data,
-    mutate,
     size: pageIndex,
     setSize: setPageIndex,
   } = useSWRInfinite(getKey, fetcher, {
