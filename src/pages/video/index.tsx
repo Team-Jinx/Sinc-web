@@ -22,6 +22,9 @@ const VideoPage = () => {
   }>({});
   const [direction, setDirection] = useState("");
   const [field, setField] = useState("");
+  const [category, setCategory] = useState<
+    "MUSIC" | "DANCING" | "ACTING" | "OTHER" | null
+  >(null);
 
   const getKey = (pageIndex: number, previousPageData: any) => {
     console.log(pageIndex);
@@ -115,6 +118,8 @@ const VideoPage = () => {
         <Loading />
       ) : (
         <Video
+          category={category}
+          setCategory={setCategory}
           storyData={storyDataList}
           handleGetStory={handleGetStory}
           handleClickLike={handleClickLike}

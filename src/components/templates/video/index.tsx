@@ -1,12 +1,20 @@
 import { TabBar } from "src/components/molecules";
 import { StoryDataProps } from "src/interfaces/StoryData";
-import { BottomSheet, VideoBox } from "src/components/organisms";
+import {
+  BottomSheet,
+  VideoBox,
+  CategoryBottomSheet,
+} from "src/components/organisms";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 interface VideoProps {
   storyData: StoryDataProps[];
+  category: "MUSIC" | "DANCING" | "ACTING" | "OTHER" | null;
+  setCategory: Dispatch<
+    SetStateAction<"MUSIC" | "DANCING" | "ACTING" | "OTHER" | null>
+  >;
   handleGetStory: (storyId: string, isPrev?: boolean) => Promise<void>;
   handleClickLike: (
     isClicked: boolean,
@@ -20,6 +28,8 @@ interface VideoProps {
 }
 const Video = ({
   storyData,
+  category,
+  setCategory,
   handleGetStory,
   handleClickLike,
   type = "story",
@@ -27,6 +37,7 @@ const Video = ({
   artist = "",
 }: VideoProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isCategoryModelOpen, setIsCategoryModelOpen] = useState(false);
   const [slideNum, setSlideNum] = useState(0);
 
   return (
@@ -54,6 +65,7 @@ const Video = ({
             <SwiperSlide key={sd.id}>
               <VideoBox
                 setIsOpen={setIsOpen}
+                setIsCategoryModelOpen={setIsCategoryModelOpen}
                 storyData={sd}
                 handleClickLike={handleClickLike}
                 isPlay={idx === slideNum}
@@ -73,6 +85,12 @@ const Video = ({
             </SwiperSlide>
           );
         })}
+        <CategoryBottomSheet
+          category={category}
+          setCategory={setCategory}
+          isCategoryModelOpen={isCategoryModelOpen}
+          setIsCategoryModelOpen={setIsCategoryModelOpen}
+        />
       </Swiper>
       {type === "story" && <TabBar />}
     </>
