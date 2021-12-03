@@ -72,19 +72,47 @@ const getPopPF = () => `
   }
 `;
 
-const getPopStories = (limit: number, offset: number) => `
+const getArtist = (artisId: string) => `
   {
-    findPopularStories(limit:${limit}, offset:${offset}){
-      backgroundUrl
+    findArtistById(id:"${artisId}") {
       id
+      agency
+      name
+      description
+      inquiryLink
+      performances {
+        id
+        posterUrl
+        title
+        reservationTimes {
+          id
+          toReserveAt
+        }
+        place
+      }
+      profileUrl
     }
   }
 `;
 
-const getStory = (id: string) => `
+const getArtistPF = (artistId: string, limit: number, offset: number) => `
   {
-    findStoryById(id:"${id}"){
-      backgroundUrl
+    findPerformances(artistId:"${artistId}", take:${limit}, skip:${offset}) {
+        id
+        posterUrl
+        place
+        artist {
+          agency
+          name
+        }
+        reservationTimes {
+          id
+          toReserveAt
+        }
+      }
+  }
+`;
+
 const getPopStories = (limit: number, offset: number, userId: string) => `
   {
     findPopularStories(limit:${limit}, offset:${offset}, userId:"${userId}"){
@@ -266,6 +294,7 @@ const getQueries = {
   getRefreshToken,
   getUserData,
   getUserDetailData,
+  getArtist,
   getNotice,
   getUserCheeredPF,
 };

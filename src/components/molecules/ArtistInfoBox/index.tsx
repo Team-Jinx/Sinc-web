@@ -25,7 +25,7 @@ const ArtistInfoBox = ({ artistData }: ArtistInfoBoxProps) => {
             />
           </p>
           <p className="info_inner__funding">
-            진행한 펀딩 <b>{4}개</b>
+            진행한 펀딩 <b>{artistData._count?.performances}개</b>
           </p>
         </div>
       </div>

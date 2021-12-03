@@ -5,5 +5,17 @@ export interface ArtistDataProps {
   id: string;
   name: string;
   profileUrl?: string;
+  _count?: {
+    performances: number;
+  };
+}
+
+export interface ArtistDetailDataProps {
+  id: string;
+  agency: string;
+  name: string;
+  description?: string;
+  inquiryLink?: string;
   performances: PFInfoDataProps[];
+  profileUrl?: string;
 }

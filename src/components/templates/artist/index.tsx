@@ -1,17 +1,26 @@
+import { useRouter } from "next/router";
 import { Btn } from "src/components/atoms";
 import { PFInfoBox } from "src/components/molecules";
 import NotiList from "src/components/molecules/NotiList";
-import { ArtistDataProps } from "src/interfaces/ArtistData";
-import { NotiDataProps } from "src/interfaces/PFData";
+import { ArtistDetailDataProps } from "src/interfaces/ArtistData";
+import { NoticeDataProps } from "src/interfaces/StoryData";
 import { ExtractPeriodAsStr } from "src/libs";
 import styled from "styled-components";
 
 interface ArtistProps {
-  artistData: ArtistDataProps;
-  NotiDatas: NotiDataProps[];
+  artistData: ArtistDetailDataProps;
+  NotiDatas: NoticeDataProps[];
+  pageIndex: number;
+  setPageIndex: (size: number) => Promise<(any[] | undefined)[] | undefined>;
 }
 
-const Artist = ({ artistData, NotiDatas }: ArtistProps) => {
+const Artist = ({
+  artistData,
+  NotiDatas,
+  pageIndex,
+  setPageIndex,
+}: ArtistProps) => {
+  const router = useRouter();
   return (
     <Container>
       <ArtistInfoWrap url={artistData.profileUrl}>
@@ -20,25 +29,32 @@ const Artist = ({ artistData, NotiDatas }: ArtistProps) => {
             <p className="name_wrap__name">{artistData.name}</p>
             <p className="name_wrap__agency">{artistData.agency}</p>
           </div>
-          <QnABtn type="empty" onClick={() => "question"}>
+          <QnABtn
+            type="empty"
+            onClick={() => window.open(artistData.inquiryLink, "blank")}
+          >
             문의하기
           </QnABtn>
         </div>
-        <p className="info_desc">
-          {"안녕하세요! 저희는 어어어디 어디어디 입니다~!"}
-        </p>
+        <p className="info_desc">{artistData.description}</p>
       </ArtistInfoWrap>
       <FDInfoList>
         <div className="info_top">
           <InfoTitle>아티스트가 진행 중인 펀딩</InfoTitle>
-          <p className="info_top__btn">더보기 &gt;</p>
+          <p
+            className="info_top__btn"
+            onClick={() => router.push(`/artist/${artistData.id}/detail`)}
+          >
+            더보기 &gt;
+          </p>
         </div>
-        {artistData.performances.map((p, idx) => {
-          idx < 2 && (
-            <PFInfoBox
-              type="list"
+        {artistData.performances.map((p) => {
+          return (
+            <StyledPFInfoBox
+              key={p.id}
+              type="detail"
               url={p.posterUrl}
-              univName={p.artist.agency + " " + p.artist.name}
+              univName={artistData.agency + " " + artistData.name}
               title={p.title}
               date={ExtractPeriodAsStr(p.reservationTimes)}
               location={p.place}
@@ -47,10 +63,15 @@ const Artist = ({ artistData, NotiDatas }: ArtistProps) => {
           );
         })}
       </FDInfoList>
-      <InfoTitle style={{ padding: "0 20px" }}>
+      <InfoTitle style={{ padding: "0 20px", marginBottom: "24px" }}>
         아티스트가 업로드 한 영상
       </InfoTitle>
-      <NotiList NotiDatas={NotiDatas} />
+      <div style={{ height: "24px" }} />
+      <NotiList
+        NotiDatas={NotiDatas}
+        pageIndex={pageIndex}
+        setPageIndex={setPageIndex}
+      />
     </Container>
   );
 };
@@ -59,6 +80,7 @@ export default Artist;
 
 const Container = styled.div`
   width: 100%;
+  background-color: var(--gray_1000);
 `;
 
 interface ArtistInfoWrapProps {
@@ -125,6 +147,7 @@ const FDInfoList = styled.section`
   flex-direction: column;
 
   .info_top {
+    margin-bottom: 29px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -138,11 +161,15 @@ const FDInfoList = styled.section`
   }
 `;
 
+const StyledPFInfoBox = styled(PFInfoBox)`
+  padding: 0 0;
+  margin-bottom: 36px;
+`;
+
 const InfoTitle = styled.p`
   all: unset;
   font-weight: 600;
   font-size: 16px;
   line-height: 19px;
   color: var(--white);
-  margin-bottom: 24px;
 `;
