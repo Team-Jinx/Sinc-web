@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import {
   FilmIcon,
   MusicIcon,
@@ -12,12 +13,16 @@ interface CategoryProps {
   setCategory: (e: CategoryType) => void;
 }
 const Category = ({ setCategory }: CategoryProps) => {
+  const router = useRouter();
   return (
     <Container>
       <Icon
         className="category_btn"
         role="button"
-        onClick={() => setCategory("MUSIC")}
+        onClick={() => {
+          setCategory("MUSIC");
+          router.push("music");
+        }}
       >
         <MusicIcon />
         <p>음악</p>
@@ -25,7 +30,10 @@ const Category = ({ setCategory }: CategoryProps) => {
       <Icon
         className="category_btn"
         role="button"
-        onClick={() => setCategory("DANCING")}
+        onClick={() => {
+          setCategory("DANCING");
+          router.push("dance");
+        }}
       >
         <SpeakerIcon />
         <p>춤</p>
@@ -33,7 +41,10 @@ const Category = ({ setCategory }: CategoryProps) => {
       <Icon
         className="category_btn"
         role="button"
-        onClick={() => setCategory("ACTING")}
+        onClick={() => {
+          setCategory("ACTING");
+          router.push("drama");
+        }}
       >
         <FilmIcon />
         <p>극</p>
@@ -41,7 +52,10 @@ const Category = ({ setCategory }: CategoryProps) => {
       <Icon
         className="category_btn"
         role="button"
-        onClick={() => setCategory("OTHER")}
+        onClick={() => {
+          setCategory("OTHER");
+          router.push("other");
+        }}
       >
         <PlusIcon />
         <p>그 외</p>

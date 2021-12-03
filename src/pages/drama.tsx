@@ -1,26 +1,18 @@
 import router from "next/router";
-import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useState } from "react";
 import fetcher from "src/apis";
 import { getQueries } from "src/apis/queries";
 import { Loading, PFInfoListView } from "src/components/templates";
 import { PFInfoDataProps } from "src/interfaces/PFData";
-import states from "src/modules";
 import useSWRInfinite from "swr/infinite";
 
-const MYFundingPage = () => {
-  const userData = useRecoilValue(states.UserDataState);
-
-  // 업로드 영상 데이터
+const DramaPFPage = () => {
   const [PFList, setPFList] = useState<PFInfoDataProps[]>([]);
   const getKey = (pageIndex: number, previousPageData: any) => {
-    if (
-      previousPageData &&
-      !previousPageData.findUsersBoughtPerformances.length
-    ) {
+    if (previousPageData && !previousPageData.findPerformances.length) {
       return null;
     }
-    return getQueries.getUserBoughtPF(userData.id, 15, pageIndex * 15);
+    return getQueries.getAllPF("ACTING", 15, pageIndex * 15);
   };
   const {
     data,
@@ -30,11 +22,7 @@ const MYFundingPage = () => {
   } = useSWRInfinite(getKey, fetcher, {
     onSuccess: (data) => {
       data.map((d) => {
-        setPFList(
-          PFList.concat(
-            d.findUsersBoughtPerformances.map((fbp) => fbp.performance),
-          ),
-        );
+        setPFList(PFList.concat(d.findPerformances));
       });
     },
     errorRetryCount: 3,
@@ -43,21 +31,18 @@ const MYFundingPage = () => {
     // revalidateOnFocus: false,
   });
 
-  useEffect(() => {
-    console.log(PFList);
-  }, [PFList]);
-
   return (
     <>
       {data ? (
         <PFInfoListView
-          title="펀딩 내역"
+          title="극"
           handleClickBack={() => {
             router.back();
           }}
           pfData={PFList}
           pageIndex={pageIndex}
           setPageIndex={setPageIndex}
+          type="category"
         />
       ) : (
         <Loading />
@@ -66,4 +51,4 @@ const MYFundingPage = () => {
   );
 };
 
-export default MYFundingPage;
+export default DramaPFPage;

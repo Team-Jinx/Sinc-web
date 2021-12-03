@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { ArrowLeftIcon } from "src/assets/icon/header";
+import { Btn } from "src/components/atoms";
 import { Header, PFInfoBox } from "src/components/molecules";
 import { PFInfoDataProps } from "src/interfaces/PFData";
 import { ConvertDateStr, ExtractPeriodAsStr } from "src/libs";
@@ -12,6 +13,7 @@ interface PFInfoListViewProps {
   pfData: PFInfoDataProps[];
   pageIndex: number;
   setPageIndex: (size: number) => Promise<(any[] | undefined)[] | undefined>;
+  type?: "category" | "other";
 }
 const PFInfoListView = ({
   title,
@@ -19,6 +21,7 @@ const PFInfoListView = ({
   pfData,
   pageIndex,
   setPageIndex,
+  type = "other",
 }: PFInfoListViewProps) => {
   const router = useRouter();
 
@@ -51,11 +54,14 @@ const PFInfoListView = ({
   }, [target]);
 
   return (
-    <Container>
+    <Container type={type}>
       <Header
         title={title}
         leftIcon={<ArrowLeftIcon onClick={handleClickBack} />}
       />
+      <StyledBtn type="gray" onClick={() => "new"}>
+        최신순
+      </StyledBtn>
       <PFListWrap>
         {pfData.map((p, idx) => {
           return (
@@ -105,10 +111,25 @@ const PFInfoListView = ({
 
 export default PFInfoListView;
 
-const Container = styled.div`
+interface ContainerProps {
+  type: "category" | "other";
+}
+const Container = styled.div<ContainerProps>`
   width: 100%;
-  padding-top: 103px;
+  padding-top: ${({ type }) => (type === "category" ? " 117px" : " 103px")};
   background-color: var(--gray_1000);
+`;
+
+const StyledBtn = styled(Btn)`
+  position: fixed;
+  top: 73px;
+  right: 20px;
+  width: fit-content;
+  border-radius: 4px;
+  padding: 1px 10px 3px;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 150%;
 `;
 
 const PFListWrap = styled.section`

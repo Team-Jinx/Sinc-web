@@ -1,8 +1,17 @@
 import { GetNoticeProps } from "src/interfaces/StoryData";
 import { CategoryType, DirectionType } from "src/interfaces/types";
 
-const getAllPF = (category: CategoryType, title?: string, place?: string) => `{
+const getAllPF = (
+  category: CategoryType,
+  limit: number,
+  offset: number,
+  title?: string,
+  place?: string,
+) => `{
   findPerformances(
+    category: "${category}",
+    take: ${limit},
+    skip: ${offset},
     ${title !== undefined ? `,title:"${title}",` : ""} 
     ${place !== undefined ? `,place:"${place}` : ""}
   ) {
