@@ -22,7 +22,7 @@ interface VideoBoxProps {
     userId?: string,
   ) => Promise<void>;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
-  setIsCategoryModelOpen: Dispatch<SetStateAction<boolean>>;
+  setIsCategoryModelOpen?: Dispatch<SetStateAction<boolean>>;
   isPlay: boolean;
   type?: "story" | "notice";
   title?: string;
@@ -55,7 +55,7 @@ const VideoBox = ({
             className="filter_icon"
             onClick={(e) => {
               e.stopPropagation();
-              setIsCategoryModelOpen(true);
+              setIsCategoryModelOpen && setIsCategoryModelOpen(true);
             }}
           />
         </>

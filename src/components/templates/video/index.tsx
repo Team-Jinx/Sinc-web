@@ -12,8 +12,8 @@ import { CategoryType } from "src/interfaces/types";
 
 interface VideoProps {
   storyData: StoryDataProps[];
-  category: CategoryType | undefined;
-  handleChangeCategory: (category: CategoryType | undefined) => void;
+  category?: CategoryType | undefined;
+  handleChangeCategory?: (category: CategoryType | undefined) => void;
   handleGetStory: (storyId: string, isPrev?: boolean) => Promise<void>;
   handleClickLike: (
     isClicked: boolean,
@@ -84,12 +84,14 @@ const Video = ({
             </SwiperSlide>
           );
         })}
-        <CategoryBottomSheet
-          category={category}
-          handleChangeCategory={handleChangeCategory}
-          isCategoryModelOpen={isCategoryModelOpen}
-          setIsCategoryModelOpen={setIsCategoryModelOpen}
-        />
+        {handleChangeCategory && (
+          <CategoryBottomSheet
+            category={category}
+            handleChangeCategory={handleChangeCategory}
+            isCategoryModelOpen={isCategoryModelOpen}
+            setIsCategoryModelOpen={setIsCategoryModelOpen}
+          />
+        )}
       </Swiper>
       {type === "story" && <TabBar />}
     </>
