@@ -1,8 +1,9 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import fetcher from "src/apis";
 import { getQueries, postQueries } from "src/apis/queries";
+import deleteQueries from "src/apis/queries/deleteQueries";
 import { Loading, VideoOne } from "src/components/templates";
 import states from "src/modules";
 import useSWR from "swr";
@@ -12,12 +13,10 @@ import useSWR from "swr";
 // }
 const VideoPage: NextPage = () => {
   const router = useRouter();
-  const [isClicked, setIsClicked] = useRecoilState(
-    states.IsClickedCheerBtnState,
-  );
 
+  const userData = useRecoilValue(states.UserDataState);
   const { data: StoryData, mutate } = useSWR(
-    getQueries.getStory(String(router.query.id)),
+    getQueries.getStory(String(router.query.id), userData.id),
     fetcher,
   );
 
@@ -25,20 +24,37 @@ const VideoPage: NextPage = () => {
     isClicked: boolean,
     pfId: string,
     storyId: string,
-    userId?: string,
+    cheerId?: string,
   ) => {
-    await fetcher(postQueries.postCheerPF(pfId, storyId, userId));
-    mutate(
-      {
-        findStoryById: {
-          ...StoryData.findStoryById,
-          cheerCount: isClicked
-            ? StoryData.findStoryById.cheerCount - 1
-            : StoryData.findStoryById.cheerCount + 1,
+    if (isClicked) {
+      const res = await fetcher(deleteQueries.deleteCheerPF(cheerId || ""));
+      mutate(
+        {
+          findStoryById: {
+            ...StoryData.findStoryById,
+            cheerCount: StoryData.findStoryById.cheerCount - 1,
+            usersCheeredPerformances: [],
+          },
         },
-      },
-      false,
-    );
+        false,
+      );
+    } else {
+      const res = await fetcher(
+        postQueries.postCheerPF(pfId, storyId, userData.id),
+      );
+      mutate(
+        {
+          findStoryById: {
+            ...StoryData.findStoryById,
+            cheerCount: StoryData.findStoryById.cheerCount + 1,
+            usersCheeredPerformances: [
+              { id: res.createUsersCheeredPerformances.id },
+            ],
+          },
+        },
+        false,
+      );
+    }
   };
 
   return (
@@ -47,10 +63,7 @@ const VideoPage: NextPage = () => {
         <Loading />
       ) : (
         <VideoOne
-          // storyData={StoryData.findStoryById}
-          storyData={mockData}
-          isClicked={isClicked}
-          setIsClicked={setIsClicked}
+          storyData={StoryData.findStoryById}
           handleClickLike={handleClickLike}
         />
       )}

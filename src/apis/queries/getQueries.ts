@@ -93,25 +93,41 @@ const getStory = (id: string) => `
   {
     findStoryById(id:"${id}"){
       backgroundUrl
+const getStory = (id: string, userId: string) => `
+  {
+    findStoryById(id:"${id}", userId:"${userId}"){
+      videoUrl
       cheerCount
       createdAt
       description
       id
+      ticketCount
+      amount
       performanceId
-      performance{
+      performance {
+        artist {
+          name
+          agency
+        }
         title
         posterUrl
-        artist {
+        place
+        reservationTimes {
           id
-          agency
-          name
+          toReserveAt
         }
+        totalTicketCount
+        cheerCount
+      }
+      usersCheeredPerformances {
+        id
       }
     }
   }
 `;
 
 const getRandomStory = (
+  userId: string,
   field?: string,
   direction?: string,
   cursor?: string,
@@ -119,6 +135,7 @@ const getRandomStory = (
   {
     findStoriesByRandom(
       take: 5,
+      userId:"${userId}",
       ${field !== undefined ? `field:"${field}",` : ""}
       ${direction !== undefined ? `direction:${direction},` : ""}
       ${cursor !== undefined ? `cursor:"${cursor}",` : ""}
@@ -127,18 +144,32 @@ const getRandomStory = (
       direction
       data {
         id
-        backgroundUrl
+        amount
+        videoUrl
         cheerCount
         description
         createdAt
+        ticketCount
         performanceId
         performance {
           artist {
             name
             agency
           }
+          title
+          posterUrl
+          place
+          reservationTimes {
+            id
+            toReserveAt
+          }
+          totalTicketCount
+          cheerCount
         }
-     }
+        usersCheeredPerformances {
+          id
+        }
+      }
     }
   }
 `;
@@ -179,6 +210,21 @@ const getUserDetailData = (userId: string) => `
 }
 `;
 
+const getUserCheeredPF = (userId: string, limit: number, offset: number) => `
+{
+  findUsersCheeredPerformances(
+    userId:"${userId}",
+    take: ${limit},
+    skip: ${offset},
+  ){
+    story {
+      id
+      videoUrl
+    }
+  }
+}
+`;
+
 const getQueries = {
   getAllPF,
   getPF,
@@ -190,6 +236,7 @@ const getQueries = {
   getRefreshToken,
   getUserData,
   getUserDetailData,
+  getUserCheeredPF,
 };
 
 export default getQueries;

@@ -8,10 +8,18 @@ import styled, { css, keyframes } from "styled-components";
 
 interface BottomSheetProps {
   PFDetailData: PFDetailDataProps;
+  ticketCount: number;
+  amount: number;
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
-const BottomSheet = ({ PFDetailData, isOpen, setIsOpen }: BottomSheetProps) => {
+const BottomSheet = ({
+  PFDetailData,
+  ticketCount,
+  amount,
+  isOpen,
+  setIsOpen,
+}: BottomSheetProps) => {
   const router = useRouter();
   return (
     <>
@@ -27,11 +35,9 @@ const BottomSheet = ({ PFDetailData, isOpen, setIsOpen }: BottomSheetProps) => {
           location={PFDetailData.place}
         />
         <StyledFDInfoBox
-          soldTicket={PFDetailData.ticketCount}
-          leftTicket={PFDetailData.totalTicketCount - PFDetailData.ticketCount}
-          percent={
-            (PFDetailData.ticketCount / PFDetailData.totalTicketCount) * 100
-          }
+          soldTicket={ticketCount}
+          leftTicket={PFDetailData.totalTicketCount - ticketCount}
+          percent={(ticketCount / PFDetailData.totalTicketCount) * 100}
           leftPeriod={
             -CalDateInterval(
               PFDetailData.reservationTimes[
@@ -39,7 +45,7 @@ const BottomSheet = ({ PFDetailData, isOpen, setIsOpen }: BottomSheetProps) => {
               ].toReserveAt,
             )
           }
-          totalPrice={PFDetailData.amount}
+          totalPrice={amount}
           likeNum={PFDetailData.cheerCount}
         />
         <StyledBtn

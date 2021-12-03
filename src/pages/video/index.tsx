@@ -1,11 +1,11 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import fetcher from "src/apis";
 import { getQueries, postQueries } from "src/apis/queries";
+import deleteQueries from "src/apis/queries/deleteQueries";
 import { Loading, Video } from "src/components/templates";
 import { StoryDataProps } from "src/interfaces/StoryData";
-import { DirectionType } from "src/interfaces/types";
 import states from "src/modules";
 import useSWRInfinite from "swr/infinite";
 
@@ -14,9 +14,7 @@ interface VideoPageProps {
 }
 const VideoPage = ({ InitStoryDataList }: VideoPageProps) => {
   const router = useRouter();
-  const [isClicked, setIsClicked] = useRecoilState(
-    states.IsClickedCheerBtnState,
-  );
+  const userData = useRecoilValue(states.UserDataState);
 
   // const [pageIndex, setPageIndex] = useState(0);
   const [query, setQuery] = useState<{
@@ -30,6 +28,7 @@ const VideoPage = ({ InitStoryDataList }: VideoPageProps) => {
   const getKey = (pageIndex: number, previousPageData: any) => {
     if (previousPageData && !previousPageData.length) return null;
     return getQueries.getRandomStory(
+      userData.id,
       query.field,
       query.direction,
       query.cursor,
@@ -77,20 +76,39 @@ const VideoPage = ({ InitStoryDataList }: VideoPageProps) => {
     isClicked: boolean,
     pfId: string,
     storyId: string,
-    userId?: string,
+    cheerId?: string,
   ) => {
-    await fetcher(postQueries.postCheerPF(pfId, storyId, userId));
-    // mutate(
-    //   {
-    //     findStoryById: {
-    //       ...StoryData.findStoryById,
-    //       cheerCount: isClicked
-    //         ? StoryData.findStoryById.cheerCount - 1
-    //         : StoryData.findStoryById.cheerCount + 1,
-    //     },
-    //   },
-    //   false,
-    // );
+    if (isClicked) {
+      const res = await fetcher(deleteQueries.deleteCheerPF(cheerId || ""));
+      setStoryDataList(
+        storyDataList.map((d) => {
+          if (d.id == storyId)
+            return {
+              ...d,
+              cheerCount: d.cheerCount - 1,
+              usersCheeredPerformances: [],
+            };
+          else return d;
+        }),
+      );
+    } else {
+      const res = await fetcher(
+        postQueries.postCheerPF(pfId, storyId, userData.id),
+      );
+      setStoryDataList(
+        storyDataList.map((d) => {
+          if (d.id == storyId)
+            return {
+              ...d,
+              cheerCount: d.cheerCount + 1,
+              usersCheeredPerformances: [
+                { id: res.createUsersCheeredPerformances.id },
+              ],
+            };
+          else return d;
+        }),
+      );
+    }
   };
 
   return (
@@ -99,13 +117,8 @@ const VideoPage = ({ InitStoryDataList }: VideoPageProps) => {
         <Loading />
       ) : (
         <Video
-          // index={pageIndex}
-          // setIndex={setPageIndex}
           storyData={storyDataList}
           handleGetStory={handleGetStory}
-          // storyData={mockData}
-          isClicked={isClicked}
-          setIsClicked={setIsClicked}
           handleClickLike={handleClickLike}
         />
       )}

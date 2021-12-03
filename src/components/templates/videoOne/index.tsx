@@ -1,6 +1,5 @@
 import { TabBar } from "src/components/molecules";
 import { StoryDataProps } from "src/interfaces/StoryData";
-import { SetterOrUpdater } from "recoil";
 import { BottomSheet, VideoBox } from "src/components/organisms";
 import { useState } from "react";
 import styled from "styled-components";
@@ -13,15 +12,8 @@ interface VideoOneProps {
     storyId: string,
     userId?: string,
   ) => Promise<void>;
-  isClicked: boolean;
-  setIsClicked: SetterOrUpdater<boolean>;
 }
-const VideoOne = ({
-  storyData,
-  isClicked,
-  setIsClicked,
-  handleClickLike,
-}: VideoOneProps) => {
+const VideoOne = ({ storyData, handleClickLike }: VideoOneProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -29,13 +21,13 @@ const VideoOne = ({
       <VideoBox
         setIsOpen={setIsOpen}
         storyData={storyData}
-        isClicked={isClicked}
-        setIsClicked={setIsClicked}
         handleClickLike={handleClickLike}
         isPlay
       />
       <BottomSheet
         PFDetailData={storyData.performance}
+        ticketCount={storyData.ticketCount}
+        amount={storyData.amount}
         isOpen={isOpen}
         setIsOpen={setIsOpen}
       />

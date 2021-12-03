@@ -5,7 +5,6 @@ import { StoryDataProps } from "src/interfaces/StoryData";
 import { CalDateInterval } from "src/libs";
 import { format } from "friendly-numbers";
 import styled from "styled-components";
-import { SetterOrUpdater } from "recoil";
 import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 
@@ -17,15 +16,11 @@ interface VideoBoxProps {
     storyId: string,
     userId?: string,
   ) => Promise<void>;
-  isClicked: boolean;
-  setIsClicked: SetterOrUpdater<boolean>;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   isPlay: boolean;
 }
 const VideoBox = ({
   storyData,
-  isClicked,
-  setIsClicked,
   handleClickLike,
   setIsOpen,
   isPlay,
@@ -63,12 +58,16 @@ const VideoBox = ({
         url={storyData.performance.posterUrl}
       />
       <LikeWrap>
-        {isClicked ? (
+        {storyData.usersCheeredPerformances.length !== 0 ? (
           <HandAtvIcon
             onClick={(e) => {
               e.stopPropagation();
-              handleClickLike(isClicked, storyData.performanceId, storyData.id);
-              setIsClicked(false);
+              handleClickLike(
+                true,
+                storyData.performanceId,
+                storyData.id,
+                storyData.usersCheeredPerformances[0].id,
+              );
             }}
             role="button"
           />
@@ -76,8 +75,7 @@ const VideoBox = ({
           <HandIcon
             onClick={(e) => {
               e.stopPropagation();
-              handleClickLike(isClicked, storyData.performanceId, storyData.id);
-              setIsClicked(true);
+              handleClickLike(false, storyData.performanceId, storyData.id);
             }}
             role="button"
           />
