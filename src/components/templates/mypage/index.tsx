@@ -1,34 +1,70 @@
+import { useRouter } from "next/router";
 import { useState } from "react";
-import { MypageImg, TicketModalImg } from "src/assets/img";
-import { TabBar } from "src/components/molecules";
+import { ArrowRight } from "src/assets/icon/common";
+import { Tag } from "src/components/atoms";
+import { Header, TabBar } from "src/components/molecules";
+import { TicketModal } from "src/components/organisms";
 import PFNotiModal from "src/components/organisms/PFNotiModal";
+import { UserTicketDataProps } from "src/interfaces/UserData";
+import { ConvertDateStr } from "src/libs";
 import styled from "styled-components";
 
-const Mypage = () => {
+interface MyPageProps {
+  nickname: string;
+  profileImg?: string;
+  ticketData: UserTicketDataProps | null;
+}
+const Mypage = ({ nickname, profileImg, ticketData }: MyPageProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
   return (
     <>
       <Container>
-        <img alt="mypage" className="mypage" src={MypageImg} />
-        <PFNotiModal
-          pfDate="12월 12일(일) 오후 10시"
-          pfTitle="싱어송라이터 전공 정기공연 <울림>"
-          setIsOpen={setIsOpen}
-        />
+        <Header title="마이페이지" />
+        <ProfileWrap>
+          <img alt="profile_img" className="profile_img" src={profileImg} />
+          <Tag text={nickname} type="my" />
+        </ProfileWrap>
+        <MenuWrap>
+          <Menu>
+            개인정보 <ArrowRight />
+          </Menu>
+          <Menu onClick={() => router.push("/mypage/cheered")}>
+            응원 내역 <ArrowRight />
+          </Menu>
+          <Menu onClick={() => router.push("/mypage/funding")}>
+            펀딩 내역 <ArrowRight />
+          </Menu>
+          <Menu>
+            설정 <ArrowRight />
+          </Menu>
+          <Menu>
+            고객문의 <ArrowRight />
+          </Menu>
+        </MenuWrap>
+        {ticketData !== null && (
+          <PFNotiModal
+            pfDate={ConvertDateStr(
+              new Date(ticketData.reservationTime.toReserveAt),
+            )}
+            pfTitle={ticketData.performance.title}
+            setIsOpen={setIsOpen}
+          />
+        )}
+        {ticketData !== null && (
+          <TicketModal
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            title={ticketData.performance.title}
+            nickname={nickname}
+            ticketCount={ticketData.ticketCount}
+            date={ConvertDateStr(
+              new Date(ticketData.reservationTime.toReserveAt),
+            )}
+          />
+        )}
         <TabBar />
       </Container>
-      {isOpen && (
-        <>
-          <Background onClick={() => setIsOpen(false)} />
-          <TicketModal
-            src={TicketModalImg}
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsOpen(true);
-            }}
-          />
-        </>
-      )}
     </>
   );
 };
@@ -37,34 +73,39 @@ export default Mypage;
 
 const Container = styled.div`
   width: 100%;
-  .mypage {
-    width: 100%;
+  padding-top: 73px;
+`;
+
+const ProfileWrap = styled.section`
+  display: flex;
+  flex-direction: column;
+  margin-top: 21px;
+  margin-bottom: 32px;
+
+  .profile_img {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    margin-left: 25px;
+    margin-bottom: 14px;
   }
 `;
 
-const Background = styled.div`
+const MenuWrap = styled.section`
   width: 100%;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 9;
-  background-color: var(--gray_700);
-  opacity: 0.6;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
 `;
 
-interface ContainerProps {
-  src: string;
-}
-const TicketModal = styled.dialog<ContainerProps>`
-  all: unset;
-  box-sizing: border-box;
-  position: fixed;
-  left: 50%;
-  top: 80px;
-  z-index: 10;
-  transform: translateX(-50%);
-  width: 320px;
-  height: 569px;
-  background: url(${({ src }) => src});
+const Menu = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+  font-size: 16px;
+  line-height: 19px;
+  color: var(--white);
 `;

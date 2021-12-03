@@ -1,21 +1,40 @@
+import { PFDetailDataProps } from "./PFData";
+
 export interface StoryDataProps {
-  backgroundUrl: string;
+  imageUrl?: string | null;
+  videoUrl?: string | null;
   cheerCount: number;
   createdAt: number;
   description?: string;
   id: string;
+  amount: number;
+  ticketCount: number;
   performanceId: string;
-  performance: {
-    title: string;
-    posterUrl?: string;
-    artist: {
-      agency: string;
-      name: string;
-    };
-  };
+  performance: PFDetailDataProps;
+  usersCheeredPerformances: null | any;
 }
 
 export interface PopStoriesDataProps {
-  backgroundUrl: string;
+  videoUrl: string;
   id: string;
+}
+
+export interface GetNoticeProps {
+  artistId?: string;
+  performanceId?: string;
+  type?: string;
+  userId: string;
+  limit: number;
+  offset: number;
+}
+
+export interface NoticeDataProps {
+  id: string;
+  imageUrl: string;
+  videoUrl: string;
+  type: string;
+  notifications: {
+    id: string;
+    storyId: string;
+  };
 }

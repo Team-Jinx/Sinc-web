@@ -25,7 +25,7 @@ const PFInfoBox = ({
 }: PFInfoBoxProps) => {
   return (
     <Container className={className} onClick={handleClick && handleClick}>
-      {type === "list" && <p className="pf_number">{pfNum}</p>}
+      {type === "list" && pfNum && <p className="pf_number">{pfNum}</p>}
       <PosterImg alt="poster_img" src={url} type={type} />
       <InfoWrap type={type}>
         <p className="univ_name">{univName}</p>

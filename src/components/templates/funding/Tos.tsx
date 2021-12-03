@@ -76,7 +76,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: var(--black);
+  background-color: var(--gray_1000);
 `;
 
 const DescWrap = styled.section`

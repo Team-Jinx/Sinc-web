@@ -59,9 +59,11 @@ const Main = ({
       );
     }
   };
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   return (
     <Container>
       <Header
@@ -75,7 +77,7 @@ const Main = ({
       />
       <PFInfoWrap>
         <p className="artist_name">
-          {PFDetailData.artist?.agency + PFDetailData.artist?.name}
+          {PFDetailData.artist.agency + PFDetailData.artist.name}
         </p>
         <p className="pf_name">{PFDetailData.title}</p>
       </PFInfoWrap>
@@ -155,7 +157,7 @@ const Main = ({
           className="addition_sup_input"
           placeholder="얼마나 후원할까요?"
           type="number"
-          value={additionalSup}
+          value={additionalSup === 0 ? undefined : additionalSup}
           onChange={(e) =>
             setAdditionalSup(
               Number(e.target.value) === 0 ? undefined : Number(e.target.value),
@@ -210,7 +212,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: var(--black);
+  background-color: var(--gray_1000);
 `;
 
 const PFInfoWrap = styled.section`

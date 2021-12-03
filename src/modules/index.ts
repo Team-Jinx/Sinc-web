@@ -1,6 +1,7 @@
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
 import { PFDetailDataProps } from "src/interfaces/PFData";
+import { UserDataProps } from "src/interfaces/UserData";
 
 const { persistAtom } = recoilPersist();
 
@@ -10,7 +11,12 @@ const PFDetailDataState = atom<PFDetailDataProps>({
     id: "",
     artist: {
       agency: "",
+      id: "",
       name: "",
+      profileUrl: "",
+      _count: {
+        performances: 0,
+      },
     },
     artistId: "",
     posterUrl: "",
@@ -33,7 +39,7 @@ const PFDetailDataState = atom<PFDetailDataProps>({
 
 const PageNumState = atom<number>({
   key: "PageNumState",
-  default: 0,
+  default: 1,
   effects_UNSTABLE: [persistAtom],
 });
 
@@ -63,9 +69,19 @@ const SelectDateTimeState = atom<{
   effects_UNSTABLE: [persistAtom],
 });
 
-const IsClickedCheerBtnState = atom<boolean>({
-  key: "IsClickedCheerBtnState",
-  default: false,
+const UserDataState = atom<UserDataProps>({
+  key: "UserDataState",
+  default: {
+    id: "",
+    nickname: "",
+    role: "",
+  },
+  effects_UNSTABLE: [persistAtom],
+});
+
+const NoticeIdxState = atom<number>({
+  key: "NoticeIdxState",
+  default: 0,
   effects_UNSTABLE: [persistAtom],
 });
 
@@ -75,7 +91,8 @@ const states = {
   TicketNumState,
   AdditionalSupState,
   SelectDateTimeState,
-  IsClickedCheerBtnState,
+  UserDataState,
+  NoticeIdxState,
 };
 
 export default states;

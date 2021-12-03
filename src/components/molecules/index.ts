@@ -7,3 +7,4 @@ export { default as TabMenu } from "./TabMenu";
 export { default as TimeBtn } from "./TimeBtn";
 export { default as Category } from "./Category";
 export { default as BottomBtn } from "./BottomBtn";
+export { default as ArtistInfoBox } from "./ArtistInfoBox";

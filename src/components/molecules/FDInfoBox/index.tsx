@@ -1,4 +1,5 @@
 import { HandIcon } from "src/assets/icon/common";
+import { useWindowSize } from "src/hooks";
 import styled from "styled-components";
 
 interface FDInfoBoxProps {
@@ -21,6 +22,7 @@ const FDInfoBox = ({
   totalPrice,
   likeNum,
 }: FDInfoBoxProps) => {
+  const size = useWindowSize();
   return (
     <Conatainer id={id} className={className}>
       <TxtWrap>
@@ -43,7 +45,7 @@ const FDInfoBox = ({
           남은 펀딩 기간 <b style={{ fontWeight: 600 }}>{leftPeriod}일</b>
         </p>
       </TxtWrap>
-      <Bar percent={percent}>
+      <Bar percent={percent} width={size.width || 320}>
         <div className="inner_bar" />
       </Bar>
       <TxtWrap>
@@ -94,6 +96,7 @@ const TxtWrap = styled.div`
 
 interface BarProps {
   percent: number;
+  width: number;
 }
 const Bar = styled.div<BarProps>`
   height: 8px;
@@ -106,8 +109,9 @@ const Bar = styled.div<BarProps>`
     position: relative;
     z-index: 2;
     height: 8px;
-    width: ${({ percent }) => (percent * 320) / 100}px;
+    width: ${({ percent, width }) => (percent * (width - 40)) / 100}px;
     background: var(--primary);
-    border-radius: 2px 0px 0px 2px;
+    border-radius: ${({ percent }) =>
+      percent === 100 ? "2px" : "2px 0px 0px 2px"};
   }
 `;
