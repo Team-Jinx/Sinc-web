@@ -27,6 +27,7 @@ interface VideoBoxProps {
   type?: "story" | "notice";
   title?: string;
   artist?: string;
+  isOne?: boolean;
 }
 const VideoBox = ({
   storyData,
@@ -37,6 +38,7 @@ const VideoBox = ({
   type = "story",
   title = "",
   artist = "",
+  isOne = false,
 }: VideoBoxProps) => {
   const video = useRef<HTMLVideoElement>(null);
   const router = useRouter();
@@ -51,13 +53,15 @@ const VideoBox = ({
       {type === "story" && (
         <>
           <MainIcon className="main_icon" />
-          <FilterIcon
-            className="filter_icon"
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsCategoryModelOpen && setIsCategoryModelOpen(true);
-            }}
-          />
+          {(type !== "story" || !isOne) && (
+            <FilterIcon
+              className="filter_icon"
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsCategoryModelOpen && setIsCategoryModelOpen(true);
+              }}
+            />
+          )}
         </>
       )}
       {type === "notice" && (

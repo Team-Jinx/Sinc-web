@@ -43,7 +43,7 @@ const Video = ({
     <>
       <Swiper
         className="video_swiper"
-        initialSlide={1}
+        initialSlide={0}
         slidesPerView={1}
         style={{
           width: "100%",

@@ -39,6 +39,8 @@ export const setGraphQLClient = async (accessToken: string) => {
 };
 
 const fetcher = async (query: string) => {
+  const token = cookie.load("access-token");
+  graphQLClient.setHeader("Authorization", "Bearer " + token);
   const res = await graphQLClient.request(query);
   return res;
 };

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import fetcher from "src/apis";
 import { getQueries, postQueries } from "src/apis/queries";
@@ -13,7 +13,7 @@ const NoticePage = () => {
   const PFDetailData = useRecoilValue(states.PFDetailDataState);
 
   const getKey = (pageIndex: number, previousPageData: any) => {
-    if (previousPageData && !previousPageData.length) return null;
+    if (previousPageData && !previousPageData.findStories.length) return null;
     return getQueries.getNotice({
       performanceId: PFDetailData.id,
       userId: userData.id,
@@ -24,13 +24,16 @@ const NoticePage = () => {
 
   const [storyDataList, setStoryDataList] = useState<StoryDataProps[]>([]);
 
+  useEffect(() => {
+    console.log(storyDataList);
+  }, [storyDataList]);
+
   const { size: pageIndex, setSize: setPageIndex } = useSWRInfinite(
     getKey,
     fetcher,
     {
       initialSize: 1,
       onSuccess: (data) => {
-        console.log(data);
         data.map((d) => {
           setStoryDataList(storyDataList.concat(d.findStories));
         });

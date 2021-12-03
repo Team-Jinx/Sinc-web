@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import fetcher from "src/apis";
 import { getQueries, postQueries } from "src/apis/queries";
 import deleteQueries from "src/apis/queries/deleteQueries";
@@ -23,7 +23,7 @@ const VideoPage = () => {
   }>({});
   const [direction, setDirection] = useState("");
   const [field, setField] = useState("");
-  const [category, setCategory] = useRecoilState(states.StoryCategoryState);
+  const [category, setCategory] = useState<CategoryType | undefined>(undefined);
 
   const getKey = (pageIndex: number, previousPageData: any) => {
     console.log(pageIndex);

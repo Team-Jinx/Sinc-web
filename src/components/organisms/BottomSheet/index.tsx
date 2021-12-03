@@ -74,18 +74,18 @@ const mobileFadeInRule = css(
   mobileFadeIn,
 );
 
-const mobileFadeOut = keyframes`
-  from {
-    bottom: 54px;
-  }
-  to {
-    bottom: -500px
-  }
-`;
-const mobileFadeOutRule = css(
-  ["", " 0.1s linear"] as any as TemplateStringsArray,
-  mobileFadeOut,
-);
+// const mobileFadeOut = keyframes`
+//   from {
+//     bottom: 54px;
+//   }
+//   to {
+//     bottom: -500px
+//   }
+// `;
+// const mobileFadeOutRule = css(
+//   ["", " 0.1s linear"] as any as TemplateStringsArray,
+//   mobileFadeOut,
+// );
 
 const Background = styled.div`
   position: absolute;
@@ -119,7 +119,7 @@ const Container = styled.section<ContainerProps>`
         `
       : css`
           bottom: -500px;
-          animation: ${mobileFadeOutRule};
+          /* animation: ${mobileFadeOutRule}; */
         `};
 `;
 

@@ -48,7 +48,9 @@ const DetailPage = ({ initPFDetailData }: DetailPageProps) => {
     fetcher,
     {
       onSuccess: (data) => {
+        // console.log(data);
         data.map((d) => {
+          console.log(d.findStories);
           setNotiList(notiList.concat(d.findStories));
         });
       },

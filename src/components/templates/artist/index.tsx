@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import { ArrowLeftIcon } from "src/assets/icon/header";
 import { Btn } from "src/components/atoms";
 import { PFInfoBox } from "src/components/molecules";
 import NotiList from "src/components/molecules/NotiList";
@@ -23,6 +24,9 @@ const Artist = ({
   const router = useRouter();
   return (
     <Container>
+      <Header>
+        <ArrowLeftIcon onClick={() => router.back()} />
+      </Header>
       <ArtistInfoWrap url={artistData.profileUrl}>
         <div className="info_inner">
           <div className="name_wrap">
@@ -82,6 +86,19 @@ export default Artist;
 const Container = styled.div`
   width: 100%;
   background-color: var(--gray_1000);
+`;
+
+const Header = styled.div`
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 73px;
+  display: grid;
+  grid-template-columns: 40px auto 40px;
+  align-items: flex-end;
+  justify-items: center;
 `;
 
 interface ArtistInfoWrapProps {

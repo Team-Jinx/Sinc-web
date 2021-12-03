@@ -23,6 +23,7 @@ const VideoOne = ({ storyData, handleClickLike }: VideoOneProps) => {
         storyData={storyData}
         handleClickLike={handleClickLike}
         isPlay
+        isOne
       />
       <BottomSheet
         PFDetailData={storyData.performance}
