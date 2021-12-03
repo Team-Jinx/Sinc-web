@@ -40,7 +40,7 @@ const Artist = ({
       </ArtistInfoWrap>
       <FDInfoList>
         <div className="info_top">
-          <InfoTitle>아티스트가 진행 중인 펀딩</InfoTitle>
+          <InfoTitle>아티스트가 진행한 펀딩</InfoTitle>
           <p
             className="info_top__btn"
             onClick={() => router.push(`/artist/${artistData.id}/detail`)}
@@ -63,7 +63,7 @@ const Artist = ({
           );
         })}
       </FDInfoList>
-      <InfoTitle style={{ padding: "0 20px", marginBottom: "24px" }}>
+      <InfoTitle style={{ padding: "0px 20px", marginTop: "15px" }}>
         아티스트가 업로드 한 영상
       </InfoTitle>
       <div style={{ height: "24px" }} />
@@ -72,6 +72,7 @@ const Artist = ({
         pageIndex={pageIndex}
         setPageIndex={setPageIndex}
       />
+      <div style={{ height: "80px" }} />
     </Container>
   );
 };
@@ -167,7 +168,7 @@ const StyledPFInfoBox = styled(PFInfoBox)`
 `;
 
 const InfoTitle = styled.p`
-  all: unset;
+  margin: 0;
   font-weight: 600;
   font-size: 16px;
   line-height: 19px;

@@ -37,7 +37,7 @@ const Check = ({
       />
       <PFInfoWrap>
         <p className="artist_name">
-          {PFDetailData.artist?.agency + PFDetailData.artist?.name}
+          {PFDetailData.artist?.agency + " " + PFDetailData.artist?.name}
         </p>
         <p className="pf_name">{PFDetailData.title}</p>
         <button
@@ -86,7 +86,7 @@ const Check = ({
           <p>
             <b>아티스트 이름</b>
           </p>
-          <p>{PFDetailData.artist?.agency + PFDetailData.artist?.name}</p>
+          <p>{PFDetailData.artist?.agency + " " + PFDetailData.artist?.name}</p>
           <p>
             <b>공연 날짜</b>
           </p>
