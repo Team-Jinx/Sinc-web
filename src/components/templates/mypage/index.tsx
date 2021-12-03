@@ -4,13 +4,16 @@ import { ArrowRight, MypageTag } from "src/assets/icon/common";
 import { Header, TabBar } from "src/components/molecules";
 import { TicketModal } from "src/components/organisms";
 import PFNotiModal from "src/components/organisms/PFNotiModal";
+import { UserTicketDataProps } from "src/interfaces/UserData";
+import { ConvertDateStr } from "src/libs";
 import styled from "styled-components";
 
 interface MyPageProps {
   nickname: string;
   profileImg?: string;
+  ticketData?: UserTicketDataProps;
 }
-const Mypage = ({ nickname, profileImg }: MyPageProps) => {
+const Mypage = ({ nickname, profileImg, ticketData }: MyPageProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   return (
@@ -38,12 +41,27 @@ const Mypage = ({ nickname, profileImg }: MyPageProps) => {
             고객문의 <ArrowRight />
           </Menu>
         </MenuWrap>
-        <PFNotiModal
-          pfDate="12월 12일(일) 오후 10시"
-          pfTitle="싱어송라이터 전공 정기공연 <울림>"
-          setIsOpen={setIsOpen}
-        />
-        <TicketModal isOpen={isOpen} setIsOpen={setIsOpen} />
+        {ticketData !== undefined && (
+          <PFNotiModal
+            pfDate={ConvertDateStr(
+              new Date(ticketData.reservationTime.toReserveAt),
+            )}
+            pfTitle={ticketData.performance.title}
+            setIsOpen={setIsOpen}
+          />
+        )}
+        {ticketData && (
+          <TicketModal
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            title={ticketData.performance.title}
+            nickname={nickname}
+            ticketCount={ticketData.ticketCount}
+            date={ConvertDateStr(
+              new Date(ticketData.reservationTime.toReserveAt),
+            )}
+          />
+        )}
         <TabBar />
       </Container>
     </>

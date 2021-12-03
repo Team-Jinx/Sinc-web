@@ -5,8 +5,19 @@ import styled from "styled-components";
 interface TicketModalProps {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
+  title: string;
+  nickname: string;
+  ticketCount: number;
+  date: string;
 }
-const TicketModal = ({ isOpen, setIsOpen }: TicketModalProps) => {
+const TicketModal = ({
+  isOpen,
+  setIsOpen,
+  title,
+  nickname,
+  ticketCount,
+  date,
+}: TicketModalProps) => {
   return (
     <>
       {isOpen && (
@@ -23,21 +34,21 @@ const TicketModal = ({ isOpen, setIsOpen }: TicketModalProps) => {
               />
               <div className="info_title">
                 <Stxt>공연명</Stxt>
-                <Ltxt>{"공연쓰"}</Ltxt>
+                <Ltxt>{title}</Ltxt>
               </div>
               <div className="info_person">
                 <div className="person_inner">
                   <Stxt>예약자명</Stxt>
-                  <Ltxt>{"이싱크"}</Ltxt>
+                  <Ltxt>{nickname}</Ltxt>
                 </div>
                 <div className="person_inner">
                   <Stxt>예약 좌석 수</Stxt>
-                  <Ltxt>{1}명</Ltxt>
+                  <Ltxt>{ticketCount}명</Ltxt>
                 </div>
               </div>
               <div className="info_date">
                 <Stxt>공연일시</Stxt>
-                <Ltxt>{"12시 12일(일) 오후 10시"}</Ltxt>
+                <Ltxt>{date}</Ltxt>
               </div>
             </PFInfoWrap>
             <DotLine />

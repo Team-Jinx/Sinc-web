@@ -306,6 +306,20 @@ const getUserCheeredPF = (userId: string, limit: number, offset: number) => `
 }
 `;
 
+const getUserTicket = (userId: string) => `
+{
+  findUserImminentTicket(userId:"${userId}") {
+    reservationTime {
+      toReserveAt
+    }
+    ticketCount
+    performance {
+      title
+    }
+  }
+}
+`;
+
 const getQueries = {
   getAllPF,
   getPF,
@@ -322,6 +336,7 @@ const getQueries = {
   getArtistPF,
   getUserBoughtPF,
   getUserCheeredPF,
+  getUserTicket,
 };
 
 export default getQueries;

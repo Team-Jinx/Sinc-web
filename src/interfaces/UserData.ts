@@ -4,3 +4,13 @@ export interface UserDataProps {
   role: string;
   profileUrl?: string;
 }
+
+export interface UserTicketDataProps {
+  reservationTime: {
+    toReserveAt: number;
+  };
+  ticketCount: number;
+  performance: {
+    title: string;
+  };
+}
