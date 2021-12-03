@@ -1,7 +1,8 @@
 import { PFDetailDataProps } from "./PFData";
 
 export interface StoryDataProps {
-  backgroundUrl: string;
+  imageUrl?: string | null;
+  videoUrl?: string | null;
   cheerCount: number;
   createdAt: number;
   description?: string;

@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { NoticeDataProps } from "src/interfaces/StoryData";
 import { useRouter } from "next/router";
 import { forwardRef, RefObject, useEffect, useState } from "react";
+import { useSetRecoilState } from "recoil";
+import states from "src/modules";
 
 interface NotiListProps {
   NotiDatas: NoticeDataProps[];
@@ -42,7 +44,7 @@ const NotiList = ({ NotiDatas, pageIndex, setPageIndex }: NotiListProps) => {
               isVideo={nd.videoUrl !== null}
               url={nd.videoUrl !== null ? nd.videoUrl : nd.imageUrl}
               isAd={nd.type === "NOTICE"}
-              id={nd.id}
+              id={idx}
               ref={(e: HTMLElement | null) => e !== null && setTarget(e)}
             />
           ) : (
@@ -50,7 +52,7 @@ const NotiList = ({ NotiDatas, pageIndex, setPageIndex }: NotiListProps) => {
               isVideo={nd.videoUrl !== null}
               url={nd.videoUrl !== null ? nd.videoUrl : nd.imageUrl}
               isAd={nd.type === "NOTICE"}
-              id={nd.id}
+              id={idx}
             />
           )}
         </>
@@ -74,7 +76,7 @@ interface ItemProps {
   isVideo: boolean;
   url: string;
   isAd: boolean;
-  id: string;
+  id: number;
 }
 const Item = forwardRef(
   (
@@ -86,8 +88,15 @@ const Item = forwardRef(
       | undefined,
   ) => {
     const router = useRouter();
+    const setNotiInx = useSetRecoilState(states.NoticeIdxState);
     return (
-      <ItemWrap onClick={() => router.push(`/notice/${id}`)} ref={ref}>
+      <ItemWrap
+        onClick={() => {
+          setNotiInx(id);
+          router.push(`/video/notice`);
+        }}
+        ref={ref}
+      >
         {isAd && <span className="noti_tag">공지</span>}
         {isVideo ? (
           <video className="item" src={url} />
@@ -120,6 +129,5 @@ const ItemWrap = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 4px;
   }
 `;

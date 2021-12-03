@@ -22,7 +22,6 @@ const StoryListView = ({
   const router = useRouter();
 
   const [target, setTarget] = useState<HTMLElement>();
-  const [isLoading, setIsLoding] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -32,19 +31,15 @@ const StoryListView = ({
     // for infinite scroll
     const option = {
       // root: viewport.current,
-      // rootMargin: "20px 0px",
+      rootMargin: "20px 0px",
       threshold: 0.5,
     };
-    const handleIntersection = (entries: any, observer: any) => {
+    const handleIntersection = (entries: any) => {
       entries.forEach((entry: any) => {
-        if (entry.isIntersecting && !isLoading) {
-          observer.unobserve(entry.target);
+        if (entry.isIntersecting) {
           // 쿠키 데이터 get하기
-          setIsLoding(true);
           setPageIndex(pageIndex + 1);
-          setIsLoding(false);
           console.log(pageIndex);
-          observer.observe(entry.target);
         }
       });
     };
@@ -68,7 +63,7 @@ const StoryListView = ({
               <Item
                 src={sd.videoUrl}
                 onClick={() => router.push(`/video/${sd.id}`)}
-                // ref={(e: HTMLElement | null) => e !== null && setTarget(e)}
+                ref={(e: HTMLElement | null) => e !== null && setTarget(e)}
               />
             ) : (
               <Item
@@ -78,10 +73,8 @@ const StoryListView = ({
             )}
           </>
         ))}
-        <div ref={(e: HTMLElement | null) => e !== null && setTarget(e)}>
-          {isLoading && <div style={{ width: "100px", height: "100px" }} />}
-        </div>
       </StoryListWrap>
+      <div style={{ height: "30px", width: "100%" }} />
     </Container>
   );
 };

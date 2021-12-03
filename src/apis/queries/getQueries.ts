@@ -213,7 +213,7 @@ const getNotice = ({
   offset,
 }: GetNoticeProps) => `
   {
-    findStories(
+    findStories( 
       ${artistId ? `artistId:"${artistId}",` : ""}
       ${performanceId ? `performanceId:"${performanceId}",` : ""}
       ${type ? `type:${type},` : ""}
@@ -224,10 +224,17 @@ const getNotice = ({
       id
       imageUrl
       videoUrl
+      description
+      createdAt
+      cheerCount
       type
+      performanceId
       notifications {
         id
         storyId
+      }
+      usersCheeredPerformances {
+        id
       }
     }
   }

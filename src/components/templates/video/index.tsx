@@ -3,31 +3,37 @@ import { StoryDataProps } from "src/interfaces/StoryData";
 import { BottomSheet, VideoBox } from "src/components/organisms";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface VideoProps {
   storyData: StoryDataProps[];
-  handleGetStory: (storyId: string) => Promise<void>;
+  handleGetStory: (storyId: string, isPrev?: boolean) => Promise<void>;
   handleClickLike: (
     isClicked: boolean,
     pfId: string,
     storyId: string,
     userId?: string,
   ) => Promise<void>;
+  type?: "story" | "notice";
+  title?: string;
+  artist?: string;
 }
-const Video = ({ storyData, handleGetStory, handleClickLike }: VideoProps) => {
+const Video = ({
+  storyData,
+  handleGetStory,
+  handleClickLike,
+  type = "story",
+  title = "",
+  artist = "",
+}: VideoProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [slideNum, setSlideNum] = useState(0);
-
-  useEffect(() => {
-    console.log(slideNum);
-  }, [slideNum]);
 
   return (
     <>
       <Swiper
         className="video_swiper"
-        initialSlide={0}
+        initialSlide={1}
         slidesPerView={1}
         style={{
           width: "100%",
@@ -36,7 +42,10 @@ const Video = ({ storyData, handleGetStory, handleClickLike }: VideoProps) => {
         onSlideChange={({ activeIndex }) => {
           setSlideNum(activeIndex);
           if (activeIndex === storyData.length - 1) {
-            handleGetStory(storyData[activeIndex].id);
+            handleGetStory(storyData[activeIndex].id, false);
+          }
+          if (activeIndex === 0) {
+            handleGetStory(storyData[activeIndex].id, true);
           }
         }}
       >
@@ -48,19 +57,24 @@ const Video = ({ storyData, handleGetStory, handleClickLike }: VideoProps) => {
                 storyData={sd}
                 handleClickLike={handleClickLike}
                 isPlay={idx === slideNum}
+                type={type}
+                artist={artist}
+                title={title}
               />
-              <BottomSheet
-                PFDetailData={sd.performance}
-                ticketCount={sd.ticketCount}
-                amount={sd.amount}
-                isOpen={isOpen}
-                setIsOpen={setIsOpen}
-              />
+              {type === "story" && (
+                <BottomSheet
+                  PFDetailData={sd.performance}
+                  ticketCount={sd.ticketCount}
+                  amount={sd.amount}
+                  isOpen={isOpen}
+                  setIsOpen={setIsOpen}
+                />
+              )}
             </SwiperSlide>
           );
         })}
       </Swiper>
-      <TabBar />
+      {type === "story" && <TabBar />}
     </>
   );
 };

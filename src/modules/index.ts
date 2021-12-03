@@ -79,6 +79,12 @@ const UserDataState = atom<UserDataProps>({
   effects_UNSTABLE: [persistAtom],
 });
 
+const NoticeIdxState = atom<number>({
+  key: "NoticeIdxState",
+  default: 0,
+  effects_UNSTABLE: [persistAtom],
+});
+
 const states = {
   PFDetailDataState,
   PageNumState,
@@ -86,6 +92,7 @@ const states = {
   AdditionalSupState,
   SelectDateTimeState,
   UserDataState,
+  NoticeIdxState,
 };
 
 export default states;
