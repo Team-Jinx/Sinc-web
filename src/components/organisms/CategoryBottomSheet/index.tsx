@@ -151,10 +151,10 @@ const CategoryButton = styled.div<CategoryButtonProps>`
 
 const Line = styled.div`
   position: absolute;
-  width: 55.5px;
-  height: 0px;
   top: 8px;
+  width: 55.5px;
+  height: 3px;
+  /* margin-bottom: 30px; */
+  border-radius: 2px;
   background-color: var(--gray_500);
-  border: 3px solid var(--gray_500);
-  border-radius: 5px;
 `;

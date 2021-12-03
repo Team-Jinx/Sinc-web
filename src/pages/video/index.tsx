@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import fetcher from "src/apis";
 import { getQueries, postQueries } from "src/apis/queries";
@@ -53,6 +53,7 @@ const VideoPage = () => {
           setStoryDataList(storyDataList.concat(d.findStoriesByRandom.data));
         });
       },
+      persistSize: false,
       // revalidateIfStale: false,
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
@@ -70,9 +71,14 @@ const VideoPage = () => {
   };
 
   const handleChangeCategory = (category: CategoryType | undefined) => {
+    setStoryDataList([]);
     setCategory(category);
-    window.location.reload();
+    // window.location.reload();
   };
+
+  useEffect(() => {
+    console.log(storyDataList);
+  }, [storyDataList]);
 
   const handleClickLike = async (
     isClicked: boolean,
