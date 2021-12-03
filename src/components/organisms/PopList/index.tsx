@@ -20,7 +20,7 @@ const PopList = ({ data }: PopListProps) => {
             key={d.id}
             className="poster_img"
             preload="metadata"
-            src={d.backgroundUrl + "#t=0.5"}
+            src={d.videoUrl + "#t=0.5"}
             onClick={() => router.push(`/video/${d.id}`)}
           />
         ))}

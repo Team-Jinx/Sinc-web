@@ -1,19 +1,28 @@
 import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { ArrowLeftIcon } from "src/assets/icon/header";
 import { Header } from "src/components/molecules";
 import { PopStoriesDataProps } from "src/interfaces/StoryData";
 import styled from "styled-components";
 
-interface PopularProps {
-  PopDatas: PopStoriesDataProps[];
+interface StoryListViewProps {
+  title: string;
+  handleClickBack: () => void;
+  storyData: PopStoriesDataProps[];
   pageIndex: number;
   setPageIndex: (size: number) => Promise<(any[] | undefined)[] | undefined>;
 }
-const Popular = ({ PopDatas, pageIndex, setPageIndex }: PopularProps) => {
+const StoryListView = ({
+  title,
+  handleClickBack,
+  storyData,
+  pageIndex,
+  setPageIndex,
+}: StoryListViewProps) => {
   const router = useRouter();
-  const viewport = useRef(null);
+
   const [target, setTarget] = useState<HTMLElement>();
+  const [isLoading, setIsLoding] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -23,14 +32,19 @@ const Popular = ({ PopDatas, pageIndex, setPageIndex }: PopularProps) => {
     // for infinite scroll
     const option = {
       // root: viewport.current,
+      // rootMargin: "20px 0px",
       threshold: 0.5,
     };
-    const handleIntersection = (entries: any) => {
+    const handleIntersection = (entries: any, observer: any) => {
       entries.forEach((entry: any) => {
-        if (entry.isIntersecting) {
+        if (entry.isIntersecting && !isLoading) {
+          observer.unobserve(entry.target);
           // 쿠키 데이터 get하기
+          setIsLoding(true);
           setPageIndex(pageIndex + 1);
+          setIsLoding(false);
           console.log(pageIndex);
+          observer.observe(entry.target);
         }
       });
     };
@@ -44,45 +58,44 @@ const Popular = ({ PopDatas, pageIndex, setPageIndex }: PopularProps) => {
   return (
     <Container>
       <Header
-        title="인기있는 소식"
-        leftIcon={<ArrowLeftIcon onClick={() => router.back()} />}
+        title={title}
+        leftIcon={<ArrowLeftIcon onClick={handleClickBack} />}
       />
       <StoryListWrap>
-        {PopDatas?.map((pd, idx) => (
+        {storyData.map((sd, idx) => (
           <>
-            {idx === PopDatas.length - 1 ? (
+            {idx === storyData.length - 1 ? (
               <Item
-                key={pd.id}
-                src={pd.videoUrl}
-                onClick={() => router.push(`/video/${pd.id}`)}
-                ref={(e: HTMLElement | null) => e !== null && setTarget(e)}
+                src={sd.videoUrl}
+                onClick={() => router.push(`/video/${sd.id}`)}
+                // ref={(e: HTMLElement | null) => e !== null && setTarget(e)}
               />
             ) : (
               <Item
-                key={pd.id}
-                src={pd.videoUrl}
-                onClick={() => router.push(`/video/${pd.id}`)}
+                src={sd.videoUrl}
+                onClick={() => router.push(`/video/${sd.id}`)}
               />
             )}
           </>
         ))}
+        <div ref={(e: HTMLElement | null) => e !== null && setTarget(e)}>
+          {isLoading && <div style={{ width: "100px", height: "100px" }} />}
+        </div>
       </StoryListWrap>
     </Container>
   );
 };
 
-export default Popular;
+export default StoryListView;
 
 const Container = styled.div`
   width: 100%;
-  height: 100vh;
-  overflow-y: scroll;
-  padding-top: 73px;
+  padding-top: 103px;
+  background-color: var(--gray_1000);
 `;
 
 const StoryListWrap = styled.section`
   width: 100%;
-  padding-bottom: 20px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   column-gap: 1px;

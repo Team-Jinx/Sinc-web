@@ -6,17 +6,34 @@ export interface StoryDataProps {
   createdAt: number;
   description?: string;
   id: string;
+  amount: number;
+  ticketCount: number;
   performanceId: string;
-  // performance: {
-  //   artist: {
-  //     name: string;
-  //     agency: string;
-  //   };
-  // };
   performance: PFDetailDataProps;
+  usersCheeredPerformances: null | any;
 }
 
 export interface PopStoriesDataProps {
-  backgroundUrl: string;
+  videoUrl: string;
   id: string;
+}
+
+export interface GetNoticeProps {
+  artistId?: string;
+  performanceId?: string;
+  type?: string;
+  userId: string;
+  limit: number;
+  offset: number;
+}
+
+export interface NoticeDataProps {
+  id: string;
+  imageUrl: string;
+  videoUrl: string;
+  type: string;
+  notifications: {
+    id: string;
+    storyId: string;
+  };
 }

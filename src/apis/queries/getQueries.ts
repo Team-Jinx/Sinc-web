@@ -62,9 +62,9 @@ const getPF = (id: string) => `{
     }
 }`;
 
-const getPopPF = (category: CategoryType) => `
+const getPopPF = () => `
   {
-    findPopularPerformances(category:"${category}"){
+    findPopularPerformances {
       id
       artist { 
         agency
@@ -93,6 +93,15 @@ const getStory = (id: string) => `
   {
     findStoryById(id:"${id}"){
       backgroundUrl
+const getPopStories = (limit: number, offset: number, userId: string) => `
+  {
+    findPopularStories(limit:${limit}, offset:${offset}, userId:"${userId}"){
+      videoUrl
+      id
+    }
+  }
+`;
+
 const getStory = (id: string, userId: string) => `
   {
     findStoryById(id:"${id}", userId:"${userId}"){

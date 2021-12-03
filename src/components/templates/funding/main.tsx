@@ -59,9 +59,11 @@ const Main = ({
       );
     }
   };
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   return (
     <Container>
       <Header
@@ -155,7 +157,7 @@ const Main = ({
           className="addition_sup_input"
           placeholder="얼마나 후원할까요?"
           type="number"
-          value={additionalSup}
+          value={additionalSup === 0 ? undefined : additionalSup}
           onChange={(e) =>
             setAdditionalSup(
               Number(e.target.value) === 0 ? undefined : Number(e.target.value),
