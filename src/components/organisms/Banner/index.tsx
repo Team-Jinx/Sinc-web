@@ -1,11 +1,10 @@
-import { ImgBox } from "src/components/atoms";
+import { ImgBox, Tag } from "src/components/atoms";
 import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { TagImg } from "src/assets/img/video";
 import { BannerDataType } from "src/interfaces/types";
 
 interface BannerProps {
@@ -31,10 +30,15 @@ const Banner = ({ data }: BannerProps) => {
         {data.map((d) => {
           return (
             <SwiperSlide key={d.url}>
-              <StyledImgBox url={d.url} src={TagImg}>
-                <div className="banner_txt_1">
-                  오늘의 <b>아티스트</b>
-                </div>
+              <StyledImgBox url={d.url}>
+                <StyledTag
+                  text={
+                    <span style={{ fontWeight: 400 }}>
+                      오늘의 <b>아티스트</b>
+                    </span>
+                  }
+                  type="video"
+                />
                 <p className="banner_txt_2">{d.name}</p>
                 <p className="banner_txt_3">{d.agency}</p>
               </StyledImgBox>
@@ -77,10 +81,11 @@ const Container = styled.section`
   height: 386px;
 `;
 
-interface ImgBoxProps {
-  src: string;
-}
-const StyledImgBox = styled(ImgBox)<ImgBoxProps>`
+const StyledTag = styled(Tag)`
+  margin-top: 108px;
+`;
+
+const StyledImgBox = styled(ImgBox)`
   width: 100%;
   height: 386px;
   display: flex;
@@ -89,18 +94,6 @@ const StyledImgBox = styled(ImgBox)<ImgBoxProps>`
   p {
     all: unset;
     box-sizing: border-box;
-  }
-  .banner_txt_1 {
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-    width: 185px;
-    height: 43px;
-    margin-top: 108px;
-    padding-left: 23px;
-    background-color: #141414;
-    font-size: 16px;
-    line-height: 30px;
-    color: var(--white);
-    background: url(${({ src }) => src}) center center / cover;
   }
 
   .banner_txt_2 {

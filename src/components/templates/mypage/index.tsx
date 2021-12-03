@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { ArrowRight, MypageTag } from "src/assets/icon/common";
+import { ArrowRight } from "src/assets/icon/common";
+import { Tag } from "src/components/atoms";
 import { Header, TabBar } from "src/components/molecules";
 import { TicketModal } from "src/components/organisms";
 import PFNotiModal from "src/components/organisms/PFNotiModal";
@@ -11,7 +12,7 @@ import styled from "styled-components";
 interface MyPageProps {
   nickname: string;
   profileImg?: string;
-  ticketData?: UserTicketDataProps;
+  ticketData: UserTicketDataProps | null;
 }
 const Mypage = ({ nickname, profileImg, ticketData }: MyPageProps) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,9 +21,9 @@ const Mypage = ({ nickname, profileImg, ticketData }: MyPageProps) => {
     <>
       <Container>
         <Header title="마이페이지" />
-        <ProfileWrap tag={MypageTag}>
+        <ProfileWrap>
           <img alt="profile_img" className="profile_img" src={profileImg} />
-          <p className="tag">{nickname} 님</p>
+          <Tag text={nickname} type="my" />
         </ProfileWrap>
         <MenuWrap>
           <Menu>
@@ -41,7 +42,7 @@ const Mypage = ({ nickname, profileImg, ticketData }: MyPageProps) => {
             고객문의 <ArrowRight />
           </Menu>
         </MenuWrap>
-        {ticketData !== undefined && (
+        {ticketData !== null && (
           <PFNotiModal
             pfDate={ConvertDateStr(
               new Date(ticketData.reservationTime.toReserveAt),
@@ -50,7 +51,7 @@ const Mypage = ({ nickname, profileImg, ticketData }: MyPageProps) => {
             setIsOpen={setIsOpen}
           />
         )}
-        {ticketData && (
+        {ticketData !== null && (
           <TicketModal
             isOpen={isOpen}
             setIsOpen={setIsOpen}
@@ -75,10 +76,7 @@ const Container = styled.div`
   padding-top: 73px;
 `;
 
-interface ProfileWrapProps {
-  tag: string;
-}
-const ProfileWrap = styled.section<ProfileWrapProps>`
+const ProfileWrap = styled.section`
   display: flex;
   flex-direction: column;
   margin-top: 21px;
@@ -90,19 +88,6 @@ const ProfileWrap = styled.section<ProfileWrapProps>`
     border-radius: 25px;
     margin-left: 25px;
     margin-bottom: 14px;
-  }
-
-  .tag {
-    margin: 0;
-    width: 130px;
-    height: 40px;
-    background-color: var(--gray_300);
-    /* background: url("${({ tag }) => tag}") center center / cover; */
-    font-weight: 600;
-    font-size: 18px;
-    line-height: 40px;
-    text-align: center;
-    color: var(--white);
   }
 `;
 

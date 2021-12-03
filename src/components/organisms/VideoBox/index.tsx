@@ -1,12 +1,12 @@
 import { HandAtvIcon, HandIcon, MainIcon } from "src/assets/icon/common";
-import { TagImg } from "src/assets/img/video";
-import { Icon } from "src/components/atoms";
+import { Icon, Tag } from "src/components/atoms";
 import { StoryDataProps } from "src/interfaces/StoryData";
 import { CalDateInterval } from "src/libs";
 import { format } from "friendly-numbers";
 import styled from "styled-components";
 import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
+import { ArrowLeftIcon } from "src/assets/icon/header";
 
 interface VideoBoxProps {
   storyData: StoryDataProps;
@@ -18,12 +18,18 @@ interface VideoBoxProps {
   ) => Promise<void>;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   isPlay: boolean;
+  type?: "story" | "notice";
+  title?: string;
+  artist?: string;
 }
 const VideoBox = ({
   storyData,
   handleClickLike,
   setIsOpen,
   isPlay,
+  type = "story",
+  title = "",
+  artist = "",
 }: VideoBoxProps) => {
   const video = useRef<HTMLVideoElement>(null);
   const router = useRouter();
@@ -34,30 +40,54 @@ const VideoBox = ({
   }, [isPlay, video]);
 
   return (
-    <Container tag={TagImg} onClick={() => setIsOpen(true)}>
-      <MainIcon className="main_icon" />
-      <VideoWrap
-        src={storyData.backgroundUrl + "#t=0.5"}
-        preload="metadata"
-        loop
-        playsInline
-        controlsList="nodownload"
-        ref={video}
+    <Container onClick={() => setIsOpen(true)} type={type}>
+      {type === "story" && <MainIcon className="main_icon" />}
+      {type === "notice" && (
+        <Header>
+          <ArrowLeftIcon onClick={() => router.back()} />
+          새소식
+        </Header>
+      )}
+      {storyData.videoUrl !== null && (
+        <VideoWrap
+          src={storyData.videoUrl + "#t=0.5"}
+          preload="metadata"
+          loop
+          playsInline
+          controlsList="nodownload"
+          ref={video}
+        />
+      )}
+      {storyData.imageUrl !== null && (
+        <ImgWrap url={storyData.imageUrl || ""} />
+      )}
+      <StyledTag
+        text={
+          storyData.performance
+            ? storyData.performance.artist?.agency +
+              " " +
+              storyData.performance.artist?.name
+            : artist
+        }
+        type="video"
       />
-      <div className="tag">
-        {storyData.performance.artist?.agency +
-          storyData.performance.artist?.name}
-      </div>
-      <InfoWrap>
+      <InfoWrap type={type}>
         <p className="info_txt_1">{CalDateInterval(storyData.createdAt)}일전</p>
-        <p className="info_txt_2">{storyData.performance.title}</p>
+        <p className="info_txt_2">
+          {storyData.performance ? storyData.performance.title : title}
+        </p>
         <p className="info_txt_3">{storyData.description}</p>
       </InfoWrap>
-      <DetailBtn
-        onClick={() => router.push(`/detail/${storyData.performanceId}`)}
-        url={storyData.performance.posterUrl}
-      />
-      <LikeWrap>
+      {type === "story" && (
+        <DetailBtn
+          onClick={(e) => {
+            e.stopPropagation();
+            router.push(`/detail/${storyData.performanceId}`);
+          }}
+          url={storyData.performance.posterUrl}
+        />
+      )}
+      <LikeWrap Type={type}>
         {storyData.usersCheeredPerformances.length !== 0 ? (
           <HandAtvIcon
             onClick={(e) => {
@@ -89,12 +119,12 @@ const VideoBox = ({
 export default VideoBox;
 
 interface ContainerProps {
-  tag: string;
+  type: "story" | "notice";
 }
 const Container = styled.section<ContainerProps>`
   width: 100%;
   height: 100vh;
-  padding-bottom: 54px;
+  padding-bottom: ${({ type }) => (type === "story" ? "54px" : "0")};
 
   .main_icon {
     position: absolute;
@@ -102,21 +132,29 @@ const Container = styled.section<ContainerProps>`
     top: 42px;
     left: 18px;
   }
+`;
 
-  .tag {
-    position: absolute;
-    z-index: 2;
-    top: 108px;
-    left: 0px;
-    width: 220px;
-    height: 52px;
-    padding-left: 20px;
-    background: url("${({ tag }) => tag}") center center / cover;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 32px;
-    color: var(--white);
-  }
+const Header = styled.div`
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 73px;
+  display: grid;
+  grid-template-columns: 40px auto 40px;
+  align-items: flex-end;
+  justify-items: center;
+  font-weight: 500;
+  font-size: 15.36px;
+  line-height: 130%;
+  color: var(--white);
+`;
+
+const StyledTag = styled(Tag)`
+  position: absolute;
+  z-index: 2;
+  top: 108px;
 `;
 
 const VideoWrap = styled.video`
@@ -125,10 +163,22 @@ const VideoWrap = styled.video`
   object-fit: cover;
 `;
 
-const InfoWrap = styled.div`
+interface ImgWrapProps {
+  url: string;
+}
+const ImgWrap = styled.div<ImgWrapProps>`
+  width: 100%;
+  height: 100%;
+  background: url("${({ url }) => url}") center center / cover;
+`;
+
+interface InfoWrapProps {
+  type: "story" | "notice";
+}
+const InfoWrap = styled.div<InfoWrapProps>`
   position: absolute;
   z-index: 2;
-  bottom: 96px;
+  bottom: ${({ type }) => (type === "story" ? "96px" : "42px")};
   left: 20px;
   width: 236px;
   height: 66px;
@@ -180,10 +230,13 @@ const DetailBtn = styled(Icon)<DetailBtnProps>`
   background: url("${({ url }) => url}") center center / cover;
 `;
 
-const LikeWrap = styled(Icon)`
+interface LikeWrapProps {
+  Type: "story" | "notice";
+}
+const LikeWrap = styled(Icon)<LikeWrapProps>`
   position: absolute;
   z-index: 2;
-  bottom: 96px;
+  bottom: ${({ Type }) => (Type === "story" ? "96px" : "42px")};
   right: 22px;
   width: 36px;
   height: 53px;
