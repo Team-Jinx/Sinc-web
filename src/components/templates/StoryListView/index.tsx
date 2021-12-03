@@ -31,7 +31,6 @@ const StoryListView = ({
     // for infinite scroll
     const option = {
       // root: viewport.current,
-      rootMargin: "20px 0px",
       threshold: 0.5,
     };
     const handleIntersection = (entries: any) => {
@@ -61,12 +60,14 @@ const StoryListView = ({
           <>
             {idx === storyData.length - 1 ? (
               <Item
+                key={sd.id}
                 src={sd.videoUrl}
                 onClick={() => router.push(`/video/${sd.id}`)}
                 ref={(e: HTMLElement | null) => e !== null && setTarget(e)}
               />
             ) : (
               <Item
+                key={sd.id}
                 src={sd.videoUrl}
                 onClick={() => router.push(`/video/${sd.id}`)}
               />
