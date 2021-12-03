@@ -28,7 +28,7 @@ const Item = forwardRef(
       >
         {isAd && <span className="noti_tag">공지</span>}
         {isVideo ? (
-          <video className="item" src={url} />
+          <video className="item" preload="metadata" src={url + "#t=0.5"} />
         ) : (
           <img alt="item" className="item" src={url} />
         )}
