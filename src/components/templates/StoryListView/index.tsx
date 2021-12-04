@@ -61,14 +61,16 @@ const StoryListView = ({
             {idx === storyData.length - 1 ? (
               <Item
                 key={sd.id}
-                src={sd.videoUrl}
+                preload="metadata"
+                src={sd.videoUrl + "#t=0.5"}
                 onClick={() => router.push(`/video/${sd.id}`)}
                 ref={(e: HTMLElement | null) => e !== null && setTarget(e)}
               />
             ) : (
               <Item
                 key={sd.id}
-                src={sd.videoUrl}
+                preload="metadata"
+                src={sd.videoUrl + "#t=0.5"}
                 onClick={() => router.push(`/video/${sd.id}`)}
               />
             )}
