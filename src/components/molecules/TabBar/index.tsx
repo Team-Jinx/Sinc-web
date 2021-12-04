@@ -48,7 +48,8 @@ export default TabBar;
 
 const Conatainer = styled.div`
   width: 100%;
-  height: 54px;
+  height: 75px;
+  padding-top: 5px;
   position: fixed;
   bottom: 0;
   left: 0;

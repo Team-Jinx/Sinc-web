@@ -54,9 +54,9 @@ const Video = ({
           if (activeIndex === storyData.length - 1) {
             handleGetStory(storyData[activeIndex].id, false);
           }
-          if (activeIndex === 0) {
-            handleGetStory(storyData[activeIndex].id, true);
-          }
+          // if (activeIndex === 0) {
+          //   handleGetStory(storyData[activeIndex].id, true);
+          // }
         }}
       >
         {storyData.map((sd, idx) => {
@@ -71,6 +71,7 @@ const Video = ({
                 type={type}
                 artist={artist}
                 title={title}
+                isFirst={idx === 0}
               />
               {type === "story" && (
                 <BottomSheet

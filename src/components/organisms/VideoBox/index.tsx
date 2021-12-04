@@ -9,9 +9,10 @@ import { StoryDataProps } from "src/interfaces/StoryData";
 import { CalDateInterval } from "src/libs";
 import { format } from "friendly-numbers";
 import styled from "styled-components";
-import { Dispatch, SetStateAction, useEffect, useRef } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { ArrowLeftIcon } from "src/assets/icon/header";
+import { DoubleArrowRight } from "src/assets/icon/video";
 
 interface VideoBoxProps {
   storyData: StoryDataProps;
@@ -28,6 +29,7 @@ interface VideoBoxProps {
   title?: string;
   artist?: string;
   isOne?: boolean;
+  isFirst?: boolean;
 }
 const VideoBox = ({
   storyData,
@@ -39,8 +41,12 @@ const VideoBox = ({
   title = "",
   artist = "",
   isOne = false,
+  isFirst = false,
 }: VideoBoxProps) => {
   const video = useRef<HTMLVideoElement>(null);
+
+  const [isShow, setIsShow] = useState(true);
+
   const router = useRouter();
   useEffect(() => {
     setTimeout(() => {
@@ -50,6 +56,19 @@ const VideoBox = ({
 
   return (
     <Container onClick={() => setIsOpen(true)} type={type}>
+      {!isOne && isFirst && isShow && (
+        <FirstWrap
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsShow(false);
+          }}
+        >
+          <p>
+            <b>옆으로 넘겨</b> 영상들을 확인해보세요
+          </p>
+          <DoubleArrowRight className="arrow_icon" />
+        </FirstWrap>
+      )}
       {type === "story" && (
         <>
           <MainIcon className="main_icon" />
@@ -139,6 +158,32 @@ const VideoBox = ({
 };
 
 export default VideoBox;
+
+const FirstWrap = styled.div`
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9;
+  background-color: rgba(0, 0, 0, 0.6);
+
+  p {
+    position: fixed;
+    margin: 0;
+    top: 280px;
+    right: 20px;
+    font-size: 18px;
+    line-height: 22px;
+    color: var(--white);
+  }
+
+  .arrow_icon {
+    position: fixed;
+    top: 285px;
+    right: -5px;
+  }
+`;
 
 interface ContainerProps {
   type: "story" | "notice";

@@ -5,8 +5,8 @@ import { Item } from "src/components/atoms";
 
 interface NotiListProps {
   NotiDatas: NoticeDataProps[];
-  pageIndex: number;
-  setPageIndex: (size: number) => Promise<(any[] | undefined)[] | undefined>;
+  pageIndex?: number;
+  setPageIndex?: (size: number) => Promise<(any[] | undefined)[] | undefined>;
 }
 const NotiList = ({ NotiDatas, pageIndex, setPageIndex }: NotiListProps) => {
   const [target, setTarget] = useState<HTMLElement>();
@@ -21,7 +21,7 @@ const NotiList = ({ NotiDatas, pageIndex, setPageIndex }: NotiListProps) => {
       entries.forEach((entry: any) => {
         if (entry.isIntersecting) {
           // 쿠키 데이터 get하기
-          setPageIndex(pageIndex + 1);
+          pageIndex && setPageIndex && setPageIndex(pageIndex + 1);
           console.log(pageIndex);
         }
       });

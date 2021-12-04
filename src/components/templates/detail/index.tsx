@@ -18,16 +18,16 @@ interface DetailProps {
   PFDetailData: PFDetailDataProps;
   handleInitializeData: () => void;
   NotiDatas: NoticeDataProps[];
-  pageIndex: number;
-  setPageIndex: (size: number) => Promise<(any[] | undefined)[] | undefined>;
+  // pageIndex: number;
+  // setPageIndex: (size: number) => Promise<(any[] | undefined)[] | undefined>;
 }
 const Detail = ({
   PFDetailData,
   handleInitializeData,
   NotiDatas,
-  pageIndex,
-  setPageIndex,
-}: DetailProps) => {
+}: // pageIndex,
+// setPageIndex,
+DetailProps) => {
   const router = useRouter();
 
   const handleClickBottom = () => {
@@ -86,8 +86,8 @@ const Detail = ({
         posterUrl={PFDetailData.posterUrl}
         description={PFDetailData.description}
         NotiDatas={NotiDatas}
-        pageIndex={pageIndex}
-        setPageIndex={setPageIndex}
+        // pageIndex={pageIndex}
+        // setPageIndex={setPageIndex}
       />
       <Bottom type="primary" onClick={handleClickBottom}>
         펀딩하기

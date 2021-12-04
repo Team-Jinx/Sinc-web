@@ -1,14 +1,14 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
+// import { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import fetcher from "src/apis";
 import { getQueries } from "src/apis/queries";
 import { Detail } from "src/components/templates";
 import { PFDetailDataProps } from "src/interfaces/PFData";
-import { NoticeDataProps } from "src/interfaces/StoryData";
+// import { NoticeDataProps } from "src/interfaces/StoryData";
 import states from "src/modules";
 import useSWR from "swr";
-import useSWRInfinite from "swr/infinite";
+// import useSWRInfinite from "swr/infinite";
 
 interface DetailPageProps {
   initPFDetailData: PFDetailDataProps;
@@ -31,35 +31,40 @@ const DetailPage = ({ initPFDetailData }: DetailPageProps) => {
   );
 
   // 새소식 데이터
-  const [notiList, setNotiList] = useState<NoticeDataProps[]>([]);
-  const getKey = (pageIndex: number, previousPageData: any) => {
-    if (previousPageData && !previousPageData.findStories.length) {
-      return null;
-    }
-    return getQueries.getNotice({
-      performanceId: PFDetailData.id,
+  // const [notiList, setNotiList] = useState<NoticeDataProps[]>([]);
+  const { data } = useSWR(
+    getQueries.getNotice({
+      performanceId: String(router.query.id),
       userId: userData.id,
-      limit: 15,
-      offset: pageIndex * 15,
-    });
-  };
-  const { size: pageIndex, setSize: setPageIndex } = useSWRInfinite(
-    getKey,
+    }),
     fetcher,
-    {
-      onSuccess: (data) => {
-        // console.log(data);
-        data.map((d) => {
-          console.log(d.findStories);
-          setNotiList(notiList.concat(d.findStories));
-        });
-      },
-      errorRetryCount: 3,
-      revalidateAll: true,
-      // persistSize: true,
-      // revalidateOnFocus: false,
-    },
   );
+  // const getKey = (pageIndex: number, previousPageData: any) => {
+  //   if (previousPageData && !previousPageData.findStories.length) {
+  //     return null;
+  //   }
+  //   return getQueries.getNotice({
+  //     performanceId: String(router.query.id),
+  //     userId: userData.id,
+  //     limit: 15,
+  //     offset: pageIndex * 15,
+  //   });
+  // };
+  // const { size: pageIndex, setSize: setPageIndex } = useSWRInfinite(
+  //   getKey,
+  //   fetcher,
+  //   {
+  //     onSuccess: (data) => {
+  //       data.map((d) => {
+  //         setNotiList(notiList.concat(d.findStories));
+  //       });
+  //     },
+  //     errorRetryCount: 3,
+  //     revalidateAll: true,
+  //     // persistSize: true,
+  //     // revalidateOnFocus: false,
+  //   },
+  // );
 
   // 유저가 선택한 데이터
   const setPageNum = useSetRecoilState(states.PageNumState);
@@ -87,9 +92,9 @@ const DetailPage = ({ initPFDetailData }: DetailPageProps) => {
         <Detail
           PFDetailData={PFDetailData.findPerformanceById}
           handleInitializeData={handleInitializeData}
-          NotiDatas={notiList}
-          pageIndex={pageIndex}
-          setPageIndex={setPageIndex}
+          NotiDatas={data.findStories}
+          // pageIndex={pageIndex}
+          // setPageIndex={setPageIndex}
         />
       )}
     </>

@@ -9,17 +9,17 @@ interface DetailTabProps {
   posterUrl?: string;
   description?: string;
   NotiDatas: NoticeDataProps[];
-  pageIndex: number;
-  setPageIndex: (size: number) => Promise<(any[] | undefined)[] | undefined>;
+  // pageIndex: number;
+  // setPageIndex: (size: number) => Promise<(any[] | undefined)[] | undefined>;
 }
 const DetailTab = ({
   showTime,
   posterUrl,
   description,
   NotiDatas,
-  pageIndex,
-  setPageIndex,
-}: DetailTabProps) => {
+}: // pageIndex,
+// setPageIndex,
+DetailTabProps) => {
   const [menu, setMenu] = useState<"desc" | "noti">("desc");
 
   return (
@@ -37,8 +37,8 @@ const DetailTab = ({
       ) : (
         <NotiList
           NotiDatas={NotiDatas}
-          pageIndex={pageIndex}
-          setPageIndex={setPageIndex}
+          // pageIndex={pageIndex}
+          // setPageIndex={setPageIndex}
         />
       )}
     </Container>
