@@ -11,8 +11,8 @@ interface PFInfoListViewProps {
   title: string;
   handleClickBack: () => void;
   pfData: PFInfoDataProps[];
-  pageIndex: number;
-  setPageIndex: (size: number) => Promise<(any[] | undefined)[] | undefined>;
+  pageIndex?: number;
+  setPageIndex?: (size: number) => Promise<(any[] | undefined)[] | undefined>;
   type?: "category" | "other";
 }
 const PFInfoListView = ({
@@ -41,7 +41,7 @@ const PFInfoListView = ({
       entries.forEach((entry: any) => {
         if (entry.isIntersecting) {
           // 쿠키 데이터 get하기
-          setPageIndex(pageIndex + 1);
+          setPageIndex && pageIndex && setPageIndex(pageIndex + 1);
           console.log(pageIndex);
         }
       });
