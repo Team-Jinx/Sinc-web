@@ -1,16 +1,16 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
+// import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import fetcher from "src/apis";
 import { getQueries } from "src/apis/queries";
 import { Loading, StoryListView } from "src/components/templates";
-import { PopStoriesDataProps } from "src/interfaces/StoryData";
+// import { PopStoriesDataProps } from "src/interfaces/StoryData";
 import states from "src/modules";
 import useSWR from "swr";
-import useSWRInfinite from "swr/infinite";
+// import useSWRInfinite from "swr/infinite";
 
 const PopularPage = () => {
-  const [storyDataList, setStoryDataList] = useState<PopStoriesDataProps[]>([]);
+  // const [storyDataList, setStoryDataList] = useState<PopStoriesDataProps[]>([]);
   const userData = useRecoilValue(states.UserDataState);
   const router = useRouter();
 
