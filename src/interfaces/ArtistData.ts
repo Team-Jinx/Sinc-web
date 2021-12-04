@@ -5,6 +5,7 @@ export interface ArtistDataProps {
   id: string;
   name: string;
   profileUrl?: string;
+  inquiryLink?: string;
   _count?: {
     performances: number;
   };

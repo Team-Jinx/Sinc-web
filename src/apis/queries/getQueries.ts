@@ -49,6 +49,7 @@ const getPF = (id: string) => `{
             name
             id
             profileUrl
+            inquiryLink
             _count {
               performances
             }			

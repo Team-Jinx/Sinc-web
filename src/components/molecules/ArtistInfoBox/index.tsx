@@ -18,18 +18,21 @@ const ArtistInfoBox = ({ artistData }: ArtistInfoBoxProps) => {
           src={artistData.profileUrl}
         />
         <div className="info_inner">
-          <p className="info_inner__name">
-            {artistData.agency + " " + artistData.name}{" "}
-            <ArrowRight
-              onClick={() => router.push(`/artist/${artistData.id}`)}
-            />
+          <p
+            className="info_inner__name"
+            onClick={() => router.push(`/artist/${artistData.id}`)}
+          >
+            {artistData.agency + " " + artistData.name} <ArrowRight />
           </p>
           <p className="info_inner__funding">
             진행한 펀딩 <b>{artistData._count?.performances}개</b>
           </p>
         </div>
       </div>
-      <QnABtn type="empty" onClick={() => "question"}>
+      <QnABtn
+        type="empty"
+        onClick={() => window.open(artistData.inquiryLink, "blank")}
+      >
         문의하기
       </QnABtn>
     </Container>
