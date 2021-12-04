@@ -162,6 +162,7 @@ const getStory = ({ id, userId }: getStoryProps) => `
       amount
       performanceId
       performance {
+        id
         artist {
           name
           agency
@@ -211,6 +212,7 @@ const getRandomStory = (
         ticketCount
         performanceId
         performance {
+          id
           artist {
             name
             agency
