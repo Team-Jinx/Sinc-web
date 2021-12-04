@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import { useRecoilValue } from "recoil";
 import { MainIcon } from "src/assets/icon/common";
 import { NotiIcon, SearchIcon } from "src/assets/icon/main";
 import { Category, TabBar } from "src/components/molecules";
@@ -6,6 +7,7 @@ import { Banner, PFInfoList, PopList } from "src/components/organisms";
 import { PFInfoDataProps } from "src/interfaces/PFData";
 import { PopStoriesDataProps } from "src/interfaces/StoryData";
 import { BannerDataType, CategoryType } from "src/interfaces/types";
+import states from "src/modules";
 import styled from "styled-components";
 
 interface MainProps {
@@ -23,6 +25,9 @@ const Main = ({
   setCategory,
 }: MainProps) => {
   const router = useRouter();
+  const PFDetailData = useRecoilValue(states.PFDetailDataState);
+  const arr = [0, 0, 0];
+
   return (
     <Conatainer>
       <MainIcon className="main_icon" />
@@ -31,7 +36,7 @@ const Main = ({
         onClick={() => router.push("/search")}
       />
       <NotiIcon className="noti_icon" />
-      <Banner data={BannerData} />
+      <Banner data={arr.map((a) => PFDetailData)} />
       <Category setCategory={(e: CategoryType) => setCategory(e)} />
       <PFInfoList isLoading={isLoading} data={PFInfoDataList} />
       <PopList data={PopDataList} />
