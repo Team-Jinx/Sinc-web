@@ -1,1 +1,1 @@
-export { ReactComponent as DoubleArrowRight } from "./DoubleArrowRight.svg";
+export { ReactComponent as DoubleArrowRight } from "./double_arrow_right.svg";
