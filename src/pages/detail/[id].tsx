@@ -92,7 +92,7 @@ const DetailPage = ({ initPFDetailData }: DetailPageProps) => {
         <Detail
           PFDetailData={PFDetailData.findPerformanceById}
           handleInitializeData={handleInitializeData}
-          NotiDatas={data.findStories}
+          NotiDatas={data?.findStories}
           // pageIndex={pageIndex}
           // setPageIndex={setPageIndex}
         />

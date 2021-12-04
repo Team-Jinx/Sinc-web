@@ -17,7 +17,7 @@ import { NoticeDataProps } from "src/interfaces/StoryData";
 interface DetailProps {
   PFDetailData: PFDetailDataProps;
   handleInitializeData: () => void;
-  NotiDatas: NoticeDataProps[];
+  NotiDatas?: NoticeDataProps[];
   // pageIndex: number;
   // setPageIndex: (size: number) => Promise<(any[] | undefined)[] | undefined>;
 }
@@ -85,7 +85,7 @@ DetailProps) => {
         showTime={PFDetailData.showTime}
         posterUrl={PFDetailData.posterUrl}
         description={PFDetailData.description}
-        NotiDatas={NotiDatas}
+        NotiDatas={NotiDatas || []}
         // pageIndex={pageIndex}
         // setPageIndex={setPageIndex}
       />
