@@ -134,9 +134,18 @@ const getArtistPF = (artistId: string, limit: number, offset: number) => `
   }
 `;
 
-const getPopStories = (limit: number, offset: number, userId: string) => `
+interface getPopStoriesProps {
+  limit?: number;
+  offset?: number;
+  userId: string;
+}
+const getPopStories = ({ limit, offset, userId }: getPopStoriesProps) => `
   {
-    findPopularStories(limit:${limit}, offset:${offset}, userId:"${userId}"){
+    findPopularStories(
+      ${limit !== undefined ? `take:${limit},` : ""} 
+      ${offset !== undefined ? `skip:${offset},` : ""} 
+      userId:"${userId}" 
+    ){
       videoUrl
       id
     }

@@ -51,7 +51,7 @@ const Home = () => {
     },
   });
   const { data: PopStories } = useSWR(
-    getQueries.getPopStories(10, 0, userData.id),
+    getQueries.getPopStories({ limit: 10, offset: 0, userId: userData.id }),
     fetcher,
   );
 
