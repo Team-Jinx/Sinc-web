@@ -167,7 +167,7 @@ const getTwoArtist = () => `
         title
       }
       _count {
-        perfomances
+        performances
       }
     }
   }

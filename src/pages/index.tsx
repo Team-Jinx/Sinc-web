@@ -103,29 +103,3 @@ export default Home;
 //   }
 //   return {};
 // };
-
-//mock data
-const data = [
-  {
-    agency: "서울예술대학교 실용음악과",
-    id: "문자열",
-    name: "",
-    profileUrl:
-      "https://lh3.googleusercontent.com/proxy/nzbQMZ4EF34a6_j6iB_LHV-dt-UETEX7yKi-KPIop_mBe1HYU4zKm0h1jrpWwb-PKm1SU3t5bVUEOfbqcxHUAIvvjZ_HImN1gp00bYm6e70lrWa8E04",
-    _count: {
-      performances: 4,
-    },
-    performance: [{ title: "서울예대 공연학부 정기공연 <한여름 밤의 꿈>" }],
-  },
-  {
-    agency: "서울예술대학교 실용음악과",
-    id: "문자열",
-    name: "",
-    profileUrl:
-      "https://lh3.googleusercontent.com/proxy/nzbQMZ4EF34a6_j6iB_LHV-dt-UETEX7yKi-KPIop_mBe1HYU4zKm0h1jrpWwb-PKm1SU3t5bVUEOfbqcxHUAIvvjZ_HImN1gp00bYm6e70lrWa8E04",
-    _count: {
-      performances: 4,
-    },
-    performance: [{ title: "서울예대 공연학부 정기공연 <한여름 밤의 꿈>" }],
-  },
-];

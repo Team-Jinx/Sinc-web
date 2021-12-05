@@ -66,6 +66,7 @@ const Container = styled.section`
     color: var(--gray_100);
     width: 290px;
     height: 68px;
+    white-space: pre-wrap;
   }
 
   .user {
