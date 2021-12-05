@@ -32,7 +32,6 @@ const Main = ({
       />
       <NotiIcon className="noti_icon" />
       <Banner data={BannerData} />
-      <Category setCategory={(e: CategoryType) => setCategory(e)} />
       <ReviewWrap>
         <h1 className="pf_list_title">최신 리뷰</h1>
         <ArtistReviewBox
@@ -50,6 +49,7 @@ const Main = ({
           }
         />
       </ReviewWrap>
+      <Category setCategory={(e: CategoryType) => setCategory(e)} />
       <PopList data={PopDataList} />
       <TabBar />
     </Conatainer>
@@ -90,8 +90,8 @@ const Conatainer = styled.div`
 
 const ReviewWrap = styled.section`
   width: 100%;
+  margin-top: 10px;
   padding: 0 20px;
-  margin-bottom: 36px;
 
   .pf_list_title {
     width: 100%;

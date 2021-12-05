@@ -63,7 +63,11 @@ const VideoBox = ({
             setIsShow(false);
           }}
         >
-          <p>
+          <div className="artist_btn" />
+          <p className="artist_txt">
+            {"배너를 눌러 아티스트에게 남긴\n리뷰를 확인해보세요"}
+          </p>
+          <p className="slide_txt">
             <b>옆으로 넘겨</b> 영상들을 확인해보세요
           </p>
           <DoubleArrowRight className="arrow_icon" />
@@ -172,6 +176,26 @@ const FirstWrap = styled.div`
   left: 0;
   z-index: 9;
   background-color: rgba(0, 0, 0, 0.6);
+
+  .artist_btn {
+    position: fixed;
+    left: 20px;
+    top: 93.92px;
+    width: 196.14px;
+    height: 56.33px;
+    border: 1px dashed var(--white);
+    box-sizing: border-box;
+    border-radius: 4px;
+  }
+  .artist_txt {
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--white);
+    /* width: px; */
+    left: 27.62px;
+    top: 175px;
+    white-space: pre-wrap;
+  }
 
   p {
     position: fixed;

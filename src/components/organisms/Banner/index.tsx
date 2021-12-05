@@ -1,7 +1,7 @@
 import { ImgBox } from "src/components/atoms";
 import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper";
+import { Navigation, Pagination, Autoplay } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -26,7 +26,7 @@ const Banner = ({ data }: BannerProps) => {
     <Container role="banner">
       <Swiper
         className="banner_swiper"
-        modules={[Navigation, Pagination]}
+        modules={[Navigation, Pagination, Autoplay]}
         initialSlide={0}
         loop
         slidesPerView={1}

@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import fetcher from "src/apis";
+import fetcher, { getRefreshToken, setGraphQLClient } from "src/apis";
 import { getQueries, postQueries } from "src/apis/queries";
 import deleteQueries from "src/apis/queries/deleteQueries";
 import { Loading, Video } from "src/components/templates";
@@ -9,12 +9,38 @@ import { StoryDataProps } from "src/interfaces/StoryData";
 import { CategoryType } from "src/interfaces/types";
 import states from "src/modules";
 import useSWRInfinite from "swr/infinite";
+import cookie from "react-cookies";
 
 // interface VideoPageProps {
 //   InitStoryDataList: StoryDataProps[];
 // }
 const VideoPage = () => {
   const router = useRouter();
+  useEffect(() => {
+    const handleLogin = async () => {
+      // 토큰
+      const userToken = cookie.load("access-token");
+
+      // 로그인 되어있을 경우
+      if (userToken !== undefined) {
+        // try {
+        await setGraphQLClient(userToken);
+        await getRefreshToken();
+        // await fetcher(getQueries.getUserData());
+        // } catch (e) {
+        //   // 1일 마다 refresh token 발급
+
+        // }
+      }
+      // 로그인 안 된 경우
+      // 로그인 페이지로 이동
+      else {
+        router.push("/login");
+      }
+    };
+
+    handleLogin();
+  }, []);
 
   const userData = useRecoilValue(states.UserDataState);
   const setPFDetailData = useSetRecoilState(states.PFDetailDataState);
