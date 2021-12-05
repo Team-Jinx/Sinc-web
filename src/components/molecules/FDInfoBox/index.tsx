@@ -37,7 +37,7 @@ const FDInfoBox = ({
       <TxtWrap>
         <p className="white_txt">
           <span style={{ fontSize: "18px", color: "var(--primary)" }}>
-            {percent}%
+            {percent.toFixed(0)}%
           </span>{" "}
           달성
         </p>

@@ -57,7 +57,7 @@ const Banner = ({ data }: BannerProps) => {
                         <span
                           style={{ fontSize: "18px", color: "var(--primary)" }}
                         >
-                          {d.ticketPercentage * 100}%
+                          {(d.ticketPercentage * 100).toFixed(0)}%
                         </span>{" "}
                         달성
                       </p>

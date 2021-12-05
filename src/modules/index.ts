@@ -80,16 +80,9 @@ const UserDataState = atom<UserDataProps>({
   effects_UNSTABLE: [persistAtom],
 });
 
-const NoticeIdxState = atom<number>({
-  key: "NoticeIdxState",
-  default: 0,
-  effects_UNSTABLE: [persistAtom],
-});
-
-const StoryCategoryState = atom<CategoryType | undefined>({
-  key: "StoryCategoryType",
-  default: undefined,
-  effects_UNSTABLE: [persistAtom],
+const IsFirstWrapState = atom<boolean>({
+  key: "IsFirstWrapState",
+  default: true,
 });
 
 const states = {
@@ -99,8 +92,7 @@ const states = {
   AdditionalSupState,
   SelectDateTimeState,
   UserDataState,
-  NoticeIdxState,
-  StoryCategoryState,
+  IsFirstWrapState,
 };
 
 export default states;

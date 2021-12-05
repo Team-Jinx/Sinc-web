@@ -13,6 +13,8 @@ import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { ArrowLeftIcon } from "src/assets/icon/header";
 import { DoubleArrowRight } from "src/assets/icon/video";
+import { useRecoilState } from "recoil";
+import states from "src/modules";
 
 interface VideoBoxProps {
   storyData: StoryDataProps;
@@ -45,7 +47,7 @@ const VideoBox = ({
 }: VideoBoxProps) => {
   const video = useRef<HTMLVideoElement>(null);
 
-  const [isShow, setIsShow] = useState(true);
+  const [isShow, setIsShow] = useRecoilState(states.IsFirstWrapState);
 
   const router = useRouter();
   useEffect(() => {
