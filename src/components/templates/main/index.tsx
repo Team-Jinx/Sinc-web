@@ -33,7 +33,7 @@ const Main = ({
       <NotiIcon className="noti_icon" />
       <Banner data={BannerData} />
       <ReviewWrap>
-        <h1 className="pf_list_title">최신 리뷰</h1>
+        <h1 className="pf_list_title">추천 리뷰</h1>
         <ArtistReviewBox
           artistData={ArtistData[0]}
           rate={4}

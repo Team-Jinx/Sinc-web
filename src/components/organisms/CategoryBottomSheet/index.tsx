@@ -131,6 +131,7 @@ const Background = styled.div`
   width: 100%;
   height: 100%;
   padding-bottom: 54px;
+  object-fit: cover;
 `;
 
 interface CategoryButtonProps {
