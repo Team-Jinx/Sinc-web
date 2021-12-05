@@ -70,6 +70,10 @@ const VideoBox = ({
           <p className="slide_txt">
             <b>옆으로 넘겨</b> 영상들을 확인해보세요
           </p>
+          <div className="bottom_sheet" />
+          <p className="bottom_txt">
+            {"영상 영역을 눌러\n이 영상의 펀딩에 참여해보세요"}
+          </p>
           <DoubleArrowRight className="arrow_icon" />
         </FirstWrap>
       )}
@@ -179,10 +183,10 @@ const FirstWrap = styled.div`
 
   .artist_btn {
     position: fixed;
-    left: 20px;
-    top: 93.92px;
-    width: 196.14px;
+    width: 270px;
     height: 56.33px;
+    left: -14.94px;
+    top: 93.92px;
     border: 1px dashed var(--white);
     box-sizing: border-box;
     border-radius: 4px;
@@ -213,6 +217,28 @@ const FirstWrap = styled.div`
     top: 50%;
     transform: translateY(-50%);
     right: -5px;
+  }
+
+  .bottom_sheet {
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    left: 44.56px;
+    top: 512.9px;
+    border: 1px dashed var(--white);
+    border-radius: 25px;
+  }
+
+  .bottom_txt {
+    position: fixed;
+    width: 190px;
+    height: 40px;
+    left: 104.95px;
+    top: 533.65px;
+
+    font-size: 14px;
+    line-height: 20px;
+    white-space: pre-wrap;
   }
 `;
 
