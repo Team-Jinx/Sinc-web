@@ -48,36 +48,39 @@ const Banner = ({ data }: BannerProps) => {
                     alt="poster_img"
                     src={d.posterUrl}
                   />
-                  <p className="banner_txt_2">{d.title}</p>
-                  <p className="banner_txt_3">{d.artist.agency}</p>
-                  <TxtWrap>
-                    <p className="white_txt">
-                      <span
-                        style={{ fontSize: "18px", color: "var(--primary)" }}
-                      >
-                        {d.ticketPercentage * 100}%
-                      </span>{" "}
-                      달성
-                    </p>
-                    <p>
-                      남은 펀딩 기간{" "}
-                      <b style={{ fontWeight: 600 }}>
-                        {
-                          -CalDateInterval(
-                            d.reservationTimes[d.reservationTimes?.length - 1]
-                              ?.toReserveAt,
-                          )
-                        }
-                        일
-                      </b>
-                    </p>
-                  </TxtWrap>
-                  <Bar
-                    percent={d.ticketPercentage * 100}
-                    width={size.width ? size.width - 84 : 320}
-                  >
-                    <div className="inner_bar" />
-                  </Bar>
+                  <Info>
+                    <p className="banner_txt_2">{d.title}</p>
+                    <p className="banner_txt_3">{d.artist.agency}</p>
+                    <div style={{ flex: 1 }} />
+                    <TxtWrap>
+                      <p className="white_txt">
+                        <span
+                          style={{ fontSize: "18px", color: "var(--primary)" }}
+                        >
+                          {d.ticketPercentage * 100}%
+                        </span>{" "}
+                        달성
+                      </p>
+                      <p>
+                        남은 펀딩 기간{" "}
+                        <b style={{ fontWeight: 600 }}>
+                          {
+                            -CalDateInterval(
+                              d.reservationTimes[d.reservationTimes?.length - 1]
+                                ?.toReserveAt,
+                            )
+                          }
+                          일
+                        </b>
+                      </p>
+                    </TxtWrap>
+                    <Bar
+                      percent={d.ticketPercentage * 100}
+                      width={size.width ? size.width - 84 : 320}
+                    >
+                      <div className="inner_bar" />
+                    </Bar>
+                  </Info>
                 </InnerInfoWrap>
               </StyledImgBox>
             </SwiperSlide>
@@ -129,6 +132,13 @@ const InnerInfoWrap = styled.article`
     border-radius: 4px;
     margin-bottom: 24px;
   }
+`;
+
+const Info = styled.div`
+  width: 100%;
+  height: 125px;
+  display: flex;
+  flex-direction: column;
 
   .banner_txt_2 {
     margin: 0;
