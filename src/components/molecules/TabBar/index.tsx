@@ -15,7 +15,8 @@ const TabBar = () => {
         }}
         onClick={() => router.push("/")}
       >
-        <Home className="home" />홈
+        <Home className="home" />
+        피드
       </StyledIcon>
       <StyledIcon
         path={router.pathname.includes("/video") ? "/video" : ""}
