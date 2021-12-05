@@ -9,7 +9,7 @@ import { StoryDataProps } from "src/interfaces/StoryData";
 import { CalDateInterval } from "src/libs";
 import { format } from "friendly-numbers";
 import styled from "styled-components";
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import { ArrowLeftIcon } from "src/assets/icon/header";
 import { DoubleArrowRight } from "src/assets/icon/video";
