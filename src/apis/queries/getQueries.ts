@@ -405,6 +405,7 @@ const getUserTicket = (userId: string) => `
     ticketCount
     performance {
       title
+      posterUrl
     }
   }
 }
