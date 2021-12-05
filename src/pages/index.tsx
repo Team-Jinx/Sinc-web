@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import fetcher, { getRefreshToken, setGraphQLClient } from "src/apis";
 import { getQueries } from "src/apis/queries";
-import { TodayArtist, TodayArtist2, TodayArtist3 } from "src/assets/img";
-import { Main } from "src/components/templates";
+import { Loading, Main } from "src/components/templates";
 import { PfDataQueryProps } from "src/interfaces/PFData";
-import { BannerDataType } from "src/interfaces/types";
 import useSWR from "swr";
 // import cookies from "next-cookies";
 import cookie from "react-cookies";
@@ -44,30 +42,39 @@ const Home = () => {
     category: "MUSIC",
   });
   const userData = useRecoilValue(states.UserDataState);
-  const { data: PFInfoDataList } = useSWR(getQueries.getPopPF(), fetcher, {
-    onSuccess: (data) => {
-      // date -> string으로 형 변환
-      console.log(data);
-    },
-  });
+  // const { data: PFInfoDataList } = useSWR(getQueries.getPopPF(), fetcher, {
+  //   onSuccess: (data) => {
+  //     // date -> string으로 형 변환
+  //     console.log(data);
+  //   },
+  // });
   const { data: PopStories } = useSWR(
     getQueries.getPopStories({ limit: 10, offset: 0, userId: userData.id }),
     fetcher,
   );
 
+  const { data: BannerData } = useSWR(getQueries.getHotPF(), fetcher);
+
+  const { data: ArtistData } = useSWR(getQueries.getTwoArtist(), fetcher);
+
   return (
-    <Main
-      isLoading={!PFInfoDataList}
-      BannerData={BannerData}
-      PFInfoDataList={PFInfoDataList?.findPopularPerformances}
-      PopDataList={PopStories?.findPopularStories}
-      setCategory={(e) =>
-        setPfDataQuery({
-          ...pfDataQuery,
-          category: e,
-        })
-      }
-    />
+    <>
+      {BannerData && ArtistData ? (
+        <Main
+          BannerData={BannerData.findPerformancesByPercentage}
+          ArtistData={ArtistData.findTwoArtists}
+          PopDataList={PopStories?.findPopularStories}
+          setCategory={(e) =>
+            setPfDataQuery({
+              ...pfDataQuery,
+              category: e,
+            })
+          }
+        />
+      ) : (
+        <Loading />
+      )}
+    </>
   );
 };
 
@@ -97,21 +104,28 @@ export default Home;
 //   return {};
 // };
 
-// mock data
-const BannerData: BannerDataType[] = [
+//mock data
+const data = [
   {
-    url: TodayArtist.src,
-    name: "징스 Jinx",
-    agency: "호원대학교 실용음악학부",
+    agency: "서울예술대학교 실용음악과",
+    id: "문자열",
+    name: "",
+    profileUrl:
+      "https://lh3.googleusercontent.com/proxy/nzbQMZ4EF34a6_j6iB_LHV-dt-UETEX7yKi-KPIop_mBe1HYU4zKm0h1jrpWwb-PKm1SU3t5bVUEOfbqcxHUAIvvjZ_HImN1gp00bYm6e70lrWa8E04",
+    _count: {
+      performances: 4,
+    },
+    performance: [{ title: "서울예대 공연학부 정기공연 <한여름 밤의 꿈>" }],
   },
   {
-    url: TodayArtist2.src,
-    name: "후킹 hooking",
-    agency: "중앙대학교 댄스동아리",
-  },
-  {
-    url: TodayArtist3.src,
-    name: "넥스트 NEXT",
-    agency: "서울 대학 연합 동아리",
+    agency: "서울예술대학교 실용음악과",
+    id: "문자열",
+    name: "",
+    profileUrl:
+      "https://lh3.googleusercontent.com/proxy/nzbQMZ4EF34a6_j6iB_LHV-dt-UETEX7yKi-KPIop_mBe1HYU4zKm0h1jrpWwb-PKm1SU3t5bVUEOfbqcxHUAIvvjZ_HImN1gp00bYm6e70lrWa8E04",
+    _count: {
+      performances: 4,
+    },
+    performance: [{ title: "서울예대 공연학부 정기공연 <한여름 밤의 꿈>" }],
   },
 ];

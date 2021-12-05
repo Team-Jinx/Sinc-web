@@ -1,32 +1,27 @@
 import { useRouter } from "next/router";
-import { useRecoilValue } from "recoil";
 import { MainIcon } from "src/assets/icon/common";
 import { NotiIcon, SearchIcon } from "src/assets/icon/main";
-import { Category, TabBar } from "src/components/molecules";
-import { Banner, PFInfoList, PopList } from "src/components/organisms";
-import { PFInfoDataProps } from "src/interfaces/PFData";
+import { ArtistReviewBox, Category, TabBar } from "src/components/molecules";
+import { Banner, PopList } from "src/components/organisms";
+import { ArtistDataProps } from "src/interfaces/ArtistData";
+import { HotPFDataPRops } from "src/interfaces/PFData";
 import { PopStoriesDataProps } from "src/interfaces/StoryData";
-import { BannerDataType, CategoryType } from "src/interfaces/types";
-import states from "src/modules";
+import { CategoryType } from "src/interfaces/types";
 import styled from "styled-components";
 
 interface MainProps {
-  isLoading: boolean;
-  BannerData: BannerDataType[];
-  PFInfoDataList: PFInfoDataProps[];
+  BannerData: HotPFDataPRops[];
+  ArtistData: ArtistDataProps[];
   PopDataList: PopStoriesDataProps[];
   setCategory: (e: CategoryType) => void;
 }
 const Main = ({
-  isLoading,
   BannerData,
-  PFInfoDataList,
+  ArtistData,
   PopDataList,
   setCategory,
 }: MainProps) => {
   const router = useRouter();
-  const PFDetailData = useRecoilValue(states.PFDetailDataState);
-  const arr = [0, 0, 0];
 
   return (
     <Conatainer>
@@ -36,9 +31,25 @@ const Main = ({
         onClick={() => router.push("/search")}
       />
       <NotiIcon className="noti_icon" />
-      <Banner data={arr.map((a) => PFDetailData)} />
+      <Banner data={BannerData} />
       <Category setCategory={(e: CategoryType) => setCategory(e)} />
-      <PFInfoList isLoading={isLoading} data={PFInfoDataList} />
+      <ReviewWrap>
+        <h1 className="pf_list_title">최신 리뷰</h1>
+        <ArtistReviewBox
+          artistData={ArtistData[0]}
+          rate={4}
+          comment={
+            "너무 재밌게 잘봤습니다.돈이 아깝지 않고, 오히려 좋은 공연을 너무 저렴하게 본거 같아 로또 맞은 기분이였습니다."
+          }
+        />
+        <ArtistReviewBox
+          artistData={ArtistData[1]}
+          rate={5}
+          comment={
+            "너무 재밌게 잘봤습니다.돈이 아깝지 않고, 오히려 좋은 공연을 너무 저렴하게 본거 같아 로또 맞은 기분이였습니다."
+          }
+        />
+      </ReviewWrap>
       <PopList data={PopDataList} />
       <TabBar />
     </Conatainer>
@@ -74,5 +85,21 @@ const Conatainer = styled.div`
     z-index: 2;
     top: 46px;
     right: 17px;
+  }
+`;
+
+const ReviewWrap = styled.section`
+  width: 100%;
+  padding: 0 20px;
+  margin-bottom: 36px;
+
+  .pf_list_title {
+    width: 100%;
+    margin: 0;
+    margin-bottom: 16.6px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+    color: var(--white);
   }
 `;

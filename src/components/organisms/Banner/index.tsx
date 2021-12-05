@@ -5,16 +5,18 @@ import { Navigation, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { PFDetailDataProps } from "src/interfaces/PFData";
+import { HotPFDataPRops } from "src/interfaces/PFData";
 import { CalDateInterval } from "src/libs";
 import { useWindowSize } from "src/hooks";
 import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 interface BannerProps {
-  data: PFDetailDataProps[];
+  data: HotPFDataPRops[];
 }
 const Banner = ({ data }: BannerProps) => {
   const size = useWindowSize();
+  const router = useRouter();
 
   useEffect(() => {
     console.log(data);
@@ -40,7 +42,7 @@ const Banner = ({ data }: BannerProps) => {
           return (
             <SwiperSlide key={d.id}>
               <StyledImgBox url={d.posterUrl}>
-                <InnerInfoWrap>
+                <InnerInfoWrap onClick={() => router.push(`/detail/${d.id}`)}>
                   <img
                     className="poster_img"
                     alt="poster_img"
@@ -53,10 +55,7 @@ const Banner = ({ data }: BannerProps) => {
                       <span
                         style={{ fontSize: "18px", color: "var(--primary)" }}
                       >
-                        {((d.ticketCount / d.totalTicketCount) * 100).toFixed(
-                          2,
-                        )}
-                        %
+                        {d.ticketPercentage * 100}%
                       </span>{" "}
                       달성
                     </p>
@@ -74,10 +73,8 @@ const Banner = ({ data }: BannerProps) => {
                     </p>
                   </TxtWrap>
                   <Bar
-                    percent={Number(
-                      ((d.ticketCount / d.totalTicketCount) * 100).toFixed(2),
-                    )}
-                    width={size.width || 320}
+                    percent={d.ticketPercentage * 100}
+                    width={size.width ? size.width - 84 : 320}
                   >
                     <div className="inner_bar" />
                   </Bar>
@@ -90,11 +87,11 @@ const Banner = ({ data }: BannerProps) => {
       <style jsx global>
         {`
           .swiper-button-next:after {
-            font-size: 16px;
+            font-size: 20px;
             color: var(--white);
           }
           .swiper-button-prev:after {
-            font-size: 16px;
+            font-size: 20px;
             color: var(--white);
           }
         `}

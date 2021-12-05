@@ -52,3 +52,17 @@ export interface PostFDDataProps {
   ticketCount: number;
   userId: string;
 }
+
+export interface HotPFDataPRops {
+  id: string;
+  artist: {
+    agency: string;
+    name: string;
+  };
+  posterUrl: string;
+  title: string;
+  reservationTimes: {
+    toReserveAt: number;
+  }[];
+  ticketPercentage: number;
+}

@@ -4,12 +4,15 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import fetcher from "src/apis";
 import { postQueries } from "src/apis/queries";
 import { Funding } from "src/components/templates";
-import { CreateUUID } from "src/libs";
+// import { CreateUUID } from "src/libs";
 import states from "src/modules";
-import { loadTossPayments } from "@tosspayments/sdk";
+// import { loadTossPayments } from "@tosspayments/sdk";
+import { useRouter } from "next/router";
 // import router from "next/router";
 
 const FundingPage: NextPage = () => {
+  const router = useRouter();
+
   const [pageNum, setPageNum] = useRecoilState(states.PageNumState);
   const [PFDetailData, setPFDetailData] = useRecoilState(
     states.PFDetailDataState,
@@ -34,17 +37,17 @@ const FundingPage: NextPage = () => {
   ) => {
     setIsLoaing(true);
     // 토스 페이먼츠 카드 결제
-    const tossPayments = await loadTossPayments(CLIENT_KEY);
-    tossPayments.requestPayment("카드", {
-      amount: additionalSup
-        ? ticketNum * PFDetailData.price + additionalSup
-        : ticketNum * PFDetailData.price,
-      orderId: PFDetailData.id + CreateUUID(),
-      orderName: PFDetailData.title + " 후원",
-      customerName: userData.nickname,
-      successUrl: `${DOMAIN}/funding/success`,
-      failUrl: `${DOMAIN}/funding/success`,
-    });
+    // const tossPayments = await loadTossPayments(CLIENT_KEY);
+    // tossPayments.requestPayment("카드", {
+    //   amount: additionalSup
+    //     ? ticketNum * PFDetailData.price + additionalSup
+    //     : ticketNum * PFDetailData.price,
+    //   orderId: PFDetailData.id + CreateUUID(),
+    //   orderName: PFDetailData.title + " 후원",
+    //   customerName: userData.nickname,
+    //   successUrl: `${DOMAIN}/funding/success`,
+    //   failUrl: `${DOMAIN}/funding/success`,
+    // });
     // api call
     const res = await fetcher(
       postQueries.postUserBoughtPF({
@@ -61,7 +64,7 @@ const FundingPage: NextPage = () => {
       fundingStatus: res.createUsersBoughtPerformances.status,
     });
     setIsLoaing(false);
-    // router.push("/funding/success");
+    router.push("/funding/success");
   };
 
   return (

@@ -141,11 +141,16 @@ const Main = ({
       />
       <TicketNumSelectWrap>
         <div className="btn_wrap">
-          <Icon onClick={() => setTicketNum(ticketNum - 1)}>
+          <Icon onClick={() => ticketNum !== 0 && setTicketNum(ticketNum - 1)}>
             <BtnMinusIcon />
           </Icon>
           {`${ticketNum}매`}
-          <Icon onClick={() => setTicketNum(ticketNum + 1)}>
+          <Icon
+            onClick={() =>
+              PFDetailData.totalTicketCount - PFDetailData.ticketCount >
+                ticketNum && setTicketNum(ticketNum + 1)
+            }
+          >
             <BtnPlusIcon />
           </Icon>
         </div>
