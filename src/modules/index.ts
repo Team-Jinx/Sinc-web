@@ -1,7 +1,6 @@
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
 import { PFDetailDataProps } from "src/interfaces/PFData";
-import { CategoryType } from "src/interfaces/types";
 import { UserDataProps } from "src/interfaces/UserData";
 
 const { persistAtom } = recoilPersist();
