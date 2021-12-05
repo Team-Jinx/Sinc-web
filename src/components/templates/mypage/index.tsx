@@ -63,6 +63,7 @@ const Mypage = ({ nickname, profileImg, ticketData }: MyPageProps) => {
           <TicketModal
             isOpen={isOpen}
             setIsOpen={setIsOpen}
+            posterUrl={ticketData.performance.posterUrl}
             title={ticketData.performance.title}
             nickname={nickname}
             ticketCount={ticketData.ticketCount}

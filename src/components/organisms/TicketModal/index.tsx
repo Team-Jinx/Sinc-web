@@ -9,6 +9,7 @@ interface TicketModalProps {
   nickname: string;
   ticketCount: number;
   date: string;
+  posterUrl: string;
 }
 const TicketModal = ({
   isOpen,
@@ -17,6 +18,7 @@ const TicketModal = ({
   nickname,
   ticketCount,
   date,
+  posterUrl,
 }: TicketModalProps) => {
   return (
     <>
@@ -25,13 +27,7 @@ const TicketModal = ({
           <Background onClick={() => setIsOpen(false)} />
           <Container>
             <PFInfoWrap>
-              <img
-                alt="poster_url"
-                className="poster_url"
-                src={
-                  "https://sinc-storage.s3.ap-northeast-2.amazonaws.com/%ED%95%9C%EC%97%AC%EB%A6%84+%EB%B0%A4%EC%9D%98+%EA%BF%88.png"
-                }
-              />
+              <img alt="poster_url" className="poster_url" src={posterUrl} />
               <div className="info_title">
                 <Stxt>공연명</Stxt>
                 <Ltxt>{title}</Ltxt>

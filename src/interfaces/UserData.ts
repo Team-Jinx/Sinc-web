@@ -12,5 +12,6 @@ export interface UserTicketDataProps {
   ticketCount: number;
   performance: {
     title: string;
+    posterUrl: string;
   };
 }
