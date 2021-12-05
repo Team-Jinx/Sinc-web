@@ -6,3 +6,5 @@ export { ReactComponent as MainIconSmall } from "./main_icon_small.svg";
 export { default as TagIcon } from "./tag.svg";
 export { default as TagGrayIcon } from "./tag_gray.svg";
 export { ReactComponent as FilterIcon } from "./filter.svg";
+export { ReactComponent as StarIcon } from "./star.svg";
+export { ReactComponent as EmptyStarIcon } from "./empty_star.svg";

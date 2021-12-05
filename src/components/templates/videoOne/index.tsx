@@ -12,8 +12,13 @@ interface VideoOneProps {
     storyId: string,
     userId?: string,
   ) => Promise<void>;
+  handleClickFunding?: (pfId: string) => Promise<void>;
 }
-const VideoOne = ({ storyData, handleClickLike }: VideoOneProps) => {
+const VideoOne = ({
+  storyData,
+  handleClickLike,
+  handleClickFunding,
+}: VideoOneProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -31,6 +36,7 @@ const VideoOne = ({ storyData, handleClickLike }: VideoOneProps) => {
         amount={storyData.amount}
         isOpen={isOpen}
         setIsOpen={setIsOpen}
+        handleClickFunding={handleClickFunding}
       />
       <TabBar />
     </Container>

@@ -9,6 +9,9 @@ export interface ArtistDataProps {
   _count?: {
     performances: number;
   };
+  performance?: {
+    title: string;
+  }[];
 }
 
 export interface ArtistDetailDataProps {

@@ -6,10 +6,11 @@ interface TagProps {
   className?: string;
   text: string | ReactNode;
   type: "my" | "video";
+  onClick?: (e: any) => void;
 }
-const Tag = ({ className, text, type }: TagProps) => {
+const Tag = ({ className, text, type, onClick }: TagProps) => {
   return (
-    <Container type={type} className={className}>
+    <Container type={type} className={className} onClick={onClick}>
       <p className="tag_l">{text}</p>
       <img
         alt="tag_r"

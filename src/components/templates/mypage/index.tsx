@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { SyntheticEvent, useState } from "react";
 import { ArrowRight } from "src/assets/icon/common";
+import { ProfileImg } from "src/assets/img";
 import { Tag } from "src/components/atoms";
 import { Header, TabBar } from "src/components/molecules";
 import { TicketModal } from "src/components/organisms";
@@ -22,7 +23,14 @@ const Mypage = ({ nickname, profileImg, ticketData }: MyPageProps) => {
       <Container>
         <Header title="마이페이지" />
         <ProfileWrap>
-          <img alt="profile_img" className="profile_img" src={profileImg} />
+          <img
+            alt="profile_img"
+            className="profile_img"
+            src={profileImg}
+            onError={(e: SyntheticEvent<HTMLImageElement, Event>) =>
+              (e.currentTarget.src = ProfileImg)
+            }
+          />
           <Tag text={nickname} type="my" />
         </ProfileWrap>
         <MenuWrap>

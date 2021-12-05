@@ -4,6 +4,7 @@ export { default as TodayArtist3 } from "./todays_artist_3.png";
 
 export { default as LogoImg } from "./logo.svg";
 export { default as KakaoImg } from "./ic_login_kakao.svg";
+export { default as ProfileImg } from "./profile.svg";
 
 export { default as Filter1Img } from "./img_filter_1.png";
 export { default as FilterBlack1Img } from "./img_filter_1_bk.png";

@@ -1,8 +1,9 @@
 import { useRouter } from "next/router";
 import { ArrowLeftIcon } from "src/assets/icon/header";
 import { Btn } from "src/components/atoms";
-import { PFInfoBox } from "src/components/molecules";
+import { PFInfoBox, ReviewBox } from "src/components/molecules";
 import NotiList from "src/components/molecules/NotiList";
+import { TotalReviewBox } from "src/components/molecules/ReviewBox";
 import { ArtistDetailDataProps } from "src/interfaces/ArtistData";
 import { NoticeDataProps } from "src/interfaces/StoryData";
 import { ExtractPeriodAsStr } from "src/libs";
@@ -11,8 +12,8 @@ import styled from "styled-components";
 interface ArtistProps {
   artistData: ArtistDetailDataProps;
   NotiDatas: NoticeDataProps[];
-  pageIndex: number;
-  setPageIndex: (size: number) => Promise<(any[] | undefined)[] | undefined>;
+  pageIndex?: number;
+  setPageIndex?: (size: number) => Promise<(any[] | undefined)[] | undefined>;
 }
 
 const Artist = ({
@@ -42,6 +43,28 @@ const Artist = ({
         </div>
         <p className="info_desc">{artistData.description}</p>
       </ArtistInfoWrap>
+      <FDInfoList>
+        <div className="info_top">
+          <InfoTitle>관람객 리뷰</InfoTitle>
+          <p className="info_top__btn">더보기 &gt;</p>
+        </div>
+        <TotalReviewBox />
+        <ReviewBox
+          rate={4}
+          userName="이징스"
+          title={artistData.performances[0].title}
+          comment="너무 재밌게 잘봤습니다.돈이 아깝지 않고, 오히려 좋은 공연을 너무 저렴하게 본거 같아 로또 맞은 기분이였습니다."
+          date={2}
+        />
+        <ReviewBox
+          rate={5}
+          userName="이징스"
+          title={artistData.performances[0].title}
+          comment="너무 재밌게 잘봤습니다.돈이 아깝지 않고, 오히려 좋은 공연을 너무 저렴하게 본거 같아 로또 맞은 기분이였습니다."
+          date={2}
+        />
+        <div style={{ height: "15x" }} />
+      </FDInfoList>
       <FDInfoList>
         <div className="info_top">
           <InfoTitle>아티스트가 진행한 펀딩</InfoTitle>

@@ -93,6 +93,24 @@ const getPopPF = () => `
   }
 `;
 
+const getHotPF = () => `
+  {
+    findPerformancesByPercentage{
+      id
+      artist {
+        agency
+        name
+      }
+      posterUrl
+      title
+      reservationTimes{
+        toReserveAt
+      }
+      ticketPercentage
+    }
+  }
+`;
+
 const getArtist = (artisId: string) => `
   {
     findArtistById(id:"${artisId}") {
@@ -116,9 +134,13 @@ const getArtist = (artisId: string) => `
   }
 `;
 
-const getArtistPF = (artistId: string, limit: number, offset: number) => `
+const getArtistPF = (artistId: string, limit?: number, offset?: number) => `
   {
-    findPerformances(artistId:"${artistId}", take:${limit}, skip:${offset}) {
+    findPerformances(
+      artistId:"${artistId}", 
+      ${limit !== undefined ? `take:${limit},` : ""} 
+      ${offset !== undefined ? `skip:${offset}` : ""}
+    ) {
         id
         posterUrl
         place
@@ -131,6 +153,23 @@ const getArtistPF = (artistId: string, limit: number, offset: number) => `
           toReserveAt
         }
       }
+  }
+`;
+
+const getTwoArtist = () => `
+  {
+    findTwoArtists {
+      agency
+      id
+      name
+      profileUrl
+      performances {
+        title
+      }
+      _count {
+        performances
+      }
+    }
   }
 `;
 
@@ -172,6 +211,7 @@ const getStory = ({ id, userId }: getStoryProps) => `
       performanceId
       performance {
         id
+        artistId
         artist {
           name
           agency
@@ -222,6 +262,7 @@ const getRandomStory = (
         performanceId
         performance {
           id
+          artistId
           artist {
             name
             agency
@@ -318,12 +359,12 @@ const getUserDetailData = (userId: string) => `
 }
 `;
 
-const getUserBoughtPF = (userId: string, limit: number, offset: number) => `
+const getUserBoughtPF = (userId: string, limit?: number, offset?: number) => `
   {
     findUsersBoughtPerformances(
       userId:"${userId}",
-      take: ${limit},
-      skip: ${offset},
+      ${limit !== undefined ? `take: ${limit},` : ""}
+      ${offset !== undefined ? `skip: ${offset},` : ""}
     ){
       performance {
         id
@@ -340,12 +381,12 @@ const getUserBoughtPF = (userId: string, limit: number, offset: number) => `
   }
 `;
 
-const getUserCheeredPF = (userId: string, limit: number, offset: number) => `
+const getUserCheeredPF = (userId: string, limit?: number, offset?: number) => `
 {
   findUsersCheeredPerformances(
     userId:"${userId}",
-    take: ${limit},
-    skip: ${offset},
+    ${limit !== undefined ? `take: ${limit},` : ""}
+    ${offset !== undefined ? `skip: ${offset},` : ""}
   ){
     story {
       id
@@ -386,6 +427,8 @@ const getQueries = {
   getUserBoughtPF,
   getUserCheeredPF,
   getUserTicket,
+  getHotPF,
+  getTwoArtist,
 };
 
 export default getQueries;

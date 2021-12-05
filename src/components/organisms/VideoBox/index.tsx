@@ -111,6 +111,11 @@ const VideoBox = ({
             : artist
         }
         type="video"
+        onClick={(e) => {
+          type === "story" && e.stopPropagation();
+          type === "story" &&
+            router.push(`/artist/${storyData.performance.artistId}`);
+        }}
       />
       <InfoWrap type={type}>
         <p className="info_txt_1">{CalDateInterval(storyData.createdAt)}일전</p>
@@ -171,7 +176,8 @@ const FirstWrap = styled.div`
   p {
     position: fixed;
     margin: 0;
-    top: 280px;
+    top: 43%;
+    transform: translateY(-43%);
     right: 20px;
     font-size: 18px;
     line-height: 22px;
@@ -180,7 +186,8 @@ const FirstWrap = styled.div`
 
   .arrow_icon {
     position: fixed;
-    top: 285px;
+    top: 50%;
+    transform: translateY(-50%);
     right: -5px;
   }
 `;

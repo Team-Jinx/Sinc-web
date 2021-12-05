@@ -1,5 +1,6 @@
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import fetcher from "src/apis";
 import { getQueries, postQueries } from "src/apis/queries";
 import deleteQueries from "src/apis/queries/deleteQueries";
@@ -13,7 +14,15 @@ import useSWRInfinite from "swr/infinite";
 //   InitStoryDataList: StoryDataProps[];
 // }
 const VideoPage = () => {
+  const router = useRouter();
+
   const userData = useRecoilValue(states.UserDataState);
+  const setPFDetailData = useSetRecoilState(states.PFDetailDataState);
+  // 유저가 선택한 데이터
+  const setPageNum = useSetRecoilState(states.PageNumState);
+  const setTicketNum = useSetRecoilState(states.TicketNumState);
+  const setAdditionalSup = useSetRecoilState(states.AdditionalSupState);
+  const setSelectDateTime = useSetRecoilState(states.SelectDateTimeState);
 
   // const [pageIndex, setPageIndex] = useState(0);
   const [query, setQuery] = useState<{
@@ -21,6 +30,7 @@ const VideoPage = () => {
     direction?: string;
     cursor?: string;
   }>({});
+
   const [direction, setDirection] = useState("");
   const [field, setField] = useState("");
   const [category, setCategory] = useState<CategoryType | undefined>(undefined);
@@ -74,6 +84,25 @@ const VideoPage = () => {
     setStoryDataList([]);
     setCategory(category);
     // window.location.reload();
+  };
+
+  // 유저가 선택한 데이터 초기화
+  const handleInitializeData = () => {
+    setPageNum(0);
+    setTicketNum(0);
+    setAdditionalSup(undefined);
+    setSelectDateTime({
+      id: "",
+      date: "",
+      time: "",
+    });
+  };
+
+  const handleClickFunding = async (pfId: string) => {
+    const res = await fetcher(getQueries.getPF(pfId));
+    handleInitializeData();
+    setPFDetailData(res.findPerformanceById);
+    router.push("/funding");
   };
 
   useEffect(() => {
@@ -130,6 +159,7 @@ const VideoPage = () => {
           storyData={storyDataList}
           handleGetStory={handleGetStory}
           handleClickLike={handleClickLike}
+          handleClickFunding={handleClickFunding}
         />
       )}
     </>
@@ -137,9 +167,3 @@ const VideoPage = () => {
 };
 
 export default VideoPage;
-
-// VideoPage.getInitialProps = async () => {
-//   const StoryData = await fetcher(getQueries.getRandomStory(5));
-
-//   return { InitStoryDataList: StoryData.findStoriesByRandom };
-// };

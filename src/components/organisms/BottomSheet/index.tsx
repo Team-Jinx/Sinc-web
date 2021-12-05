@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { Dispatch, SetStateAction } from "react";
 import { Btn } from "src/components/atoms";
 import { FDInfoBox, PFInfoBox } from "src/components/molecules";
@@ -12,6 +11,7 @@ interface BottomSheetProps {
   amount: number;
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
+  handleClickFunding?: (pfId: string) => Promise<void>;
 }
 const BottomSheet = ({
   PFDetailData,
@@ -19,8 +19,8 @@ const BottomSheet = ({
   amount,
   isOpen,
   setIsOpen,
+  handleClickFunding,
 }: BottomSheetProps) => {
-  const router = useRouter();
   return (
     <>
       {isOpen && <Background onClick={() => setIsOpen(false)} />}
@@ -49,10 +49,12 @@ const BottomSheet = ({
           likeNum={PFDetailData.cheerCount}
         />
         <StyledBtn
-          type="gray"
-          onClick={() => router.push(`/detail/${PFDetailData.id}`)}
+          type="primary"
+          onClick={() =>
+            handleClickFunding && handleClickFunding(PFDetailData.id)
+          }
         >
-          자세히 보기
+          펀딩하기
         </StyledBtn>
       </Container>
     </>

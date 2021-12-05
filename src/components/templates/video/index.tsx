@@ -21,6 +21,7 @@ interface VideoProps {
     storyId: string,
     userId?: string,
   ) => Promise<void>;
+  handleClickFunding?: (pfId: string) => Promise<void>;
   type?: "story" | "notice";
   title?: string;
   artist?: string;
@@ -31,6 +32,7 @@ const Video = ({
   handleChangeCategory,
   handleGetStory,
   handleClickLike,
+  handleClickFunding,
   type = "story",
   title = "",
   artist = "",
@@ -80,6 +82,7 @@ const Video = ({
                   amount={sd.amount}
                   isOpen={isOpen}
                   setIsOpen={setIsOpen}
+                  handleClickFunding={handleClickFunding}
                 />
               )}
             </SwiperSlide>

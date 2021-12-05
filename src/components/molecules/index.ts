@@ -8,3 +8,5 @@ export { default as TimeBtn } from "./TimeBtn";
 export { default as Category } from "./Category";
 export { default as BottomBtn } from "./BottomBtn";
 export { default as ArtistInfoBox } from "./ArtistInfoBox";
+export { default as ReviewBox } from "./ReviewBox";
+export { default as ArtistReviewBox } from "./ArtistReviewBox";

@@ -1,16 +1,27 @@
-import { ImgBox, Tag } from "src/components/atoms";
+import { ImgBox } from "src/components/atoms";
 import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { BannerDataType } from "src/interfaces/types";
+import { HotPFDataPRops } from "src/interfaces/PFData";
+import { CalDateInterval } from "src/libs";
+import { useWindowSize } from "src/hooks";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 interface BannerProps {
-  data: BannerDataType[];
+  data: HotPFDataPRops[];
 }
 const Banner = ({ data }: BannerProps) => {
+  const size = useWindowSize();
+  const router = useRouter();
+
+  useEffect(() => {
+    console.log(data);
+  }, []);
+
   return (
     <Container role="banner">
       <Swiper
@@ -19,7 +30,7 @@ const Banner = ({ data }: BannerProps) => {
         initialSlide={0}
         loop
         slidesPerView={1}
-        pagination={{ clickable: true, type: "bullets" }}
+        // pagination={{ clickable: true, type: "bullets" }}
         navigation
         style={{
           width: "100%",
@@ -29,18 +40,45 @@ const Banner = ({ data }: BannerProps) => {
       >
         {data.map((d) => {
           return (
-            <SwiperSlide key={d.url}>
-              <StyledImgBox url={d.url}>
-                <StyledTag
-                  text={
-                    <span style={{ fontWeight: 400 }}>
-                      오늘의 <b>아티스트</b>
-                    </span>
-                  }
-                  type="video"
-                />
-                <p className="banner_txt_2">{d.name}</p>
-                <p className="banner_txt_3">{d.agency}</p>
+            <SwiperSlide key={d.id}>
+              <StyledImgBox url={d.posterUrl}>
+                <InnerInfoWrap onClick={() => router.push(`/detail/${d.id}`)}>
+                  <img
+                    className="poster_img"
+                    alt="poster_img"
+                    src={d.posterUrl}
+                  />
+                  <p className="banner_txt_2">{d.title}</p>
+                  <p className="banner_txt_3">{d.artist.agency}</p>
+                  <TxtWrap>
+                    <p className="white_txt">
+                      <span
+                        style={{ fontSize: "18px", color: "var(--primary)" }}
+                      >
+                        {d.ticketPercentage * 100}%
+                      </span>{" "}
+                      달성
+                    </p>
+                    <p>
+                      남은 펀딩 기간{" "}
+                      <b style={{ fontWeight: 600 }}>
+                        {
+                          -CalDateInterval(
+                            d.reservationTimes[d.reservationTimes?.length - 1]
+                              ?.toReserveAt,
+                          )
+                        }
+                        일
+                      </b>
+                    </p>
+                  </TxtWrap>
+                  <Bar
+                    percent={d.ticketPercentage * 100}
+                    width={size.width ? size.width - 84 : 320}
+                  >
+                    <div className="inner_bar" />
+                  </Bar>
+                </InnerInfoWrap>
               </StyledImgBox>
             </SwiperSlide>
           );
@@ -48,25 +86,13 @@ const Banner = ({ data }: BannerProps) => {
       </Swiper>
       <style jsx global>
         {`
-          .swiper-pagination-bullet {
-            width: 6px;
-            height: 6px;
-            border-radius: 3px;
-            background-color: var(--white);
-          }
           .swiper-button-next:after {
-            font-size: 16px;
+            font-size: 20px;
             color: var(--white);
           }
           .swiper-button-prev:after {
-            font-size: 16px;
+            font-size: 20px;
             color: var(--white);
-          }
-          .swiper-horizontal > .swiper-pagination-bullets,
-          .swiper-pagination-bullets.swiper-pagination-horizontal,
-          .swiper-pagination-custom,
-          .swiper-pagination-fraction {
-            bottom: 24px;
           }
         `}
       </style>
@@ -78,38 +104,89 @@ export default Banner;
 
 const Container = styled.section`
   width: 100%;
-  height: 386px;
-`;
-
-const StyledTag = styled(Tag)`
-  margin-top: 108px;
 `;
 
 const StyledImgBox = styled(ImgBox)`
   width: 100%;
-  height: 386px;
+  height: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url(${({ url }) => url}) center center / cover;
+`;
+
+const InnerInfoWrap = styled.article`
+  width: 100%;
+  height: 100%;
+  padding: 99px 42px 37px;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  backdrop-filter: blur(50px);
 
-  p {
-    all: unset;
-    box-sizing: border-box;
+  .poster_img {
+    width: 236px;
+    height: 312px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 24px;
   }
 
   .banner_txt_2 {
-    margin-top: 124px;
-    margin-bottom: 4px;
-    padding-left: 20px;
+    margin: 0;
+    width: 100%;
     font-weight: 600;
-    font-size: 18px;
-    line-height: 22px;
+    font-size: 20px;
+    line-height: 24px;
     color: var(--white);
+    margin-bottom: 12px;
   }
 
   .banner_txt_3 {
-    padding-left: 20px;
+    margin: 0;
+    margin-bottom: 10px;
+    width: 100%;
     font-size: 15px;
     line-height: 18px;
-    color: var(--gray_300);
+    color: var(--gray_200);
+  }
+`;
+
+const TxtWrap = styled.div`
+  width: 100%;
+  height: fit-content;
+  margin-bottom: 11px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  color: var(--gray_200);
+
+  p {
+    all: unset;
+  }
+  .white_txt {
+    color: var(--white);
+  }
+`;
+
+interface BarProps {
+  percent: number;
+  width: number;
+}
+const Bar = styled.div<BarProps>`
+  height: 8px;
+  width: 100%;
+  background: var(--gray_600);
+  border-radius: 2px;
+  margin-bottom: 11px;
+
+  .inner_bar {
+    position: relative;
+    z-index: 2;
+    height: 8px;
+    width: ${({ percent, width }) => (percent * (width - 40)) / 100}px;
+    background: var(--primary);
+    border-radius: ${({ percent }) =>
+      percent === 100 ? "2px" : "2px 0px 0px 2px"};
   }
 `;
