@@ -57,7 +57,7 @@
 - 커스텀 함수들을 통한 날짜, 시간 데이터 처리
 - 토스 페이먼츠 api을 이용해 결제(추후 구현 예정)
 
-### 마이페이지 화면(추후 구현 예정)
+### 마이페이지 화면
 <div style={{display:"flex"}}>
 <img src="./README/KakaoTalk_20211128_151652014_01.jpg" alt="main" width="200px"/>
 <img src="./README/KakaoTalk_20211128_151652014.jpg" alt="main" width="200px"/>
